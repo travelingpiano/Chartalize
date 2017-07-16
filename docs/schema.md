@@ -26,4 +26,4 @@ id              | integer   | not null, primary key
 title           | string    | not null
 type            | string    | not null
 user_id         | integer   | not null, foreign key (references users) indexed
-data_table_id   | integer   | not null, foreign key (references data_tables)
+data_table_id   | integer   | not null, foreign key (references data_tables), indexed

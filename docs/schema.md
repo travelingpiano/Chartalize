@@ -15,6 +15,8 @@ column name     | data type | details
 id              | integer   | not null, primary key
 title           | string    | not null
 type            | string    | not null
+x_data          | json      | not null
+y_data          | json      | not null
 user_id         | integer   | not null, foreign key (references users) indexed
 data_table_url  | string    |
 table           | jsonb     | not null, gin indexed

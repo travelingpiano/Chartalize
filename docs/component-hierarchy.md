@@ -11,9 +11,6 @@
 **IntroContainer**
 - Intro
 
-**DashboardsContainer**
-- Dashboards
-
 **ChartIndexContainer**
 - ChartIndex
 
@@ -45,7 +42,6 @@ Path                      | Component
 /                         | IntroContainer
 /login                    | SessionFormContainer
 /signup                   | SessionFormContainer
-/dashboards               | DashboardsContainer
 /charts                   | ChartIndexContainer
 /charts/:chartId          | ChartDetailsContainer
 /charts/new               | ChartFormContainer

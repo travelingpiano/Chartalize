@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SessionForm from './session_form';
-import {login,signup} from './actions/session_actions';
+import {login,signup} from '../../actions/session_actions';
 
 const mapStateToProps = (state,ownProps) => ({
   loggedIn: Boolean(state.session.currentUser),
@@ -10,8 +10,10 @@ const mapStateToProps = (state,ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch,ownProps) => ({
-  processForm: (user) => ownProps.location.pathname === '/login' ?
-    dispatch(login(user)) : dispatch(signup(user))
+  processForm: (user) =>{
+    return ownProps.location.pathname === '/login' ?
+      dispatch(login(user)) : dispatch(signup(user));
+  }
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(SessionForm);

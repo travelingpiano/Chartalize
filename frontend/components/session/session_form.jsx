@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 class SessionForm extends React.Component {
   constructor(props){
@@ -9,6 +9,16 @@ class SessionForm extends React.Component {
       password: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeUsername = this.changeUsername.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+  }
+
+  changeUsername(e){
+    this.setState({username: e.target.value});
+  }
+
+  changePassword(e){
+    this.setState({password: e.target.value});
   }
 
   handleSubmit(e){
@@ -19,17 +29,24 @@ class SessionForm extends React.Component {
 
   render(){
     let direct_to = this.props.formType==='/login' ? 'signup' : 'login';
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <Link to={`/${direct_to}`}>{direct_to} instead?</Link>
-        <label>{this.props.errors}</label>
-        <label>Username</label>
-        <input value={this.state.username} onChange={this.changeUsername}></input>
-        <label>Password</label>
-        <input value={this.state.password} onChange={this.changePassword}></input>
-        <input type="Submit">{this.props.formType}</input>
-      </form>
-    );
+    if(this.props.loggedIn){
+      return (
+        <Redirect to='/' />
+      );
+    }else{
+      console.log(this.props.errors);
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <Link to={`/${direct_to}`}>{direct_to} instead?</Link>
+          <label>{this.props.errors}</label>
+          <label>Username</label>
+          <input value={this.state.username} onChange={this.changeUsername}></input>
+          <label>Password</label>
+          <input value={this.state.password} onChange={this.changePassword}></input>
+          <input value={this.props.formType} type="Submit" ></input>
+        </form>
+      );
+    }
   }
 }
 

@@ -28,9 +28,11 @@ export const logout = () => dispatch => (
   )
 );
 
-export const signup = user => dispatch => (
-  SessionUtil.signup().then(
-    currentUser => dispatch(receiveUser(currentUser)),
-    errors => dispatch(receiveErrors(errors.responseJSON))
-  )
-);
+export const signup = user => dispatch => {
+  return (
+    SessionUtil.signup(user).then(
+      currentUser => dispatch(receiveUser(currentUser)),
+      errors => dispatch(receiveErrors(errors.responseJSON))
+    )
+  );
+};

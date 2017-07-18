@@ -35,7 +35,7 @@ class SessionForm extends React.Component {
       );
     }else{
       return (
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="authform">
           <Link to={`/${direct_to}`}>{direct_to} instead?</Link>
           <label>{this.props.errors}</label>
           <label>Username</label>

@@ -9,11 +9,10 @@
 
 .navbar{
   display: flex;
-  background-color: white;
+  background-color: $dark-gray;
   justify-content: space-between;
   align-items: center;
   border-bottom: solid black 1px;
-  margin-top: 10px;
   padding: 10px;
 }
 
@@ -21,7 +20,7 @@
   margin: 5px;
   border-radius: 15px;
   border-color: blue;
-  background-color: $blue; //blue
+  background-color: $dark-blue; //blue
   font-size: 18px;
   padding: 13px;
   font-family: 'Open Sans', sans-serif;
@@ -29,7 +28,7 @@
 }
 
 .signup:hover{
-  background-color: $medium-blue-green;
+  background-color: $dark-blue-green;
 }
 
 .login{
@@ -37,6 +36,7 @@
   padding: 10px;
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
+  color: white;
 }
 
 .login:hover{
@@ -60,4 +60,5 @@
 .welcome{
   font-family: 'Lato', sans-serif;
   font-size: 2em;
+  color: white;
 }

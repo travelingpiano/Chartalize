@@ -1,0 +1,44 @@
+//CSS Styling for the Nav Bar
+
+@import "variables";
+
+.signin-login{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar{
+  display: flex;
+  background-color: white; //light green
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid black 1px;
+}
+
+.signup{
+  margin: 5px;
+  border-radius: 15px;
+  border-color: blue;
+  background-color: $blue; //blue
+  font-size: 18px;
+  padding: 13px;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+}
+
+.signup:hover{
+  background-color: $medium-blue-green;
+}
+
+.login{
+  margin: 5px;
+  border-radius: 25px;
+  border-color: blue;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+}
+
+.login:hover{
+  color: grey;
+}

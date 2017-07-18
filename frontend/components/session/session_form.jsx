@@ -27,8 +27,16 @@ class SessionForm extends React.Component {
     this.props.processForm(user);
   }
 
+  handleDemo(e){
+    let demo_user = {user:{username: "ChartalizeMaster", password: "password"}};
+
+    this.props.processForm(user);
+  }
+
   render(){
     let direct_to = this.props.formType==='/login' ? 'signup' : 'login';
+    let authformtype = this.props.formType==='/login' ? 'Login' : 'Sign Up';
+    let welcome_sign = this.props.formType==='/login' ? 'Welcome back to Chartalize!' : 'Join the family!';
     if(this.props.loggedIn){
       return (
         <Redirect to='/' />
@@ -36,13 +44,13 @@ class SessionForm extends React.Component {
     }else{
       return (
         <form onSubmit={this.handleSubmit} className="authform">
-          <Link to={`/${direct_to}`}>{direct_to} instead?</Link>
+          <h1 className="login-welcome">{welcome_sign}</h1>
           <label>{this.props.errors}</label>
-          <label>Username</label>
-          <input value={this.state.username} onChange={this.changeUsername}></input>
-          <label>Password</label>
-          <input value={this.state.password} onChange={this.changePassword}></input>
-          <input value={this.props.formType} type="Submit" ></input>
+          <input placeholder="username" value={this.state.username} onChange={this.changeUsername} className="form_content"></input>
+          <input type="password" placeholder="password" value={this.state.password} onChange={this.changePassword} className="form_content"></input>
+          <input value={authformtype} type="Submit" className="auth-button"></input>
+          <button></button>
+          <Link to={`/${direct_to}`} className="changeauth">{direct_to} instead?</Link>
         </form>
       );
     }

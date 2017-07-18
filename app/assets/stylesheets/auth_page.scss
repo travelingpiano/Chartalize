@@ -1,0 +1,58 @@
+@import "variables";
+
+
+.authform{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  width: 50%;
+  // background-color: $light-gray;
+  // border-radius: 25px;
+  // border-color: blue;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.form_content{
+  width: 75%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  padding: 5px;
+  border: none;
+  border-bottom: solid black 1px;
+}
+
+.auth-button{
+  width: 75%;
+  color: white;
+  font-size: 25px;
+  margin-top: 25px;
+  border-radius: 25px;
+  border-color: blue;
+  background-color: $dark-blue;
+  cursor: pointer;
+}
+
+.auth-button:hover{
+  background-color: $dark-blue-green;
+}
+
+.login-welcome{
+  width: 100%;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 25px;
+}
+
+.changeauth{
+  margin-top: 25px;
+  font-size: 20px;
+}
+
+.changeauth:hover{
+  color: $light-gray;
+}

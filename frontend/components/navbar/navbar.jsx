@@ -16,7 +16,9 @@ class NavBar extends React.Component {
     if(this.props.currentUser){
       display = (
         <div className="navbar">
-          <Link to='/'>Chartesian</Link>
+          <Link to='/'>
+            <h1 className="logo">CHARTALIZE</h1>
+          </Link>
           <h1>Welcome {this.props.currentUser.username}</h1>
           <button className="link" onClick={this.logout}>Log Out</button>
         </div>
@@ -26,11 +28,11 @@ class NavBar extends React.Component {
       display = (
         <div className="navbar">
           <Link to='/'>
-            <h1>Chartesian</h1>
+            <h1 className="logo">CHARTALIZE</h1>
           </Link>
-          <div>
-            <Link className="link" to='/signup'>Sign Up</Link>
-            <Link className="link" to='/login'>Log In</Link>
+          <div className="signin-login">
+            <Link className="login" to='/login'>Log In</Link>
+            <Link className="signup" to='/signup'>Get Started Now!</Link>
           </div>
 
         </div>

@@ -9,7 +9,7 @@
 
 .navbar{
   display: flex;
-  background-color: white; //light green
+  background-color: white;
   justify-content: space-between;
   align-items: center;
   border-bottom: solid black 1px;
@@ -32,8 +32,6 @@
 
 .login{
   margin: 5px;
-  border-radius: 25px;
-  border-color: blue;
   padding: 10px;
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
@@ -41,4 +39,23 @@
 
 .login:hover{
   color: grey;
+}
+
+.logout{
+  margin: 5px;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  font-size: 18px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.logout:hover{
+  color: grey;
+}
+
+.welcome{
+  font-family: 'Lato', sans-serif;
+  font-size: 400;
 }

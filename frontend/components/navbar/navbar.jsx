@@ -19,8 +19,8 @@ class NavBar extends React.Component {
           <Link to='/'>
             <h1 className="logo">CHARTALIZE</h1>
           </Link>
-          <h1>Welcome {this.props.currentUser.username}</h1>
-          <button className="link" onClick={this.logout}>Log Out</button>
+          <h1 className="welcome">Welcome {this.props.currentUser.username}</h1>
+          <button onClick={this.logout} className="logout">Log Out</button>
         </div>
 
       );

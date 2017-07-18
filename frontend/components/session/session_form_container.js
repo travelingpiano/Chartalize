@@ -13,7 +13,8 @@ const mapDispatchToProps = (dispatch,ownProps) => ({
   processForm: (user) =>{
     return ownProps.location.pathname === '/login' ?
       dispatch(login(user)) : dispatch(signup(user));
-  }
+  },
+  login: (user) => dispatch(login(user))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(SessionForm);

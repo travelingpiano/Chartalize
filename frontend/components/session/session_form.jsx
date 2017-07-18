@@ -34,7 +34,6 @@ class SessionForm extends React.Component {
         <Redirect to='/' />
       );
     }else{
-      console.log(this.props.errors);
       return (
         <form onSubmit={this.handleSubmit}>
           <Link to={`/${direct_to}`}>{direct_to} instead?</Link>

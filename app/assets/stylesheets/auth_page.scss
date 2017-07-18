@@ -13,6 +13,7 @@
   // border-color: blue;
   padding: 10px;
   font-size: 18px;
+  margin-top: 10px;
 }
 
 .form_content{
@@ -35,6 +36,8 @@
   border-color: blue;
   background-color: $dark-blue;
   cursor: pointer;
+  text-align: center;
+  padding: 5px;
 }
 
 .auth-button:hover{
@@ -45,7 +48,7 @@
   width: 100%;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .changeauth{
@@ -55,4 +58,11 @@
 
 .changeauth:hover{
   color: $light-gray;
+}
+
+.errors{
+  margin: 5px;
+  margin-top: 15px;
+  color: red;
+  font-family: 'Open Sans', serif;
 }

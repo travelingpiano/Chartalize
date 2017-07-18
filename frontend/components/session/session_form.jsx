@@ -24,7 +24,6 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit(e){
-    e.preventDefault();
     const user = {user:this.state};
     this.props.processForm(user);
   }
@@ -68,13 +67,16 @@ class SessionForm extends React.Component {
         <Redirect to='/' />
       );
     }else{
+      console.log(this.props.errors);
       return (
         <form className="authform">
           <h1 className="login-welcome">{welcome_sign}</h1>
-          <label>{this.props.errors}</label>
+          <ul className="errors">{this.props.errors.map((error,idx)=>(
+              <li key={idx}>{error}</li>
+            ))}</ul>
           <input placeholder="username" value={this.state.username} onChange={this.changeUsername} className="form_content"></input>
           <input type="password" placeholder="password" value={this.state.password} onChange={this.changePassword} className="form_content"></input>
-          <input value={authformtype} type="Submit" className="auth-button"></input>
+          <input value={authformtype} type="Submit" className="auth-button" onClick={this.handleSubmit}></input>
           <button className="auth-button" onClick={this.handleDemo}>Demo</button>
           <Link to={`/${direct_to}`} className="changeauth">{direct_to} instead?</Link>
         </form>

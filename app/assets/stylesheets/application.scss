@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+@import "reset.scss";
+@import "static_pages.scss";
+@import "navbar.scss";
+@import "auth_page.scss";

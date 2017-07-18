@@ -1,3 +1,26 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#root {
+
+}
+
+a{
+  text-decoration: none;
+}
+
+.navbar{
+  display: flex;
+  background-color: #98fb98;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link{
+  margin: 5px;
+  border-radius: 25px;
+  border-color: blue;
+  background-color: #0099FF;
+  padding: 10px;
+}

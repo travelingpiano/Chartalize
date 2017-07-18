@@ -6,7 +6,6 @@ import {AuthRoute} from '../util/route_util';
 
 const App = () => (
   <div>
-    <h1>Chartalize!</h1>
     < NavBarContainer />
     <AuthRoute path='/login' component={SessionFormContainer} />
     <AuthRoute path='/signup' component={SessionFormContainer} />

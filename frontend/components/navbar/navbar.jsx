@@ -15,17 +15,24 @@ class NavBar extends React.Component {
     let display;
     if(this.props.currentUser){
       display = (
-        <div>
+        <div className="navbar">
+          <Link to='/'>Chartesian</Link>
           <h1>Welcome {this.props.currentUser.username}</h1>
-          <button onClick={this.logout}>Log Out</button>
+          <button className="link" onClick={this.logout}>Log Out</button>
         </div>
 
       );
     }else {
       display = (
-        <div>
-          <Link to='/signup'>Sign Up</Link>
-          <Link to='/login'>Log In</Link>
+        <div className="navbar">
+          <Link to='/'>
+            <h1>Chartesian</h1>
+          </Link>
+          <div>
+            <Link className="link" to='/signup'>Sign Up</Link>
+            <Link className="link" to='/login'>Log In</Link>
+          </div>
+
         </div>
       );
     }

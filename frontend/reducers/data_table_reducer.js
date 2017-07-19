@@ -5,7 +5,7 @@ const DataTableReducer = (state = {}, action)=>{
   Object.freeze(state);
   switch(action.type){
     case RECEIVE_DATATABLES:
-      return action.dataTables.data_tables;
+      return action.dataTables;
     case RECEIVE_DATATABLE:
       let dataTable = action.dataTable;
       return dataTable;
@@ -18,7 +18,6 @@ const DataTableReducer = (state = {}, action)=>{
       dataTable = action.dataTable;
       newstate = merge({},state);
       delete newstate[dataTable.id];
-      console.log(newstate);
       return newstate;
     case RECEIVE_DATATABLE_ERRORS:
       const errors = action.errors;

@@ -4,8 +4,12 @@
 
 @import "variables";
 
-#root {
+[data-reactroot]{
+  min-height: 100%;
+}
 
+#root {
+  min-height: 100%;
 }
 
 .col-1 {

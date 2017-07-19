@@ -1,0 +1,16 @@
+@import "variables";
+
+.sidebar{
+  display: flex;
+  background-color: $dark-gray;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar > div{
+  flex: 1;
+}
+
+.sidebar1{
+  color: white;
+}

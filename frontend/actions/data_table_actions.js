@@ -4,6 +4,7 @@ export const RECEIVE_DATATABLES = "RECEIVE_DATATABLES";
 export const RECEIVE_DATATABLE = "RECEIVE_DATATABLE";
 export const CREATE_DATATABLE = "CREATE_DATATABLE";
 export const RECEIVE_DATATABLE_ERRORS = "RECEIVE_DATATABLE_ERRORS";
+export const REMOVE_DATATABLE = "REMOVE_DATATABLE";
 
 export const receiveDataTable = dataTable => ({
   type: RECEIVE_DATATABLE,
@@ -25,6 +26,11 @@ export const createDataTable = dataTable => ({
   dataTable
 });
 
+export const removeDataTable = dataTable => ({
+  type: REMOVE_DATATABLE,
+  dataTable
+});
+
 export const makeDataTable = dataTable => dispatch => (
   DataTableUtil.create_dataTable(dataTable).then(
     newDataTable => dispatch(createDataTable(newDataTable)),
@@ -41,5 +47,11 @@ export const fetchAllDataTables = () => dispatch => (
 export const fetchOneDataTable = id => dispatch => (
   DataTableUtil.getSingleDataTable(id).then(
     DataTable => dispatch(receiveDataTable(DataTable))
+  )
+);
+
+export const deleteDataTable = id => dispatch => (
+  DataTableUtil.deleteDataTable(id).then(
+    DataTable => dispatch(removeDataTable(DataTable))
   )
 );

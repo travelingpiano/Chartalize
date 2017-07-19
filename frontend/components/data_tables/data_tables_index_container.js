@@ -1,13 +1,14 @@
 import {connect} from 'react-redux';
 import DataTableIndex from './data_tables_index';
-import {fetchOneDataTable,fetchAllDataTables} from '../../actions/data_table_actions';
+import {deleteDataTable,fetchAllDataTables} from '../../actions/data_table_actions';
+import {selectAllDataTables} from '../../reducers/selectors';
 
 const mapStateToProps = ({dataTables}) => ({
-  dataTables
+  dataTables: selectAllDataTables(dataTables)
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchOneDataTable: id=>dispatch(fetchOneDataTable(id)),
+  deleteDataTable: id=>dispatch(deleteDataTable(id)),
   fetchAllDataTables: ()=>dispatch(fetchAllDataTables())
 });
 

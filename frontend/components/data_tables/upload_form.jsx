@@ -1,15 +1,19 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import {Link} from 'react-router-dom';
 
 class UploadForm extends React.Component{
   constructor(props){
     super(props);
+    this.filepreset_display = "Drag a file here!";
     this.uploaddata = this.uploaddata.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.parseFile = this.parseFile.bind(this);
+    this.changeTitle = this.changeTitle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       title: "",
-      type: "",
+      data_type: "",
       table: []
     };
   }
@@ -18,17 +22,18 @@ class UploadForm extends React.Component{
     this.fileReader = new FileReader();
   }
 
-  parseFile(data,type){
+  parseFile(data,data_type){
+    this.filepreset_display = "Thanks for uploading a file";
     let table = [];
     const allTextLines = data.split(/\r\n|\n/);
     let delim = "";
-    if(type === "text/csv"){
+    if(data_type === "text/csv"){
       delim = ',';
-    }else if(type ==="text/tab-separated-values"){
+    }else if(data_type ==="text/tab-separated-values"){
       delim = '';
     }
 
-    if(type === "application/json"){
+    if(data_type === "application/json"){
       table = JSON.parse(data);
     }else{
       let headings = allTextLines[0].split(delim);
@@ -41,7 +46,8 @@ class UploadForm extends React.Component{
         table.push(rowData);
       }
     }
-    this.setState({table, type});
+    console.log(data_type);
+    this.setState({table, data_type});
   }
 
   onDrop(files){
@@ -54,20 +60,34 @@ class UploadForm extends React.Component{
 
   uploaddata(){
     const acceptedTypes = "application/json,text/tab-separated-values,text/csv";
+    let filepreset = "Drag a file here";
     return(
       <Dropzone multiple={false} accept={acceptedTypes} onDrop={this.onDrop}>
-        <p>Drag a file in!</p>
+        <p>{this.filepreset_display}</p>
       </Dropzone>
     );
   }
 
+  changeTitle(event){
+    this.setState({title: event.target.value});
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    let data_table = {};
+    data_table.data_table = this.state;
+    this.props.makeDataTable(data_table);
+    this.props.history.push('/data_tables');
+  }
+
   render (){
     return (
-    <div>
-
-      <input></input>
+    <form onSubmit={this.handleSubmit}>
+      <h2>Add a New Data Table</h2>
+      <input value={this.state.title} onChange={this.changeTitle} placeholder="Title"></input>
       {this.uploaddata()}
-    </div>);
+      <input value="Add new data table" type="submit"/>
+    </form>);
   }
 }
 

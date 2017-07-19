@@ -7,9 +7,19 @@ const Auth = ({component: Component, path, loggedIn}) => (
       !loggedIn ? (
         <Component {...props} />
       ) : (
-        <Redirect to='/' />
+        <Redirect to='/data_tables' />
       )
   )}/>
+);
+
+const Protected = ({component: Component, path, loggedIn}) => (
+  <Route path={path} render={(props) => (
+      loggedIn ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to='/' />
+      )
+    )}/>
 );
 
 const mapStateToProps = state => {

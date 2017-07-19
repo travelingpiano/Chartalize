@@ -4,7 +4,7 @@ import DataTableReducer from './data_table_reducer';
 
 const RootReducer = combineReducers({
   session: SessionReducer,
-  data_tables: DataTableReducer
+  dataTables: DataTableReducer
 });
 
 export default RootReducer;

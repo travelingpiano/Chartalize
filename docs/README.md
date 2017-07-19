@@ -26,9 +26,9 @@
 
 Chartelize is a web application inspired by [Chartio](https://www.chartio.com) built using Ruby on Rails backend and React/Redux frontend.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria with smooth, bug-free navigation, adequate seed data and
 sufficient CSS styling:
-- [ ] Hosting on heroku
-- [ ] New account creation and login
-- [ ] Guest/demo account
+- [x] Hosting on heroku
+- [x] New account creation and login
+- [x] Guest/demo account
 - [ ] Upload data and visualize it with a variety of charts
 - [ ] Logged in users can persist their data
 - [ ] Share charts with other users
@@ -41,25 +41,27 @@ sufficient CSS styling:
 
 **Objective:** Working authentication for both front and backend. Users created are persisted in database.
 
-- [ ] Functional
-  - [ ] Sign up
-  - [ ] Sign In
-  - [ ] Demo
-- [ ] Webpage
-  - [ ] Log In/Sign Up page
-  - [ ] Intro page
-  - [ ] Landing page
+- [x] Functional
+  - [x] Sign up
+  - [x] Sign In
+  - [x] Demo
+- [x] Webpage
+  - [x] Log In/Sign Up page
+  - [x] Intro page
+  - [x] Landing page
 
 ### Phase 2: Import New Data (1 day)
 
 **Objective:** Data can be uploaded for users and data will be persisted in database.
 
-- [ ] Functional
-  - [ ] Store data with user in database
-  - [ ] Support JSON, TSV, CSV
+- [x] Functional
+  - [x] Store data with user in database
+  - [x] Support JSON, TSV, CSV
   - [ ] Data stored can be queried
 - [ ] Webpage
   - [ ] New data table form page
+  - [x] Data index page
+  - [ ] Data show page
 
 ### Phase 3: Create Chart (3 days)
 

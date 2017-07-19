@@ -16,6 +16,6 @@ export const getAllDataTables = () => (
 export const getSingleDataTable = id => (
   $.ajax({
     method: 'GET',
-    url: 'api/data_tables/${id}'
+    url: `api/data_tables/${id}`
   })
 );

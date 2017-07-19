@@ -67,7 +67,6 @@ class SessionForm extends React.Component {
         <Redirect to='/' />
       );
     }else{
-      console.log(this.props.errors);
       return (
         <form className="authform">
           <h1 className="login-welcome">{welcome_sign}</h1>

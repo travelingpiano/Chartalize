@@ -6,7 +6,7 @@ class Api::DataTablesController < ApplicationController
       render :show
     else
       errors = @data_table.errors.full_messages
-      render json: errors
+      render json: errors, status: 422
     end
   end
 

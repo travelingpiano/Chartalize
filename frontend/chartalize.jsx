@@ -4,11 +4,11 @@ import configureStore from './store/store';
 import Root from './components/root';
 
 //Testing
-import {login,signup,logout} from './actions/session_actions';
+import {fetchAllDataTables,fetchOneDataTable,makeDataTable} from './actions/data_table_actions';
 
-window.login = login;
-window.signup = signup;
-window.logout = logout;
+window.fetchOneDataTable = fetchOneDataTable;
+window.fetchAllDataTables = fetchAllDataTables;
+window.makeDataTable = makeDataTable;
 
 document.addEventListener('DOMContentLoaded', ()=>{
   const root = document.getElementById('root');

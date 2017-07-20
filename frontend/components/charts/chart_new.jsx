@@ -7,7 +7,7 @@ class ChartNew extends React.Component {
     this.state = {
       tableIdx: -1
     };
-    this.menubar = this.menubar.bind(this);
+    this.dataTableBar = this.dataTableBar.bind(this);
     this.DataTableChange = this.DataTableChange.bind(this);
   }
 
@@ -16,21 +16,65 @@ class ChartNew extends React.Component {
   }
 
   DataTableChange(e){
-    console.log(e.target.value);
+    this.setState({tableIdx: e.target.value});
   }
 
-  menubar(){
+  dataTableBar(){
     return (
       <div className="col-4">
         <select onChange={this.DataTableChange}>
           <option selected disabled>Choose a Data Table</option>
-          {this.props.dataTables.map((dataTable)=>
-          <option value={dataTable.id}>
+          {this.props.dataTables.map((dataTable,idx)=>
+          <option value={idx}>
             {dataTable.title}
           </option>)}
         </select>
       </div>
     );
+  }
+
+  xAxisBar(){
+    let display;
+    if(this.state.tableIdx===-1){
+      display = (
+        <select onChange={this.xAxisChange}>
+          <option selected disabled>Choose an X Axis</option>
+        </select>
+      );
+    }else{
+      display = (
+        <select onChange={this.xAxisChange}>
+          <option selected disabled>Choose an X Axis</option>
+          {Object.keys(this.props.dataTables[this.state.tableIdx].table[0]).map((heading)=>
+          <option value={heading}>
+            {heading}
+          </option>)}
+        </select>
+      );
+    }
+    return display;
+  }
+
+  yAxisBar(){
+    let display;
+    if(this.state.tableIdx===-1){
+      display = (
+        <select onChange={this.yAxisChange}>
+          <option selected disabled>Choose a Y Axis</option>
+        </select>
+      );
+    }else{
+      display = (
+        <select onChange={this.yAxisChange}>
+          <option selected disabled>Choose an X Axis</option>
+          {Object.keys(this.props.dataTables[this.state.tableIdx].table[0]).map((heading)=>
+          <option value={heading}>
+            {heading}
+          </option>)}
+        </select>
+      );
+    }
+    return display;
   }
 
   render(){
@@ -43,7 +87,9 @@ class ChartNew extends React.Component {
     }
     return(
       <div>
-        {this.menubar()}
+        {this.dataTableBar()}
+        {this.xAxisBar()}
+        {this.yAxisBar()}
       </div>
     );
   }

@@ -8,12 +8,10 @@ class DataTableShow extends React.Component{
   }
   render(){
     let display;
-    console.log(this.props);
     if(this.props.dataTable.title){
       display = (
         <div className="col-9 DataTables">
           <label className="tableTitle">{this.props.dataTable.title}</label>
-          <br></br>
           <table className="datatables_table">
             <thead className="tableshead">
               <tr >
@@ -32,7 +30,6 @@ class DataTableShow extends React.Component{
                 </td>)}
               </tr>)}
             </tbody>
-
           </table>
         </div>
       );

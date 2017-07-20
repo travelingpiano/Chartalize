@@ -46,7 +46,7 @@ class SideBar extends React.Component{
         </div>
       );
     }
-    return (<div className="col-3 sidebar">
+    return (<div className="sidebar">
       <div>
         {display}
         <button onClick={this.handleNewChart} className="newtable_button">Create a Chart</button>

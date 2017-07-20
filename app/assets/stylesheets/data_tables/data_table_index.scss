@@ -5,22 +5,24 @@
 //overall with sidebar
 .dataTables{
   display: flex;
+  flex-direction: row;
   height: calc(100vh - 75px);
 }
 
-//without sidebar, just the tables
+//without sidebar, just the tables with the title
 .DataTables{
   display: flex;
   flex-direction: column;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  overflow: auto;
   align-items: center;
 }
 
+//just the table
 .datatables_table{
+  overflow: auto;
   margin-top: 20px;
-  text-align: center;
-  width: 100%;
+  width: 500px;
+  white-space: wrap;
 }
 
 .tableshead{

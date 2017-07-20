@@ -15,8 +15,10 @@ class UploadForm extends React.Component{
     this.state = {
       title: "",
       data_type: "",
-      table: []
+      table: [],
+      errors: ""
     };
+    this.errors = "";
   }
 
   componentDidMount(){
@@ -24,6 +26,7 @@ class UploadForm extends React.Component{
   }
 
   parseFile(data,data_type){
+    this.setState({errors: ""});
     this.filepreset_display = "Thanks for uploading a file";
     let table = [];
     const allTextLines = data.split(/\r\n|\n/);
@@ -69,15 +72,26 @@ class UploadForm extends React.Component{
   }
 
   changeTitle(event){
-    this.setState({title: event.target.value});
+    this.setState({title: event.target.value, errors: ""});
   }
+
+
 
   handleSubmit(event){
     event.preventDefault();
-    let data_table = {};
-    data_table.data_table = this.state;
-    this.props.makeDataTable(data_table);
-    this.props.history.push('/data_tables');
+    if(this.state.title === "" || !this.state.table === [] || this.state.data_type === ""){
+      this.setState({errors: "Incomplete table detected"});
+    }else{
+      let data_table = {};
+      data_table.data_table = {};
+      data_table.data_table.title = this.state.title;
+      data_table.data_table.data_type = this.state.data_type;
+      data_table.data_table.table = this.state.table;
+      this.props.makeDataTable(data_table).then(
+        ()=> this.props.history.push('/data_tables')
+      );
+
+    }
   }
 
   render (){
@@ -86,6 +100,7 @@ class UploadForm extends React.Component{
         <SideBar currentPage="data_tables_new"/>
         <form className="col-9 newDataTable" onSubmit={this.handleSubmit}>
           <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
+          <label className="errors">{this.state.errors}</label>
           {this.uploaddata()}
           <input value="Add new data table" type="submit" className="DataTableSubmit"/>
         </form>

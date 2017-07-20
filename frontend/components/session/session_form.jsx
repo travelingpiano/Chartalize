@@ -6,7 +6,8 @@ class SessionForm extends React.Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      errors: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
@@ -16,16 +17,25 @@ class SessionForm extends React.Component {
   }
 
   changeUsername(e){
-    this.setState({username: e.target.value});
+    this.setState({username: e.target.value, errors: "clear"});
   }
 
   changePassword(e){
-    this.setState({password: e.target.value});
+    this.setState({password: e.target.value, errors: "clear"});
   }
 
   handleSubmit(e){
-    const user = {user:this.state};
-    this.props.processForm(user);
+    const user = {user:{username: this.state.username, password: this.state.password}};
+    let reset = false;
+    const resetvalues = setInterval(()=>{
+      if(reset===true){
+        clearInterval(resetvalues);
+        this.props.processForm(user);
+      }else{
+        reset = true;
+        this.setState({username: "", password: "", errors: ""});
+      }
+    },10);
   }
 
   handleDemo(e){
@@ -58,6 +68,16 @@ class SessionForm extends React.Component {
     let direct_to = this.props.formType==='/login' ? 'signup' : 'login';
     let authformtype = this.props.formType==='/login' ? 'Login' : 'Sign Up';
     let welcome_sign = this.props.formType==='/login' ? 'Welcome back to Chartalize!' : 'Join the family!';
+    let errors;
+    if(this.state.errors === "clear" || this.props.errors.length===0){
+      errors = (<p></p>);
+    }else{
+      errors = (
+        <ul className="errors">{this.props.errors.map((error,idx)=>(
+            <li key={idx}>{error}</li>
+          ))}</ul>
+      );
+    }
     if(this.props.loggedIn){
       return (
         <Redirect to='/' />
@@ -66,9 +86,7 @@ class SessionForm extends React.Component {
       return (
         <form className="authform">
           <h1 className="login-welcome">{welcome_sign}</h1>
-          <ul className="errors">{this.props.errors.map((error,idx)=>(
-              <li key={idx}>{error}</li>
-            ))}</ul>
+          {errors}
           <input placeholder="username" value={this.state.username} onChange={this.changeUsername} className="form_content"></input>
           <input type="password" placeholder="password" value={this.state.password} onChange={this.changePassword} className="form_content"></input>
           <input value={authformtype} type="Submit" className="auth-button" onClick={this.handleSubmit}></input>

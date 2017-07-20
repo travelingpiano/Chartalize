@@ -8,7 +8,7 @@ class DataTableIndex extends React.Component{
     super(props);
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.fetchAllDataTables();
   }
 

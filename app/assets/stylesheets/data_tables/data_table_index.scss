@@ -13,15 +13,13 @@
 .DataTables{
   display: flex;
   flex-direction: column;
-  overflow: auto;
-  align-items: center;
+  width: calc(100vw - 200px);
+  overflow-y: scroll;
 }
 
 //just the table
 .datatables_table{
-  overflow: auto;
   margin-top: 20px;
-  width: 500px;
   white-space: wrap;
 }
 

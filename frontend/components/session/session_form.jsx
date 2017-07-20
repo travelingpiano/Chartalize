@@ -25,25 +25,30 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit(e){
+    e.preventDefault();
     const user = {user:{username: this.state.username, password: this.state.password}};
-    let reset = false;
-    const resetvalues = setInterval(()=>{
-      if(reset===true){
-        clearInterval(resetvalues);
-        this.props.processForm(user);
-      }else{
-        reset = true;
-        this.setState({username: "", password: "", errors: ""});
-      }
-    },10);
+    this.props.processForm(user);
+    this.setState({username: "", password: "", errors: ""});
+    // let reset = false;
+    // const resetvalues = setInterval(()=>{
+    //   if(reset===true){
+    //     clearInterval(resetvalues);
+    //     this.props.processForm(user);
+    //   }else{
+    //     reset = true;
+    //     this.setState({username: "", password: "", errors: ""});
+    //   }
+    // },10);
   }
 
   handleDemo(e){
+    e.preventDefault();
 
     let user = {};
     // this.recursive_username(this.demo_user.username);
 
     let username = this.demo_user.username;
+    console.log(username);
     const setusername = setInterval(()=>{
       if(this.demo_user.username===""){
         clearInterval(setusername);
@@ -53,11 +58,13 @@ class SessionForm extends React.Component {
             user = {user:this.state};
             this.props.login(user);
           }else{
+            console.log(this.demo_user.password);
             this.setState({password: this.state.password+this.demo_user.password[0]});
             this.demo_user.password = this.demo_user.password.slice(1);
           }
         },100);
       }else{
+        console.log(this.demo_user.username);
         this.setState({username: this.state.username+this.demo_user.username[0]});
         this.demo_user.username = this.demo_user.username.slice(1);
       }
@@ -89,7 +96,7 @@ class SessionForm extends React.Component {
           {errors}
           <input placeholder="username" value={this.state.username} onChange={this.changeUsername} className="form_content"></input>
           <input type="password" placeholder="password" value={this.state.password} onChange={this.changePassword} className="form_content"></input>
-          <input value={authformtype} type="Submit" className="auth-button" onClick={this.handleSubmit}></input>
+          <button className="auth-button" onClick={this.handleSubmit}>{authformtype}</button>
           <button className="auth-button" onClick={this.handleDemo}>Demo</button>
           <Link to={`/${direct_to}`} className="changeauth">{direct_to} instead?</Link>
         </form>

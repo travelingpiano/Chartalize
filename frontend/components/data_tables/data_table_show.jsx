@@ -10,7 +10,7 @@ class DataTableShow extends React.Component{
     let display;
     if(this.props.dataTable.title){
       display = (
-        <div className="col-9 DataTables">
+        <div className="DataTables">
           <label className="tableTitle">{this.props.dataTable.title}</label>
           <table className="datatables_table">
             <thead className="tableshead">

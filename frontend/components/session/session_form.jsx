@@ -7,13 +7,20 @@ class SessionForm extends React.Component {
     this.state = {
       username: "",
       password: "",
-      errors: ""
+      errors: "",
+      prevPath: this.props.location
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
     this.demo_user = {username: "ChartalizeMaster", password: "password"};
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.location !== this.props.location){
+      this.setState({prevPath: this.props.location});
+    }
   }
 
   changeUsername(e){
@@ -28,27 +35,15 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const user = {user:{username: this.state.username, password: this.state.password}};
     this.props.processForm(user);
-    this.setState({username: "", password: "", errors: ""});
-    // let reset = false;
-    // const resetvalues = setInterval(()=>{
-    //   if(reset===true){
-    //     clearInterval(resetvalues);
-    //     this.props.processForm(user);
-    //   }else{
-    //     reset = true;
-    //     this.setState({username: "", password: "", errors: ""});
-    //   }
-    // },10);
+    this.setState({username: "", password: "", errors: "", prevPath: this.props.location});
   }
 
   handleDemo(e){
     e.preventDefault();
 
     let user = {};
-    // this.recursive_username(this.demo_user.username);
 
     let username = this.demo_user.username;
-    console.log(username);
     const setusername = setInterval(()=>{
       if(this.demo_user.username===""){
         clearInterval(setusername);
@@ -58,13 +53,11 @@ class SessionForm extends React.Component {
             user = {user:this.state};
             this.props.login(user);
           }else{
-            console.log(this.demo_user.password);
             this.setState({password: this.state.password+this.demo_user.password[0]});
             this.demo_user.password = this.demo_user.password.slice(1);
           }
         },100);
       }else{
-        console.log(this.demo_user.username);
         this.setState({username: this.state.username+this.demo_user.username[0]});
         this.demo_user.username = this.demo_user.username.slice(1);
       }
@@ -76,7 +69,7 @@ class SessionForm extends React.Component {
     let authformtype = this.props.formType==='/login' ? 'Login' : 'Sign Up';
     let welcome_sign = this.props.formType==='/login' ? 'Welcome back to Chartalize!' : 'Join the family!';
     let errors;
-    if(this.state.errors === "clear" || this.props.errors.length===0){
+    if(this.state.errors === "clear" || this.props.errors.length===0 || this.props.location !== this.state.prevPath){
       errors = (<p></p>);
     }else{
       errors = (

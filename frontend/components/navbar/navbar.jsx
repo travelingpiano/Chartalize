@@ -16,7 +16,7 @@ class NavBar extends React.Component {
     if(this.props.currentUser){
       display = (
         <div className="navbar">
-          <Link to='/'>
+          <Link to='/data_tables'>
             <h1 className="logo">CHARTALIZE</h1>
           </Link>
           <h1 className="welcome">Welcome {this.props.currentUser.username}</h1>

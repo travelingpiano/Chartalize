@@ -1,0 +1,37 @@
+@import "variables";
+
+.dataTables{
+  display: flex;
+  height: calc(100vh - 75);
+}
+
+.DataTables{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.datatables_table{
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.tableshead{
+  border: $light-purple-gray;
+  border-bottom: 1px solid black;
+  background-color: $light-purple-gray;
+}
+
+.tablesrow0{
+  background-color: white;
+  padding: 10px;
+}
+
+.tablesrow1{
+  background-color: $light-purple-gray;
+}
+
+.tablesrow0:hover{
+  background-color: $light-gray;
+}

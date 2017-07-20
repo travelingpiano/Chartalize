@@ -5,18 +5,22 @@ import UploadFormContainer from './data_tables/upload_form_container';
 import DataTableIndexContainer from './data_tables/data_tables_index_container';
 import DataTableShowContainer from './data_tables/data_table_show_container';
 import SideBar from './navbar/side_bar.jsx';
-import {Route} from 'react-router-dom';
+import {Route,Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
 const App = () => (
   <div>
     < NavBarContainer />
-    < SideBar />
-    <AuthRoute path='/login' component={SessionFormContainer} />
-    <AuthRoute path='/signup' component={SessionFormContainer} />
-    <ProtectedRoute exact path='/data_tables' component={DataTableIndexContainer} />
-    <ProtectedRoute path='/data_tables/:datatableId' component={DataTableShowContainer} />
-    <ProtectedRoute path='/new' component={UploadFormContainer} />
+    <Switch>
+      <AuthRoute path='/login' component={SessionFormContainer} />
+      <AuthRoute path='/signup' component={SessionFormContainer} />
+      <ProtectedRoute exact path='/data_tables/new' component={UploadFormContainer} />
+      <ProtectedRoute path='/data_tables/:datatableId' component={DataTableShowContainer} />
+      <ProtectedRoute exact path='/data_tables' component={DataTableIndexContainer} />
+
+    </Switch>
+
+
   </div>
 );
 

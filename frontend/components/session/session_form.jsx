@@ -54,10 +54,6 @@ class SessionForm extends React.Component {
     },100);
   }
 
-  munyoset_username(setintervalid){
-
-  }
-
   render(){
     let direct_to = this.props.formType==='/login' ? 'signup' : 'login';
     let authformtype = this.props.formType==='/login' ? 'Login' : 'Sign Up';

@@ -1,0 +1,41 @@
+@import "variables";
+
+.newDataTable{
+  margin: 30px;
+}
+
+.newDataTableTitle{
+  font-size: 30px;
+  margin: 10px;
+}
+
+.dropForm{
+  width: 80%;
+  height: 70%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed $light-gray;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 30px;
+  font-family: 'Open Sans', sans-serif;
+  color: $light-gray;
+}
+
+.dropForm:hover{
+  background-color: $light-blue;
+}
+
+.DataTableSubmit{
+  font-size: 25px;
+  margin: 10px;
+  background-color: $dark-blue;
+  padding: 10px;
+  color: white;
+}
+
+.DataTableSubmit:hover{
+  color: $light-gray;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import {Link} from 'react-router-dom';
+import SideBar from '../navbar/side_bar';
 
 class UploadForm extends React.Component{
   constructor(props){
@@ -46,7 +47,6 @@ class UploadForm extends React.Component{
         table.push(rowData);
       }
     }
-    console.log(data_type);
     this.setState({table, data_type});
   }
 
@@ -62,8 +62,8 @@ class UploadForm extends React.Component{
     const acceptedTypes = "application/json,text/tab-separated-values,text/csv";
     let filepreset = "Drag a file here";
     return(
-      <Dropzone multiple={false} accept={acceptedTypes} onDrop={this.onDrop}>
-        <p>{this.filepreset_display}</p>
+      <Dropzone multiple={false} accept={acceptedTypes} onDrop={this.onDrop} className="dropForm">
+        {this.filepreset_display}
       </Dropzone>
     );
   }
@@ -82,12 +82,15 @@ class UploadForm extends React.Component{
 
   render (){
     return (
-    <form onSubmit={this.handleSubmit}>
-      <h2>Add a New Data Table</h2>
-      <input value={this.state.title} onChange={this.changeTitle} placeholder="Title"></input>
-      {this.uploaddata()}
-      <input value="Add new data table" type="submit"/>
-    </form>);
+      <div className="dataTables">
+        <SideBar currentPage="data_tables_new"/>
+        <form className="col-9 newDataTable" onSubmit={this.handleSubmit}>
+          <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
+          {this.uploaddata()}
+          <input value="Add new data table" type="submit" className="DataTableSubmit"/>
+        </form>
+      </div>
+    );
   }
 }
 

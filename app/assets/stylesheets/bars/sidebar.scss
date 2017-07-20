@@ -1,0 +1,38 @@
+@import "variables";
+
+.sidebar{
+  display: flex;
+  background-color: $dark-gray;
+  justify-content: space-between;
+  height: calc(100vh - 75px);
+}
+
+.sidebar > div{
+  flex: 1;
+}
+
+.newtable_button{
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  font-size: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: $dark-blue;
+  text-align: center;
+  margin: auto;
+}
+
+.newtable_button:hover{
+  color: $light-gray;
+}
+
+.DataTablesTitle{
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  margin-bottom: 10px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import SideBar from '../navbar/side_bar';
 
 class DataTableIndex extends React.Component{
   constructor(props){
@@ -13,7 +14,7 @@ class DataTableIndex extends React.Component{
   }
 
   showDataTable(e){
-    this.props.fetchOneDataTable(e.target.value);
+    this.props.history.push(`/data_tables/${e.target.value}`);
   }
 
   deleteDataTable(e){
@@ -23,24 +24,38 @@ class DataTableIndex extends React.Component{
   }
 
   render(){
-    console.log(this.props);
     let display;
     if(this.props.dataTables[0]){
-      console.log(this.props.dataTables[0]);
       display = (
-        <ul>
-          {this.props.dataTables.map((dataTable)=>
-          <li key={dataTable.id}>
-            <Link to={`/data_tables/${dataTable.id}`} >
-              <button value={dataTable.id} onClick={this.showDataTable}>
-                {dataTable.title}
-              </button>
-            </Link>
-            <button value={dataTable.id} onClick={this.deleteDataTable}>
-              Remove
-            </button>
-          </li>)}
-        </ul>
+        <div className="col-9 DataTables">
+          <table className="datatables_table">
+            <tr className="tableshead">
+              <th>Title</th>
+              <th>Type</th>
+              <th>Delete</th>
+            </tr>
+            {this.props.dataTables.map((dataTable,idx)=>
+            <tr key={dataTable.id} className={`tablesrow${idx%2}`}>
+              <td>
+                <button value={dataTable.id} onClick={this.showDataTable}>
+                  {dataTable.title}
+                </button>
+              </td>
+              <td>
+                {dataTable.data_type}
+              </td>
+              <td>
+                <button value={dataTable.id} onClick={this.deleteDataTable}>
+                  Remove
+                </button>
+              </td>
+
+            </tr>)}
+          </table>
+          <ul>
+
+          </ul>
+        </div>
       );
     }else{
       display = (
@@ -48,7 +63,8 @@ class DataTableIndex extends React.Component{
       );
     }
     return (
-      <div>
+      <div className="dataTables">
+        <SideBar currentPage="data_tables_index"/>
         {display}
       </div>
     );

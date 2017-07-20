@@ -16,6 +16,7 @@
 
 @import "reset.scss";
 @import "static_pages.scss";
-@import "navbar.scss";
-@import "auth_page.scss";
-@import "sidebar.scss";
+@import "./bars/navbar.scss";
+@import "./auth/auth_page.scss";
+@import "./bars/sidebar.scss";
+@import "./data_tables/data_table_index.scss";

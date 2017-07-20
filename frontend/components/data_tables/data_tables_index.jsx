@@ -1,12 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
+import DataIndexItem from './data_index_item';
 
 class DataTableIndex extends React.Component{
   constructor(props){
     super(props);
-    this.showDataTable = this.showDataTable.bind(this);
-    this.deleteDataTable = this.deleteDataTable.bind(this);
   }
 
   componentDidMount(){
@@ -17,40 +16,25 @@ class DataTableIndex extends React.Component{
     this.props.history.push(`/data_tables/${e.target.value}`);
   }
 
-  deleteDataTable(e){
-    e.preventDefault();
-    console.log(e.target.value);
-    this.props.deleteDataTable(e.target.value);
-  }
+
 
   render(){
     let display;
+    console.log(this.props);
     if(this.props.dataTables[0]){
       display = (
         <div className="col-9 DataTables">
           <table className="datatables_table">
-            <tr className="tableshead">
-              <th>Title</th>
-              <th>Type</th>
-              <th>Delete</th>
-            </tr>
-            {this.props.dataTables.map((dataTable,idx)=>
-            <tr key={dataTable.id} className={`tablesrow${idx%2}`}>
-              <td>
-                <button className="td-button" value={dataTable.id} onClick={this.showDataTable}>
-                  {dataTable.title}
-                </button>
-              </td>
-              <td>
-                {dataTable.data_type}
-              </td>
-              <td>
-                <button value={dataTable.id} onClick={this.deleteDataTable}>
-                  Remove
-                </button>
-              </td>
-
-            </tr>)}
+            <tbody>
+              <tr className="tableshead">
+                <td className="th-padding">Title</td>
+                <td className="th-padding">Type</td>
+                <td className="th-padding">Delete</td>
+              </tr>
+              {this.props.dataTables.map((dataTable,idx)=>
+                <DataIndexItem key={idx} dataTable={dataTable} deleteDataTable={this.props.deleteDataTable} idx={idx} />
+              )}
+            </tbody>
           </table>
           <ul>
 

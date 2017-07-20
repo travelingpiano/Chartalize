@@ -21,7 +21,7 @@ class SideBar extends React.Component{
 
   render(){
     let display;
-
+    console.log(this.props);
     if(this.props.currentPage === "data_tables_index"){
       display = (
         <div>

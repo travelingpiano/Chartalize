@@ -8,33 +8,31 @@ class DataTableShow extends React.Component{
   }
   render(){
     let display;
-    console.log(this.props);
     if(this.props.dataTable.title){
       display = (
         <div className="col-9 DataTables">
-          <label>{this.props.dataTable.title}</label>
+          <label className="tableTitle">{this.props.dataTable.title}</label>
           <br></br>
           <table>
-            <thead>
+            <thead className="tableshead">
               <tr>
-                {Object.keys(this.props.dataTable.table[0]).map((tableitem)=>
-                <td>
+                {Object.keys(this.props.dataTable.table[0]).map((tableitem, idx)=>
+                <td key={idx}>
                   {tableitem}
                 </td>)}
               </tr>
             </thead>
             <tbody>
-              {this.props.dataTable.table.map((tablerow)=>
-              <tr>
-                {Object.values(tablerow).map((tableitem)=>
-                <td>
+              {Object.values(this.props.dataTable.table).map((tablerow, idx)=>
+              <tr key={idx} className={`tablesrow${idx%2}`}>
+                {Object.values(tablerow).map((tableitem,index)=>
+                <td key={index}>
                   {tableitem}
                 </td>)}
               </tr>)}
             </tbody>
 
           </table>
-          <Link to="/data_tables">Show All Data Tables</Link>
         </div>
       );
     }else{

@@ -6,7 +6,6 @@
 }
 
 .DataTables{
-  margin: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -30,8 +29,16 @@
 
 .tablesrow1{
   background-color: $light-purple-gray;
+  padding: 10px;
 }
 
 .tablesrow0:hover{
   background-color: $light-gray;
+}
+.tablesrow1:hover{
+  background-color: $light-gray;
+}
+
+.td-button{
+  width: 100%;
 }

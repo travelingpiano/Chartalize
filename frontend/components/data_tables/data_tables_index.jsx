@@ -37,7 +37,7 @@ class DataTableIndex extends React.Component{
             {this.props.dataTables.map((dataTable,idx)=>
             <tr key={dataTable.id} className={`tablesrow${idx%2}`}>
               <td>
-                <button value={dataTable.id} onClick={this.showDataTable}>
+                <button className="td-button" value={dataTable.id} onClick={this.showDataTable}>
                   {dataTable.title}
                 </button>
               </td>

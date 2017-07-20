@@ -6,6 +6,7 @@ class SideBar extends React.Component{
   constructor(props){
     super(props);
     this.handleNew = this.handleNew.bind(this);
+    this.handleDataTables = this.handleDataTables.bind(this);
   }
 
   handleNew(e){
@@ -32,6 +33,13 @@ class SideBar extends React.Component{
       display = (
         <div>
           <h1 className="DataTablesTitle">Add Data Table</h1>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+        </div>
+      );
+    }else if(this.props.currentPage==="data_tables_show"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Data Table</h1>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
         </div>
       );

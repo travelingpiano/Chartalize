@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import SideBar from '../navbar/side_bar';
 
 class DataTableShow extends React.Component{
   componentDidMount(){
@@ -7,15 +8,16 @@ class DataTableShow extends React.Component{
   }
   render(){
     let display;
+    console.log(this.props);
     if(this.props.dataTable.title){
       display = (
-        <div>
+        <div className="col-9 DataTables">
           <label>{this.props.dataTable.title}</label>
           <br></br>
           <table>
             <thead>
               <tr>
-                {this.props.dataTable.table[0].map((tableitem)=>
+                {Object.keys(this.props.dataTable.table[0]).map((tableitem)=>
                 <td>
                   {tableitem}
                 </td>)}
@@ -24,7 +26,7 @@ class DataTableShow extends React.Component{
             <tbody>
               {this.props.dataTable.table.map((tablerow)=>
               <tr>
-                {tablerow.map((tableitem)=>
+                {Object.values(tablerow).map((tableitem)=>
                 <td>
                   {tableitem}
                 </td>)}
@@ -41,7 +43,8 @@ class DataTableShow extends React.Component{
       );
     }
     return (
-      <div>
+      <div className="dataTables">
+        <SideBar currentPage="data_tables_show"/>
         {display}
       </div>
     );

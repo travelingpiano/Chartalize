@@ -7,21 +7,23 @@ class SideBar extends React.Component{
     super(props);
     this.handleNew = this.handleNew.bind(this);
     this.handleDataTables = this.handleDataTables.bind(this);
+    this.handleNewChart = this.handleNewChart.bind(this);
   }
 
   handleNew(e){
-    console.log(this.props);
     this.props.history.push('/data_tables/new');
   }
 
   handleDataTables(e){
-    console.log(this.props);
     this.props.history.push('/data_tables');
+  }
+
+  handleNewChart(e){
+    this.props.history.push('/charts/new');
   }
 
   render(){
     let display;
-    console.log(this.props);
     if(this.props.currentPage === "data_tables_index"){
       display = (
         <div>
@@ -47,6 +49,7 @@ class SideBar extends React.Component{
     return (<div className="col-3 sidebar">
       <div>
         {display}
+        <button onClick={this.handleNewChart} className="newtable_button">Create a Chart</button>
       </div>
     </div>);
   }

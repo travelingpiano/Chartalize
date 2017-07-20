@@ -12,6 +12,12 @@ class DataTableIndex extends React.Component{
     this.props.fetchAllDataTables();
   }
 
+  // componentWillReceiveProps(newProps){
+  //   if(this.props != newProps){
+  //     this.props.fetchAllDataTables();
+  //   }
+  // }
+
   showDataTable(e){
     this.props.history.push(`/data_tables/${e.target.value}`);
   }

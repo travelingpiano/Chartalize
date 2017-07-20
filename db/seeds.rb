@@ -16,3 +16,4 @@ debra = User.create(username: "Debra", password: "smallbutmighty");
 demo_user = User.create(username: "ChartalizeMaster", password: "password");
 
 basketball1 = DataTable.create(title: "Basketball is great", data_type: "text/csv", table: [{points: 30, fouls: 5}, {points: 10, fouls: 10}], user_id: dallas.id);
+soccer1 = DataTable.create(title: "Soccer is great", data_type: "text/csv", table: [{games: 30, goals: 5}, {games: 10, goals: 10}], user_id: demo_user.id);

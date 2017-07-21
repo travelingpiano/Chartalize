@@ -1,5 +1,5 @@
 import React from 'react';
-import {LineChart,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, ScatterChart, Scatter} from 'recharts';
+import {LineChart,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie} from 'recharts';
 
 const origData = [
   {quarter: 1, earnings: 13000},
@@ -36,7 +36,7 @@ class ChartNew extends React.Component {
     this.createLineChart = this.createLineChart.bind(this);
     this.createBarChart = this.createBarChart.bind(this);
     this.createScatterChart = this.createScatterChart.bind(this);
-    this.createPieChart = this.createBarChart.bind(this);
+    this.createPieChart = this.createPieChart.bind(this);
     this.parseData = this.parseData.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.Chart = (<div></div>);
@@ -129,9 +129,11 @@ class ChartNew extends React.Component {
     let data = this.parseData();
     let Chart = (
       <PieChart width={800} height={400}>
-      <Pie isAnimationActive={true} data={data} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
-      <Tooltip/>
-     </PieChart>
+        <Pie isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} data={data} cx={200} cy={200} outerRadius={80} className="PieChart">{
+          	data.map((entry, index) => <Cell className={`PieCell${index%2}`}/>)
+          }</Pie>
+        <Tooltip/>
+      </PieChart>
     );
     this.setState({data,Chart});
   }

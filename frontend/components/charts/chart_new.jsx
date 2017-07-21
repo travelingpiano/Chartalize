@@ -1,11 +1,21 @@
 import React from 'react';
-import {LineChart,Line} from 'recharts';
+import {LineChart,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, ScatterChart, Scatter} from 'recharts';
 
 const origData = [
   {quarter: 1, earnings: 13000},
   {quarter: 2, earnings: 16500},
   {quarter: 3, earnings: 14250},
   {quarter: 4, earnings: 19000}
+];
+
+const rechartsdata = [
+      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
 
 class ChartNew extends React.Component {
@@ -15,15 +25,20 @@ class ChartNew extends React.Component {
       tableIdx: -1,
       xAxis: "",
       yAxis: "",
-      chartDrawn: false,
       data: [],
-      Chart: (<div></div>)
+      Chart: (<div></div>),
+      title: ""
     };
     this.dataTableBar = this.dataTableBar.bind(this);
     this.DataTableChange = this.DataTableChange.bind(this);
     this.xAxisChange = this.xAxisChange.bind(this);
     this.yAxisChange = this.yAxisChange.bind(this);
-    this.createChart = this.createChart.bind(this);
+    this.createLineChart = this.createLineChart.bind(this);
+    this.createBarChart = this.createBarChart.bind(this);
+    this.createScatterChart = this.createScatterChart.bind(this);
+    this.createPieChart = this.createBarChart.bind(this);
+    this.parseData = this.parseData.bind(this);
+    this.changeTitle = this.changeTitle.bind(this);
     this.Chart = (<div></div>);
   }
 
@@ -32,42 +47,93 @@ class ChartNew extends React.Component {
   }
 
   DataTableChange(e){
-    console.log(e.target.value);
     this.setState({tableIdx: e.target.value});
   }
 
   xAxisChange(e){
-    console.log(e.target.value);
     this.setState({xAxis: e.target.value});
   }
 
   yAxisChange(e){
-    console.log(e.target.value);
     this.setState({yAxis: e.target.value});
   }
 
-  createChart(e){
+  changeTitle(e){
+    this.setState({title: e.target.value});
+  }
+
+  parseData(){
     let data = [];
     Object.values(this.props.dataTables[this.state.tableIdx].table).map((tablerow)=>
     {
       let row = {};
       Object.keys(tablerow).map((headings)=>{
         if(headings===this.state.xAxis){
-          row["x"] = parseInt(tablerow[headings]);
+          row[headings] = parseInt(tablerow[headings]);
         }else if(headings===this.state.yAxis){
-          row["y"] = parseInt(tablerow[headings]);
+          row[headings] = parseInt(tablerow[headings]);
         }
 
       });
       data.push(row);
     });
-    console.log(data);
-     this.setState({data: {data}});
-    // this.setState({Chart: (
-    //   <VictoryBar
-    //     data={data} x={this.state.xAxis} y={this.state.yAxis} />
-    // )});
-    console.log(this.Chart);
+    return data;
+  }
+
+  createLineChart(e){
+    let data = this.parseData();
+    let Chart = (
+      <LineChart width={600} height={300} data={data}
+            className="PreviewChart">
+         <XAxis dataKey={this.state.xAxis}/>
+         <YAxis />
+         <Tooltip/>
+         <Legend />
+         <Line type="monotone" dataKey={this.state.yAxis} stroke="#8884d8" activeDot={{r: 8}}/>
+      </LineChart>
+    );
+     this.setState({data, Chart});
+  }
+
+  createBarChart(e){
+    let data = this.parseData();
+    let Chart = (
+      <BarChart width={600} height={300} data={data}
+            className="PreviewChart">
+         <XAxis dataKey={this.state.xAxis}/>
+         <YAxis />
+         <Tooltip/>
+         <Legend />
+         <Bar type="monotone" dataKey={this.state.yAxis} fill="#8884d8"/>
+      </BarChart>
+    );
+     this.setState({data, Chart});
+  }
+
+  createScatterChart(e){
+    let data = this.parseData();
+    let Chart = (
+      <ScatterChart width={600} height={300}
+            className="PreviewChart">
+         <XAxis dataKey={this.state.xAxis}/>
+         <YAxis dataKey={this.state.yAxis}/>
+         <Tooltip/>
+         <Legend />
+         <Scatter type="monotone" data={data} fill="#8884d8"/>
+      </ScatterChart>
+    );
+     this.setState({data, Chart});
+  }
+
+  createPieChart(){
+    let data = this.parseData();
+    let Chart = (
+      <PieChart width={800} height={400}>
+      <Pie isAnimationActive={true} data={data} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
+      <Tooltip/>
+     </PieChart>
+    );
+    this.setState({data,Chart});
   }
 
   dataTableBar(){
@@ -94,7 +160,7 @@ class ChartNew extends React.Component {
       );
     }else{
       display = (
-        <select onChange={this.xAxisChange}>
+        <select onChange={this.xAxisChange} className="Chart-Dropdown">
           <option selected disabled>Choose an X Axis</option>
           {Object.keys(this.props.dataTables[this.state.tableIdx].table[0]).map((heading)=>
           <option key={heading} value={heading}>
@@ -116,8 +182,8 @@ class ChartNew extends React.Component {
       );
     }else{
       display = (
-        <select onChange={this.yAxisChange}>
-          <option selected disabled>Choose an X Axis</option>
+        <select onChange={this.yAxisChange} className="Chart-Dropdown">
+          <option selected disabled>Choose an Y Axis</option>
           {Object.keys(this.props.dataTables[this.state.tableIdx].table[0]).map((heading)=>
           <option key={heading} value={heading}>
             {heading}
@@ -129,63 +195,45 @@ class ChartNew extends React.Component {
   }
 
   render(){
-    console.log(this.props);
     let display;
     if(this.props.dataTables){
       display = (
         <div></div>
       );
     }
-    console.log(this.state.data);
-    console.log(origData==this.state.data);
-
     let newData = [];
-    if(this.state.data.data){
-      console.log(this.state.data.data.slice(0,7));
-      console.log(newData[0]);
-      console.log(typeof this.state.data.data[0]["minutes_remaining"] == 'number');
-      newData = this.state.data.data.slice(0,7);
+    if(this.state.data[0]){
+      newData = this.state.data;
     }
 
     display = (<div></div>);
     if(this.state.data[0]){
       display=(
-        <VictoryLine
-          data={[
-            { x: 1, y: 2 },
-            { x: 2, y: 3 },
-            { x: 3, y: 5 },
-            { x: 4, y: 4 },
-            { x: 5, y: 7 }
-          ]}
-        />
+        <div></div>
       );
     }
-    console.log(display);
-    // console.log(this.state.data[0]["quarter"]===newData[0]["quarter"]);
+
     return(
-      <div>
-        {this.dataTableBar()}
-        {this.xAxisBar()}
-        {this.yAxisBar()}
-        <button onClick={this.createChart}>Create Chart</button>
-        <h1>h</h1>
-          <VictoryBar
-          style={{
-            data: { stroke: "#c43a31" },
-            parent: { border: "1px solid #ccc"}
-          }}
-          data={newData}
-          />
+      <div className="ChartForm">
+        <div className="Chart-Selections">
+          {this.dataTableBar()}
+          <label>X Axis</label>
+          {this.xAxisBar()}
+          <label>Y Axis</label>
+          {this.yAxisBar()}
+          <button onClick={this.createLineChart}>Create Line Chart</button>
+          <button onClick={this.createBarChart}>Create Bar Chart</button>
+          <button onClick={this.createScatterChart}>Create Scatter Chart</button>
+          <button onClick={this.createPieChart}>Create Pie Chart</button>
+        </div>
+        <div className="Chart">
+          <input onChange={this.changeTitle} placeholder="Title"></input>
+          {this.state.Chart}
+        </div>
+
       </div>
     );
   }
 }
-
-// <VictoryChart>
-//   <VictoryBar
-//     data={this.props.state.dataTables.table}
-//     x="games" y="goals" />
-// </VictoryChart>
 
 export default ChartNew;

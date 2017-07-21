@@ -1,0 +1,30 @@
+@import "variables";
+
+.ChartForm{
+  display: flex;
+}
+
+.Chart-Selections{
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  height: calc(100vh-75px);
+  padding: 10px;
+}
+
+.Chart{
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh-75px);
+  width: 60vw;
+  padding: 10px;
+}
+
+.PreviewChart{
+  margin: 10px;
+}
+
+.Chart-Dropdown{
+  width: 80%;
+  align-items: center;
+}

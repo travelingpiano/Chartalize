@@ -43,6 +43,9 @@ class SessionForm extends React.Component {
 
     let user = {};
 
+    let cur_password = this.state.password;
+    let cur_username = this.state.username;
+
     let username = this.demo_user.username;
     const setusername = setInterval(()=>{
       if(this.demo_user.username===""){
@@ -52,11 +55,19 @@ class SessionForm extends React.Component {
             clearInterval(setpassword);
             user = {user:this.state};
             this.props.login(user);
+          }else if(cur_password){
+            this.setState({password: this.demo_user.password[0]});
+            this.demo_user.password = this.demo_user.password.slice(1);
+            cur_password = "";
           }else{
             this.setState({password: this.state.password+this.demo_user.password[0]});
             this.demo_user.password = this.demo_user.password.slice(1);
           }
         },100);
+      }else if(cur_username){
+        cur_username = "";
+        this.setState({username: this.demo_user.username[0]});
+        this.demo_user.username = this.demo_user.username.slice(1);
       }else{
         this.setState({username: this.state.username+this.demo_user.username[0]});
         this.demo_user.username = this.demo_user.username.slice(1);

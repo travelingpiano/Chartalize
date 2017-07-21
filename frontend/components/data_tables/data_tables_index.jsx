@@ -12,12 +12,6 @@ class DataTableIndex extends React.Component{
     this.props.fetchAllDataTables();
   }
 
-  // componentWillReceiveProps(newProps){
-  //   if(this.props != newProps){
-  //     this.props.fetchAllDataTables();
-  //   }
-  // }
-
   showDataTable(e){
     this.props.history.push(`/data_tables/${e.target.value}`);
   }
@@ -29,7 +23,7 @@ class DataTableIndex extends React.Component{
     console.log(this.props);
     if(this.props.dataTables[0]){
       display = (
-        <div className="col-9 DataTables">
+        <div className="DataTables">
           <table className="datatables_table">
             <tbody>
               <tr className="tableshead">
@@ -38,7 +32,7 @@ class DataTableIndex extends React.Component{
                 <td className="th-padding">Delete</td>
               </tr>
               {this.props.dataTables.map((dataTable,idx)=>
-                <DataIndexItem key={idx} dataTable={dataTable} deleteDataTable={this.props.deleteDataTable} idx={idx} />
+                <DataIndexItem key={dataTable.id} dataTable={dataTable} deleteDataTable={this.props.deleteDataTable} idx={idx} />
               )}
             </tbody>
           </table>

@@ -98,9 +98,9 @@ class UploadForm extends React.Component{
     return (
       <div className="dataTables">
         <SideBar currentPage="data_tables_new"/>
-        <form className="col-9 newDataTable" onSubmit={this.handleSubmit}>
-          <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
+        <form className="DataTables" onSubmit={this.handleSubmit}>
           <label className="errors">{this.state.errors}</label>
+          <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
           {this.uploaddata()}
           <input value="Add new data table" type="submit" className="DataTableSubmit"/>
         </form>

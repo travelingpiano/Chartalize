@@ -1,27 +1,26 @@
 @import "variables";
 
-.newDataTable{
-  margin: 30px;
-}
-
 .newDataTableTitle{
+  width: calc(100vw - 350px);
   font-size: 30px;
-  margin: 10px;
+  margin: 10px 40px;
+  border-bottom: 1px solid black;
 }
 
 .dropForm{
-  width: 80%;
+  display: flex;
+  width: 70%;
   height: 70%;
   margin: auto;
-  display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
   border: 3px dashed $light-gray;
   border-radius: 25px;
   cursor: pointer;
   font-size: 30px;
-  font-family: 'Open Sans', sans-serif;
   color: $light-gray;
+  font-family: 'Lato', sans-serif;
 }
 
 .dropForm:hover{
@@ -30,10 +29,12 @@
 
 .DataTableSubmit{
   font-size: 25px;
-  margin: 10px;
+  text-align: center;
   background-color: $dark-blue;
-  padding: 10px;
+  margin: 10px 30px;
+  padding: 10px 10px 20px 10px;
   color: white;
+  border-radius: 15px;
 }
 
 .DataTableSubmit:hover{

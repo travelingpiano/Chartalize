@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 import DataIndexItem from './data_index_item';
 
@@ -55,4 +55,4 @@ class DataTableIndex extends React.Component{
   }
 }
 
-export default DataTableIndex;
+export default withRouter(DataTableIndex);

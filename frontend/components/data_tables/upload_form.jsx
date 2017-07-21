@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 
 class UploadForm extends React.Component{
@@ -109,4 +109,4 @@ class UploadForm extends React.Component{
   }
 }
 
-export default UploadForm;
+export default withRouter(UploadForm);

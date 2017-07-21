@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 
 class DataTableShow extends React.Component{
@@ -47,4 +47,4 @@ class DataTableShow extends React.Component{
   }
 }
 
-export default DataTableShow;
+export default withRouter(DataTableShow);

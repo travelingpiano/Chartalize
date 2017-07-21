@@ -7,5 +7,4 @@ Rails.application.routes.draw do
     resources :data_tables, only: [:create,:show,:index,:destroy]
   end
 
-
 end

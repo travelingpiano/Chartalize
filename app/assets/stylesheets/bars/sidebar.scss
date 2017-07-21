@@ -5,7 +5,7 @@
   background-color: $dark-gray;
   justify-content: space-between;
   height: calc(100vh - 75px);
-  width: 260px;
+  width: 200px;
 }
 
 .sidebar > div{
@@ -15,14 +15,11 @@
 .newtable_button{
   width: 80%;
   display: flex;
-  justify-content: space-around;
+  padding-left: 25px;
   color: white;
-  font-size: 20px;
-  padding-top: 10px;
+  font-size: 15px;
   padding-bottom: 10px;
-  background-color: $dark-blue;
-  text-align: center;
-  margin: auto;
+  text-align: left;
   margin-bottom: 10px;
   border-radius: 15px;
 }
@@ -36,6 +33,8 @@
   width: 100%;
   text-align: center;
   color: white;
-  font-size: 28px;
+  font-size: 20px;
   margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 3px solid $dark-blue;
 }

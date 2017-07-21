@@ -19,7 +19,6 @@ class NavBar extends React.Component {
           <Link to='/data_tables'>
             <h1 className="logo">CHARTALIZE</h1>
           </Link>
-          <h1 className="welcome">Welcome {this.props.currentUser.username}</h1>
           <button onClick={this.logout} className="logout">Log Out</button>
         </div>
 

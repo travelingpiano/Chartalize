@@ -1,5 +1,4 @@
 import React from 'react';
-import {VictoryChart, VictoryBar,VictoryLine} from 'victory';
 import {LineChart,Line} from 'recharts';
 
 const origData = [

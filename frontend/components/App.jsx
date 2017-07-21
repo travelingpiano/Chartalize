@@ -6,7 +6,6 @@ import DataTableIndexContainer from './data_tables/data_tables_index_container';
 import DataTableShowContainer from './data_tables/data_table_show_container';
 import SideBar from './navbar/side_bar.jsx';
 import ChartNewContainer from './charts/chart_new_container';
-import ChartNewTest from './charts/chart_new_test';
 import {Route,Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 

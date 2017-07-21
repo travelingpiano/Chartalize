@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import ChartNew from './chart_new';
-import {fetchAllDataTables} from '../../actions/data_table_actions';
+import {fetchAllDataTables,fetchOneDataTable} from '../../actions/data_table_actions';
 import {selectCurrentUserTables} from '../../reducers/selectors';
 
 const mapStateToProps = ({dataTables,session}) => ({
@@ -8,7 +8,8 @@ const mapStateToProps = ({dataTables,session}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllDataTables: ()=>dispatch(fetchAllDataTables())
+  fetchAllDataTables: ()=>dispatch(fetchAllDataTables()),
+  fetchOneDataTable: id => dispatch(fetchOneDataTable(id))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(ChartNew);

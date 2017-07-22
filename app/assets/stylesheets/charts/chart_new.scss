@@ -30,9 +30,13 @@
 }
 
 .PieCell0{
-  fill: $color-wheel[0];
+  fill: $dark-blue;
 }
 
 .PieCell1{
-  fill: $color-wheel[1];
+  fill: $dark-blue-green;
+}
+
+.YLabel{
+  color: black;
 }

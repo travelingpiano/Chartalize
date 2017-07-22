@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
-
+import Board from './components/reactdnd_tutorial/board';
 //Testing
 import {fetchAllDataTables,fetchOneDataTable,makeDataTable} from './actions/data_table_actions';
 
@@ -19,8 +19,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     delete window.currentUser;
   } else {
     store = configureStore();
+
   }
+  ReactDOM.render(
+    <Board knightPosition={[0,0]} />
+  ,root);
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  ReactDOM.render(<Root store={store}/>,root);
 });
+
+// ReactDOM.render(<Root store={store}/>,root);

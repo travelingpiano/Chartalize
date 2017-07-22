@@ -1,5 +1,5 @@
 import React from 'react';
-import {LineChart,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie} from 'recharts';
+import {LineChart,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, Cell} from 'recharts';
 
 const origData = [
   {quarter: 1, earnings: 13000},
@@ -39,6 +39,7 @@ class ChartNew extends React.Component {
     this.createPieChart = this.createPieChart.bind(this);
     this.parseData = this.parseData.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
+    this.draganddrop = this.draganddrop.bind(this);
     this.Chart = (<div></div>);
   }
 
@@ -60,6 +61,10 @@ class ChartNew extends React.Component {
 
   changeTitle(e){
     this.setState({title: e.target.value});
+  }
+
+  draganddrop(){
+
   }
 
   parseData(){
@@ -112,15 +117,19 @@ class ChartNew extends React.Component {
 
   createScatterChart(e){
     let data = this.parseData();
+    let x = this.state.xAxis;
+    let y = this.state.yAxis;
     let Chart = (
-      <ScatterChart width={600} height={300}
-            className="PreviewChart">
-         <XAxis dataKey={this.state.xAxis}/>
-         <YAxis dataKey={this.state.yAxis}/>
-         <Tooltip/>
-         <Legend />
-         <Scatter type="monotone" data={data} fill="#8884d8"/>
-      </ScatterChart>
+      <div>
+        <ScatterChart width={600} height={300}
+              className="PreviewChart">
+           <XAxis dataKey={x} name={x} label={x}/>
+           <YAxis dataKey={y} name={y} label={y}/>
+           <Tooltip/>
+           <Scatter type="monotone" data={data} fill="#8884d8"/>
+        </ScatterChart>
+      </div>
+
     );
      this.setState({data, Chart});
   }
@@ -227,6 +236,7 @@ class ChartNew extends React.Component {
           <button onClick={this.createBarChart}>Create Bar Chart</button>
           <button onClick={this.createScatterChart}>Create Scatter Chart</button>
           <button onClick={this.createPieChart}>Create Pie Chart</button>
+          {this.draganddrop()}
         </div>
         <div className="Chart">
           <input onChange={this.changeTitle} placeholder="Title"></input>

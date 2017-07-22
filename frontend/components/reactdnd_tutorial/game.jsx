@@ -9,6 +9,7 @@ export function observe(o) {
   if(observer) {
     throw new Error('Multiple observers not implemented');
   }
+  console.log(o);
   observer = o;
   emitChange();
 }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 import Board from './components/reactdnd_tutorial/board';
+import {observe} from './components/reactdnd_tutorial/game';
 //Testing
 import {fetchAllDataTables,fetchOneDataTable,makeDataTable} from './actions/data_table_actions';
 
@@ -21,9 +22,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     store = configureStore();
 
   }
-  ReactDOM.render(
-    <Board knightPosition={[0,0]} />
-  ,root);
+  observe(knightPosition=>ReactDOM.render(
+    <Board knightPosition={knightPosition} />
+  ,root));
   window.getState = store.getState;
   window.dispatch = store.dispatch;
 });

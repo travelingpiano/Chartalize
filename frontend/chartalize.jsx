@@ -4,6 +4,7 @@ import configureStore from './store/store';
 import Root from './components/root';
 import Board from './components/reactdnd_tutorial/board';
 import {observe} from './components/reactdnd_tutorial/game';
+import Container from './components/reactdnd_test/dragdropcontext';
 //Testing
 import {fetchAllDataTables,fetchOneDataTable,makeDataTable} from './actions/data_table_actions';
 
@@ -22,9 +23,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     store = configureStore();
 
   }
-  observe(knightPosition=>ReactDOM.render(
-    <Board knightPosition={knightPosition} />
-  ,root));
+  // observe(knightPosition=>ReactDOM.render(
+  //   <Board knightPosition={knightPosition} />
+  // ,root));
+  ReactDOM.render(<Container headings={["one","two","three","four"]}/>,root);
   window.getState = store.getState;
   window.dispatch = store.dispatch;
 });

@@ -6,11 +6,20 @@ import {ItemTypes} from './constants';
 import {DropTarget} from 'react-dnd';
 
 const squareTarget = {
-  drop(props) {
-    moveKnight(props.x,props.y);
+  drop(props,monitor) {
+    console.log(monitor.getItem());
+    props.onDrop(props.x,props.y);
   },
   canDrop(props){
-    return canMoveKnight(props.x,props.y);
+    return true;
+    // console.log(props.curpos);
+    // if(props.curpos){
+    //   return false;
+    // }else{
+    //   return canMoveKnight(props.x,props.y);
+    // }
+    // console.log('trying to drop');
+    // return canMoveKnight(props.x,props.y);
   }
 };
 

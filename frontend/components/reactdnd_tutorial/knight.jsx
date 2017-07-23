@@ -6,7 +6,8 @@ import { DragSource } from 'react-dnd';
 const knightSource = {
   beginDrag(props){
     console.log(props);
-    return {};
+    let pos = props.pos;
+    return {pos: pos};
   }
 };
 
@@ -26,7 +27,7 @@ class Knight extends React.Component {
     // img.onload = () => this.props.connectDragPreview(img);
   }
   render(){
-    console.log(this.props);
+    console.log(this.props.isDragging);
     const {connectDragSource, isDragging} = this.props;
     return connectDragSource(
       <div style={{

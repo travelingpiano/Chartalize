@@ -26,9 +26,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // observe(knightPosition=>ReactDOM.render(
   //   <Board knightPosition={knightPosition} />
   // ,root));
-  ReactDOM.render(<Container headings={["one","two","three","four"]}/>,root);
+  // ReactDOM.render(<Container headings={["one","two","three","four"]}/>,root);
+  ReactDOM.render(<Root store={store}/>,root);
   window.getState = store.getState;
   window.dispatch = store.dispatch;
 });
-
-// ReactDOM.render(<Root store={store}/>,root);

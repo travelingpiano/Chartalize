@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  title      :string           not null
-#  type       :string           not null
+#  data_type  :string           not null
 #  user_id    :integer          not null
 #  table      :jsonb            not null
 #  created_at :datetime         not null

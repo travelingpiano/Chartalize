@@ -27,6 +27,16 @@ class Api::ChartsController < ApplicationController
     render :show
   end
 
+  def update
+    @chart = Chart.find(params[:id])
+    if @chart.update_attributes(chart_params)
+      render :show
+    else
+      errors = ['Edit Failed']
+      render json: errors, status: 400
+    end
+  end
+
   private
   def chart_params
     params.require(:chart).permit!

@@ -9,6 +9,7 @@ class SideBar extends React.Component{
     this.handleDataTables = this.handleDataTables.bind(this);
     this.handleNewChart = this.handleNewChart.bind(this);
     this.handleCharts = this.handleCharts.bind(this);
+    this.handleShareChart = this.handleShareChart.bind(this);
   }
 
   handleNew(e){
@@ -25,6 +26,10 @@ class SideBar extends React.Component{
 
   handleCharts(e){
     this.props.history.push('/charts');
+  }
+
+  handleShareChart(e){
+    this.props.history.push(`${this.props.location.pathname}/share`);
   }
 
   render(){
@@ -65,6 +70,16 @@ class SideBar extends React.Component{
         <div>
           <h1 className="DataTablesTitle">Chart</h1>
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleShareChart} className="newtable_button">Share Chart</button>
+        </div>
+      );
+    }else if(this.props.currentPage==="chart_share"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Share Chart</h1>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
         </div>
       );
     }

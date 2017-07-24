@@ -25,7 +25,6 @@ const chartData = {
 
 class Homepage extends React.Component{
   render(){
-    console.log(chartData);
     return (
       <div className="Homepage">
         <div className="Homepage-main">

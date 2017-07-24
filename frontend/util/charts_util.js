@@ -26,3 +26,11 @@ export const deleteChart = id => (
     url: `api/charts/${id}`
   })
 );
+
+export const editChart = (chart,id) => (
+  $.ajax({
+    method: 'PATCH',
+    url: `api/charts/${id}`,
+    data: chart
+  })
+);

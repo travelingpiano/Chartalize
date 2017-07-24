@@ -1,4 +1,4 @@
-import {RECEIVE_CHARTS, RECEIVE_CHART, REMOVE_CHART, CREATE_CHART} from '../actions/charts_actions';
+import {RECEIVE_CHARTS, RECEIVE_CHART, REMOVE_CHART, CREATE_CHART, UPDATE_CHART} from '../actions/charts_actions';
 import {merge} from 'lodash';
 
 const ChartReducer = (state={},action) => {
@@ -12,6 +12,10 @@ const ChartReducer = (state={},action) => {
       delete newState[action.chart.id];
       return newState;
     case CREATE_CHART:
+      newState = merge({},state);
+      newState[action.chart.id] = action.chart;
+      return newState;
+    case UPDATE_CHART:
       newState = merge({},state);
       newState[action.chart.id] = action.chart;
       return newState;

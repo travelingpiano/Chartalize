@@ -1,0 +1,60 @@
+@import 'variables';
+
+.searchInput{
+  width: 75%;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  padding: 5px;
+  border: none;
+  border-bottom: solid black 1px;
+}
+
+.searchButton{
+  height: 30px;
+  width: 15%;
+  margin: 20px;
+  margin-bottom: 0px;
+  text-align: center;
+  padding: 5px;
+  background-color: $dark-blue;
+  color: white;
+}
+
+.searchButton:hover{
+  color: $light-gray;
+}
+
+.searchBar{
+  display: flex;
+  justify-content: center;
+}
+
+.shared-users{
+  width: 100%;
+  display: flex;
+}
+
+.shared-list{
+  width: 75%;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shared-title{
+  padding-bottom: 10px;
+  font-size: 25px;
+}
+
+.users-list{
+  margin-top: 10px;
+  border: 3px solid $light-gray;
+  border-radius: 5px;
+}
+
+.users-item{
+  display: flex;
+  justify-content: space-around;
+}

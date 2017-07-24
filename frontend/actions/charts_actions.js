@@ -4,6 +4,7 @@ export const CREATE_CHART = "CREATE_CHART";
 export const RECEIVE_CHARTS = "RECEIVE_CHARTS";
 export const RECEIVE_CHART = "RECEIVE_CHART";
 export const REMOVE_CHART = "REMOVE_CHART";
+export const UPDATE_CHART = "UPDATE_CHART";
 
 export const receiveCharts = charts => ({
   type: RECEIVE_CHARTS,
@@ -22,6 +23,11 @@ export const createChart = chart => ({
 
 export const removeChart = chart => ({
   type: REMOVE_CHART,
+  chart
+});
+
+export const updateChart = chart => ({
+  type: UPDATE_CHART,
   chart
 });
 
@@ -46,5 +52,11 @@ export const deleteChart = id => dispatch => (
 export const makeChart = chart => dispatch => (
   ChartUtil.makeChart(chart).then(
     newChart => dispatch(createChart(newChart))
+  )
+);
+
+export const editChart = (chart,id) => dispatch => (
+  ChartUtil.editChart(chart,id).then(
+    newChart => dispatch(updateChart(newChart))
   )
 );

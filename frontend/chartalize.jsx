@@ -4,11 +4,9 @@ import configureStore from './store/store';
 import Root from './components/root';
 import Container from './components/reactdnd_test/dragdropcontext';
 //Testing
-import {fetchAllCharts,fetchOneChart,makeChart} from './actions/charts_actions';
+import {editChart} from './actions/charts_actions';
 
-window.fetchOneChart = fetchOneChart;
-window.fetchAllCharts = fetchAllCharts;
-window.makeChart = makeChart;
+window.editChart = editChart;
 
 document.addEventListener('DOMContentLoaded', ()=>{
   const root = document.getElementById('root');
@@ -21,10 +19,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     store = configureStore();
 
   }
-  // observe(knightPosition=>ReactDOM.render(
-  //   <Board knightPosition={knightPosition} />
-  // ,root));
-  // ReactDOM.render(<Container headings={["one","two","three","four"]}/>,root);
   ReactDOM.render(<Root store={store}/>,root);
   window.getState = store.getState;
   window.dispatch = store.dispatch;

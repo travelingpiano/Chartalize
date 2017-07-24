@@ -12,6 +12,7 @@
 #  user_id       :integer          not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  shared_users  :string           default([]), is an Array
 #
 
 require 'test_helper'

@@ -8,6 +8,7 @@ import SideBar from './navbar/side_bar.jsx';
 import ChartNewContainer from './charts/chart_new_container';
 import ChartsIndexContainer from './charts/charts_index_container';
 import ChartShowContainer from './charts/chart_show_container';
+import Homepage from './homepage/homepage';
 import {Route,Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
@@ -23,6 +24,7 @@ const App = () => (
       <ProtectedRoute exact path='/charts/new' component={ChartNewContainer} />
       <ProtectedRoute path='/charts/:chartId' component={ChartShowContainer} />
       <ProtectedRoute path='/charts' component={ChartsIndexContainer} />
+      <AuthRoute path='/' component={Homepage} />
     </Switch>
 
 

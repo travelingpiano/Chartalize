@@ -1,0 +1,76 @@
+@import 'variables';
+
+.Homepage-main{
+  display: flex;
+  height: calc(100vh - 120px);
+  width: 100vw;
+  background-color: $light-gray;
+}
+
+.Homepage-description{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 100%;
+  text-align: center;
+  margin: 10px;
+  margin-top: 0px;
+  justify-content: center;
+}
+
+.homepage-text{
+  font-size: 35px;
+}
+
+.homepage-button{
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  background-color: $dark-blue;
+  color: white;
+  width: 70%;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.homepage-chart-title{
+  font-size: 25px;
+  text-align: center;
+}
+
+.homepage-chart{
+  text-align: center;
+  width: calc(100vw - 350px);
+  height: 90%;
+  margin-right: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.Homepage-footer{
+  display: flex;
+  justify-content: space-between;
+  background-color: $dark-blue;
+}
+
+.creatorLine{
+  margin: 10px;
+  color: white;
+}
+
+.creatorLinks{
+}
+
+.creatorLinks > a{
+  padding: 0px 10px;
+}
+
+.creatorLinks > a > .fa{
+  color: white;
+  font-size: 25px;
+}
+
+.creatorLinks > a > i{
+  color: $light-gray;
+}

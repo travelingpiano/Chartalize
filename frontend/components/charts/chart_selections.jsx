@@ -4,6 +4,13 @@ import {DragSource} from 'react-dnd';
 const selectionsSource = {
   beginDrag(props){
     return {};
+  },
+
+  endDrag(props,monitor){
+    if(monitor.getDropResult()){
+      let axisName = monitor.getDropResult().axisName;
+      props.changeSelection(props.heading,axisName);
+    }
   }
 };
 
@@ -18,7 +25,7 @@ class Selections extends React.Component{
   render(){
     const {connectDragSource, isDragging, heading} = this.props;
     return connectDragSource(
-      <div style={{width: 'inherit', height: 'inherit', color: 'white'}}>
+      <div className="AxisSelection">
         {heading}
       </div>
     );

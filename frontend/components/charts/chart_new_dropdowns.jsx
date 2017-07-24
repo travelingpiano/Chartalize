@@ -64,10 +64,6 @@ class ChartNewDropdown extends React.Component {
     this.setState({title: e.target.value});
   }
 
-  draganddrop(){
-
-  }
-
   parseData(){
     let data = [];
     Object.values(this.props.dataTables[this.state.tableIdx].table).map((tablerow)=>

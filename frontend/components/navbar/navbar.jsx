@@ -5,6 +5,16 @@ class NavBar extends React.Component {
   constructor(props){
     super(props);
     this.logout = this.logout.bind(this);
+    this.handleCharts = this.handleCharts.bind(this);
+    this.handleDataTables = this.handleDataTables.bind(this);
+  }
+
+  handleCharts(e){
+    this.props.history.push('/charts');
+  }
+
+  handleDataTables(e){
+    this.props.history.push('/data_tables');
   }
 
   logout(e){
@@ -19,7 +29,11 @@ class NavBar extends React.Component {
           <Link to='/data_tables'>
             <h1 className="logo">CHARTALIZE</h1>
           </Link>
-          <button onClick={this.logout} className="logout">Log Out</button>
+          <div className="signin-login">
+            <button onClick={this.handleCharts} className="login">Charts</button>
+            <button onClick={this.handleDataTables} className="login">Data Tables</button>
+            <button onClick={this.logout} className="logout">Log Out</button>
+          </div>
         </div>
 
       );

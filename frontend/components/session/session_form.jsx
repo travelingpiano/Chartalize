@@ -91,7 +91,7 @@ class SessionForm extends React.Component {
     }
     if(this.props.loggedIn){
       return (
-        <Redirect to='/' />
+        <Redirect to='/data_tables' />
       );
     }else{
       return (

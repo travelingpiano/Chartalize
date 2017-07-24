@@ -8,6 +8,7 @@ class SideBar extends React.Component{
     this.handleNew = this.handleNew.bind(this);
     this.handleDataTables = this.handleDataTables.bind(this);
     this.handleNewChart = this.handleNewChart.bind(this);
+    this.handleCharts = this.handleCharts.bind(this);
   }
 
   handleNew(e){
@@ -22,6 +23,10 @@ class SideBar extends React.Component{
     this.props.history.push('/charts/new');
   }
 
+  handleCharts(e){
+    this.props.history.push('/charts');
+  }
+
   render(){
     let display;
     if(this.props.currentPage === "data_tables_index"){
@@ -29,6 +34,7 @@ class SideBar extends React.Component{
         <div>
           <h1 className="DataTablesTitle">Your Data Tables</h1>
           <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
         </div>
       );
     }else if(this.props.currentPage === "data_tables_new"){
@@ -36,6 +42,7 @@ class SideBar extends React.Component{
         <div>
           <h1 className="DataTablesTitle">Add Data Table</h1>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="data_tables_show"){
@@ -50,6 +57,14 @@ class SideBar extends React.Component{
         <div>
           <h1 className="DataTablesTitle">Your Charts</h1>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
+        </div>
+      );
+    }else if(this.props.currentPage==="chart_show"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Chart</h1>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
         </div>
       );
     }

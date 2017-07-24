@@ -15,6 +15,7 @@ class ChartNew extends React.Component{
       tableIdx: 0,
       Chart: (<div></div>)
     };
+    this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
     this.changeDataTable = this.changeDataTable.bind(this);
     this.parseData = this.parseData.bind(this);
@@ -28,6 +29,10 @@ class ChartNew extends React.Component{
 
   componentDidMount(){
     this.props.fetchAllDataTables();
+  }
+
+  changeTitle(e){
+    this.setState({title: e.target.value});
   }
 
   dataTableSelection(){
@@ -94,7 +99,7 @@ class ChartNew extends React.Component{
              <YAxis dataKey={y} name={y} />
              <Tooltip/>
              <Legend />
-             <Line isAnimationActive={true} type="monotone" dataKey={this.state.yAxis} stroke="#253A5C" activeDot={{r: 8}}/>
+             <Line isAnimationActive={true} type="monotone" dataKey={y} stroke="#253A5C" activeDot={{r: 8}}/>
           </LineChart>
         </ResponsiveContainer>
       );
@@ -188,7 +193,11 @@ class ChartNew extends React.Component{
 
 
   submitChart(e){
-
+    let chart = {};
+    chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
+    this.props.makeChart(chart).then(
+      this.props.history.push('/charts')
+    );
   }
 
   render(){
@@ -230,7 +239,7 @@ class ChartNew extends React.Component{
 
         <div className="ChartCanvas">
           <div className="Title-Submit">
-            <input onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
+            <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
             <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>
           </div>
           {this.state.Chart}

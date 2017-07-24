@@ -42,3 +42,9 @@ export const deleteChart = id => dispatch => (
     chart => dispatch(removeChart(chart))
   )
 );
+
+export const makeChart = chart => dispatch => (
+  ChartUtil.makeChart(chart).then(
+    newChart => dispatch(createChart(newChart))
+  )
+);

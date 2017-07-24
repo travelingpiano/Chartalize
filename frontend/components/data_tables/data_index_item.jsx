@@ -16,7 +16,6 @@ class DataIndexItem extends React.Component{
 
   deleteDataTable(e){
     e.preventDefault();
-    console.log(e.target.value);
     this.props.deleteDataTable(this.dataTable.id);
   }
 

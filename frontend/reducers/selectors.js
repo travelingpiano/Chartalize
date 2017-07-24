@@ -10,3 +10,13 @@ export const selectCurrentUserTables = (dataTables,currentUser) => {
   }
   return currentUserDataTables;
 };
+
+export const selectCurrentUserCharts = (charts,currentUser) => {
+  let currentUserCharts = [];
+  for(let key in charts){
+    if(charts[key].user_id === currentUser.id){
+      currentUserCharts.push(charts[key]);
+    }
+  }
+  return currentUserCharts;
+};

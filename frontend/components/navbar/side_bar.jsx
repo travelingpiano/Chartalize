@@ -45,6 +45,13 @@ class SideBar extends React.Component{
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
         </div>
       );
+    }else if(this.props.currentPage==="charts_index"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Your Charts</h1>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+        </div>
+      );
     }
     return (<div className="sidebar">
       <div>

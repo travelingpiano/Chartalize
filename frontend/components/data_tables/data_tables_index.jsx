@@ -36,9 +36,6 @@ class DataTableIndex extends React.Component{
               )}
             </tbody>
           </table>
-          <ul>
-
-          </ul>
         </div>
       );
     }else{

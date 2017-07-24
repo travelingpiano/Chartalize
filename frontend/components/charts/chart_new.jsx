@@ -92,7 +92,7 @@ class ChartNew extends React.Component{
       let y = this.state.yAxis;
       let data = this.parseData();
       let Chart = (
-        <ResponsiveContainer width="100%" height="80%" >
+        <ResponsiveContainer width="90%" height="90%" >
           <LineChart data={data}
                 className="PreviewChart">
              <XAxis dataKey={x} name={x} label={x}/>
@@ -114,7 +114,7 @@ class ChartNew extends React.Component{
       let y = this.state.yAxis;
       let data = this.parseData();
       let Chart = (
-        <ResponsiveContainer width="100%" height="80%" >
+        <ResponsiveContainer width="90%" height="80%" >
 
           <ScatterChart
                 className="PreviewChart">
@@ -136,7 +136,7 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let Chart = (
-        <ResponsiveContainer width="100%" height="80%">
+        <ResponsiveContainer width="90%" height="80%">
           <BarChart data={data}
                 className="PreviewChart">
              <XAxis dataKey={x} name={x} label={x}/>
@@ -158,7 +158,7 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let Chart = (
-        <ResponsiveContainer width="100%" height="80%">
+        <ResponsiveContainer width="90%" height="80%">
           <PieChart className="PreviewChart">
             <Pie isAnimationActive={true} nameKey={x} dataKey={y} data={data} className="PieChart">{
                 data.map((entry, index) => <Cell className={`PieCell${index%2}`}/>)
@@ -178,7 +178,7 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let Chart = (
-        <ResponsiveContainer width="100%" height="80%">
+        <ResponsiveContainer width="90%" height="80%">
           <AreaChart data={data} className="PreviewChart">
             <XAxis dataKey={x} name={x} label={x}/>
             <YAxis dataKey={y} name={y} />

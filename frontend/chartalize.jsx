@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
-import Board from './components/reactdnd_tutorial/board';
-import {observe} from './components/reactdnd_tutorial/game';
 import Container from './components/reactdnd_test/dragdropcontext';
 //Testing
-import {fetchAllDataTables,fetchOneDataTable,makeDataTable} from './actions/data_table_actions';
+import {fetchAllCharts,fetchOneChart,makeChart} from './actions/charts_actions';
 
-window.fetchOneDataTable = fetchOneDataTable;
-window.fetchAllDataTables = fetchAllDataTables;
-window.makeDataTable = makeDataTable;
+window.fetchOneChart = fetchOneChart;
+window.fetchAllCharts = fetchAllCharts;
+window.makeChart = makeChart;
 
 document.addEventListener('DOMContentLoaded', ()=>{
   const root = document.getElementById('root');

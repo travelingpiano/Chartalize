@@ -1,4 +1,4 @@
-export const createChart = chart => (
+export const makeChart = chart => (
   $.ajax({
     method: 'POST',
     url: 'api/charts',

@@ -11,6 +11,7 @@ class Api::ChartsController < ApplicationController
 
   def index
     @charts = Chart.all
+    puts @charts
     render :index
   end
 
@@ -24,7 +25,7 @@ class Api::ChartsController < ApplicationController
     @chart.destroy
     render :show
   end
-  
+
   private
   def chart_params
     params.require(:chart).permit!

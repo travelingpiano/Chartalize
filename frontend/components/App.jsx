@@ -9,8 +9,6 @@ import ChartNewContainer from './charts/chart_new_container';
 import {Route,Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
-let black = 'black';
-
 const App = () => (
   <div>
     < NavBarContainer />

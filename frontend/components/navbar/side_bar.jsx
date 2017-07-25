@@ -10,6 +10,7 @@ class SideBar extends React.Component{
     this.handleNewChart = this.handleNewChart.bind(this);
     this.handleCharts = this.handleCharts.bind(this);
     this.handleShareChart = this.handleShareChart.bind(this);
+    this.handleSharedCharts = this.handleSharedCharts.bind(this);
   }
 
   handleNew(e){
@@ -32,6 +33,10 @@ class SideBar extends React.Component{
     this.props.history.push(`${this.props.location.pathname}/share`);
   }
 
+  handleSharedCharts(e){
+    this.props.history.push('/charts/shared');
+  }
+
   render(){
     let display;
     if(this.props.currentPage === "data_tables_index"){
@@ -40,6 +45,7 @@ class SideBar extends React.Component{
           <h1 className="DataTablesTitle">Your Data Tables</h1>
           <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage === "data_tables_new"){
@@ -48,6 +54,7 @@ class SideBar extends React.Component{
           <h1 className="DataTablesTitle">Add Data Table</h1>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="data_tables_show"){
@@ -55,6 +62,7 @@ class SideBar extends React.Component{
         <div>
           <h1 className="DataTablesTitle">Data Table</h1>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="charts_index"){
@@ -63,6 +71,7 @@ class SideBar extends React.Component{
           <h1 className="DataTablesTitle">Your Charts</h1>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
           <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="chart_show"){
@@ -72,12 +81,22 @@ class SideBar extends React.Component{
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
           <button onClick={this.handleShareChart} className="newtable_button">Share Chart</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="chart_share"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Share Chart</h1>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
+        </div>
+      );
+    }else if(this.props.currentPage==="shared_charts"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Shared Charts</h1>
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
         </div>

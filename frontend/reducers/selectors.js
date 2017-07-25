@@ -20,3 +20,13 @@ export const selectCurrentUserCharts = (charts,currentUser) => {
   }
   return currentUserCharts;
 };
+
+export const selectSharedCharts = (charts,currentUser) => {
+  let sharedCharts = [];
+  for(let key in charts){
+    if(charts[key].shared_users.indexOf(currentUser.username) != -1){
+      sharedCharts.push(charts[key]);
+    }
+  }
+  return sharedCharts;
+};

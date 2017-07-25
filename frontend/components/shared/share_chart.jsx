@@ -50,13 +50,10 @@ class ShareChart extends React.Component {
   shareChart(e){
     let chart = {};
     chart.chart = {};
-    chart.chart.shared_users = [];
-    for(let i = 0; i<this.props.users.length; i++){
-      if(this.props.users[i].username){
-        chart.chart.shared_users.push(this.props.users[i].id);
-      }
-    }
-    this.props.editChart(chart, this.props.match.params.chartId);
+    chart.chart.shared_users = this.state.sharedUsers;
+    this.props.editChart(chart, this.props.match.params.chartId).then(
+      this.props.history.push('/charts')
+    );
   }
 
   render(){

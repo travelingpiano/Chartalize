@@ -34,9 +34,7 @@ class ChartIndexItem extends React.Component{
             <button  value={this.chart.id} onClick={this.deleteChart} className="td-button">
               <i  className="fa fa-trash-o" aria-hidden="true"></i>
             </button>
-
         </td>
-
       </tr>
     );
   }

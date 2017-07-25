@@ -27,10 +27,12 @@ export const deleteChart = id => (
   })
 );
 
-export const editChart = (chart,id) => (
-  $.ajax({
-    method: 'PATCH',
-    url: `api/charts/${id}`,
-    data: chart
-  })
-);
+export const editChart = (chart,id) => {
+  return(
+    $.ajax({
+      method: 'PATCH',
+      url: `api/charts/${id}`,
+      data: chart
+    })
+  );
+};

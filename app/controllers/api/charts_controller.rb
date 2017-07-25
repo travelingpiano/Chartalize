@@ -29,7 +29,10 @@ class Api::ChartsController < ApplicationController
 
   def update
     @chart = Chart.find(params[:id])
-    if @chart.update_attributes(chart_params)
+    if params[:chart] == nil
+      @chart.update_attribute("shared_users",[])
+      render :show
+    elsif @chart.update_attributes(chart_params)
       render :show
     else
       errors = ['Edit Failed']

@@ -65,8 +65,10 @@ class UploadForm extends React.Component{
 
   onDrop(files){
     const file = files[0]; //only accept one file currently
-    if(file.size > 10000){
-      this.setState({errors: "File is too big. Only accepting 10kB or smaller"});
+    if(file.size > 15000){
+      let errors = this.state.errors;
+      errors = ["File is too big. Only accepting 10kB or smaller"];
+      this.setState({errors});
     }else{
       this.fileReader.onload = e =>{
         this.parseFile(e.target.result,files[0].type);

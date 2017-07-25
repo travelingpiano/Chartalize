@@ -50,7 +50,7 @@ class ChartNew extends React.Component{
         </select>
       );
     }else{
-      display = (<div></div>);
+      display = (<label className="empty-dropdown">No Tables Available</label>);
     }
     return display;
   }

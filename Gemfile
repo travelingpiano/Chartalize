@@ -52,6 +52,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'
+  gem 'guard-livereload', '~> 2.5', require: false
+  gem 'rack-livereload'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

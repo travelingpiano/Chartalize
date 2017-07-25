@@ -39,7 +39,10 @@ class DataTableIndex extends React.Component{
       );
     }else{
       display = (
-        <div></div>
+        <div className="DataTables">
+          <label className="tableTitle">No Data Tables Yet</label>
+          <Link className="import-table" to='/data_tables/new'>Let's Import One?</Link>
+        </div>
       );
     }
     return (

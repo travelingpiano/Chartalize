@@ -1,5 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router';
+import {Link} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 import ChartIndexItem from './chart_index_item';
 
@@ -16,7 +17,10 @@ class ChartsIndex extends React.Component{
     let display;
     if(this.props.charts.length === 0){
       display = (
-        <div></div>
+        <div className="DataTables">
+          <label className="tableTitle">No Charts Yet</label>
+          <Link className="import-table" to='/charts/new'>Let's Make One?</Link>
+        </div>
       );
     }else{
       display = (

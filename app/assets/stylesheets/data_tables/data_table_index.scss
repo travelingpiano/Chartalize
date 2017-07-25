@@ -27,6 +27,19 @@
   white-space: nowrap;
 }
 
+.import-table{
+  background-color: $dark-blue;
+  color: white;
+  margin: auto;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.import-table:hover{
+  color: $light-gray;
+}
+
 .tableshead{
   background-color: $dark-blue;
   font-weight: bold;

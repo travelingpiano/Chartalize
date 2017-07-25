@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import {Link, withRouter} from 'react-router-dom';
+import {values} from 'lodash';
 import SideBar from '../navbar/side_bar';
 
 class UploadForm extends React.Component{
@@ -50,16 +51,19 @@ class UploadForm extends React.Component{
         table.push(rowData);
       }
     }
-    console.log(table);
-    this.setState({table, data_type});
+    this.setState({table, data_type, errors: ""});
   }
 
   onDrop(files){
     const file = files[0]; //only accept one file currently
-    this.fileReader.onload = e =>{
-      this.parseFile(e.target.result,files[0].type);
-    };
-    this.fileReader.readAsText(files[0]);
+    if(file.size > 10000){
+      this.setState({errors: "File is too big. Only accepting 10kB or smaller"});
+    }else{
+      this.fileReader.onload = e =>{
+        this.parseFile(e.target.result,files[0].type);
+      };
+      this.fileReader.readAsText(files[0]);
+    }
   }
 
   uploaddata(){
@@ -82,6 +86,12 @@ class UploadForm extends React.Component{
     event.preventDefault();
     if(this.state.title === "" || !this.state.table === [] || this.state.data_type === ""){
       this.setState({errors: "Incomplete table detected"});
+      //check for missing headings
+    }else if(Object.keys(this.state.table[0]).includes("")){
+      this.setState({errors: "Empty heading values detected. Check uploaded file"});
+      //check for numeric headings
+    }else if(!Object.keys(this.state.table[0]).every(isNaN)){
+      this.setState({errors: "Some headings are numbers. Check uploaded file"});
     }else{
       let data_table = {};
       data_table.data_table = {};

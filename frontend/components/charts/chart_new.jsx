@@ -98,7 +98,7 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       if(data){
         let Chart = (
-          <ResponsiveContainer width="90%" height="90%" >
+          <ResponsiveContainer width="90%" height="80%" >
             <LineChart data={data}
                   className="PreviewChart">
                <XAxis dataKey={x} name={x} label={x}/>
@@ -219,7 +219,7 @@ class ChartNew extends React.Component{
 
   submitChart(e){
     let chart = {};
-    if(this.state.title && this.state.chart){
+    if(this.state.title && this.state.Chart){
       chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
       this.props.makeChart(chart).then(
         this.props.history.push('/charts')

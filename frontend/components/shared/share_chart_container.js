@@ -3,9 +3,10 @@ import {editChart, fetchOneChart} from '../../actions/charts_actions';
 import {fetchAllUsers} from '../../actions/users_actions';
 import ShareChart from './share_chart';
 import {values} from 'lodash';
+import {filterUser} from '../../reducers/selectors';
 
 const mapStateToProps = state => ({
-  users: values(state.users),
+  users: filterUser(state.users,state.session.currentUser),
   chart: state.charts
 });
 

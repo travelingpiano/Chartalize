@@ -30,3 +30,13 @@ export const selectSharedCharts = (charts,currentUser) => {
   }
   return sharedCharts;
 };
+
+export const filterUser = (users,currentUser) => {
+  let filteredUsers = [];
+  for(let key in users){
+    if(users[key].username != currentUser.username){
+      filteredUsers.push(users[key]);
+    }
+  }
+  return filteredUsers;
+};

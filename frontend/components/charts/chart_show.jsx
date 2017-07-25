@@ -77,7 +77,7 @@ class ChartShow extends React.Component{
   }
 
   formBarChart(chartObj){
-    let data = this.parseData(chartObj.data);
+    let data = this.parseData(chartObj);
     let x = chartObj.xAxis;
     let y = chartObj.yAxis;
     return (
@@ -95,7 +95,7 @@ class ChartShow extends React.Component{
   }
 
   formScatterPlot(chartObj){
-    let data = this.parseData(chartObj.data);
+    let data = this.parseData(chartObj);
     let x = chartObj.xAxis;
     let y = chartObj.yAxis;
     return (
@@ -113,7 +113,7 @@ class ChartShow extends React.Component{
   }
 
   formPieChart(chartObj){
-    let data = this.parseData(chartObj.data);
+    let data = this.parseData(chartObj);
     let x = chartObj.xAxis;
     let y = chartObj.yAxis;
     return (
@@ -129,7 +129,7 @@ class ChartShow extends React.Component{
   }
 
   formAreaChart(chartObj){
-    let data = this.parseData(chartObj.data);
+    let data = this.parseData(chartObj);
     let x = chartObj.xAxis;
     let y = chartObj.yAxis;
     return (

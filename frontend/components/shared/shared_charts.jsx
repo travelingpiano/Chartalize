@@ -23,7 +23,7 @@ class SharedCharts extends React.Component{
   }
 
   showChart(e){
-    this.props.history.push(`/charts/${e.target.value}`);
+    this.props.history.push(`/charts/shared/${e.target.value}`);
   }
 
   render(){
@@ -60,7 +60,6 @@ class SharedCharts extends React.Component{
         </div>
       );
     }
-    console.log(this.props);
     return (
       <div className="dataTables">
         <SideBar currentPage="shared_charts" />

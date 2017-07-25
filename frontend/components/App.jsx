@@ -11,6 +11,7 @@ import ChartShowContainer from './charts/chart_show_container';
 import Homepage from './homepage/homepage';
 import ShareChartContainer from './shared/share_chart_container';
 import SharedChartsContainer from './shared/shared_charts_container';
+import SharedChartShowContainer from './shared/shared_chart_show_container';
 import {Route,Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
@@ -20,6 +21,7 @@ const App = () => (
     <Switch>
       <AuthRoute path='/login' component={SessionFormContainer} />
       <AuthRoute path='/signup' component={SessionFormContainer} />
+      <ProtectedRoute path='/charts/shared/:chartId' component={SharedChartShowContainer} />
       <ProtectedRoute path='/charts/shared' component={SharedChartsContainer} />
       <ProtectedRoute path='/charts/:chartId/share' component={ShareChartContainer} />
       <ProtectedRoute exact path='/data_tables/new' component={UploadFormContainer} />

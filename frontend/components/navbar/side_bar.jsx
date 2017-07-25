@@ -78,9 +78,9 @@ class SideBar extends React.Component{
       display = (
         <div>
           <h1 className="DataTablesTitle">Chart</h1>
+          <button onClick={this.handleShareChart} className="newtable_button">Share Chart</button>
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleShareChart} className="newtable_button">Share Chart</button>
           <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
@@ -99,6 +99,15 @@ class SideBar extends React.Component{
           <h1 className="DataTablesTitle">Shared Charts</h1>
           <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
           <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+        </div>
+      );
+    }else if(this.props.currentPage==="shared_chart_show"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Shared Chart</h1>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }

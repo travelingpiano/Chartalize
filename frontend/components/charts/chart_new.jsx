@@ -1,3 +1,4 @@
+//drag and drop implementation of creating new chart, also current implementation on site
 import React from 'react';
 import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
@@ -13,7 +14,8 @@ class ChartNew extends React.Component{
       data: [],
       headings: [],
       tableIdx: 0,
-      Chart: (<div></div>)
+      Chart: (<div></div>),
+      errors: ""
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
@@ -32,14 +34,14 @@ class ChartNew extends React.Component{
   }
 
   changeTitle(e){
-    this.setState({title: e.target.value});
+    this.setState({title: e.target.value, errors: ""});
   }
 
   dataTableSelection(){
     let display;
     if(this.props.dataTables[0]){
       display = (
-        <select onChange={this.changeDataTable}>
+        <select onChange={this.changeDataTable} className="Dropdown">
           <option selected disabled>Choose a DataTable</option>
           {this.props.dataTables.map((dataTable,idx)=>
           <option value={idx} key={idx}>
@@ -74,10 +76,13 @@ class ChartNew extends React.Component{
       let rowData = {};
       for(let selector in currentTable[key]){
         if(selector===this.state.xAxis){
-          rowData[this.state.xAxis] = Number(currentTable[key][selector]);
+          rowData[this.state.xAxis] = currentTable[key][selector];
         }
         if(selector===this.state.yAxis){
           rowData[this.state.yAxis] = Number(currentTable[key][selector]);
+          if(isNaN(rowData[this.state.yAxis])){
+            return undefined;
+          }
         }
       }
       data.push(rowData);
@@ -91,19 +96,23 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let data = this.parseData();
-      let Chart = (
-        <ResponsiveContainer width="90%" height="90%" >
-          <LineChart data={data}
-                className="PreviewChart">
-             <XAxis dataKey={x} name={x} label={x}/>
-             <YAxis dataKey={y} name={y} />
-             <Tooltip/>
-             <Legend />
-             <Line isAnimationActive={true} type="monotone" dataKey={y} stroke="#253A5C" activeDot={{r: 8}}/>
-          </LineChart>
-        </ResponsiveContainer>
-      );
-       this.setState({data, Chart, type});
+      if(data){
+        let Chart = (
+          <ResponsiveContainer width="90%" height="90%" >
+            <LineChart data={data}
+                  className="PreviewChart">
+               <XAxis dataKey={x} name={x} label={x}/>
+               <YAxis dataKey={y} name={y} />
+               <Tooltip/>
+               <Legend />
+               <Line isAnimationActive={true} type="monotone" dataKey={y} stroke="#253A5C" activeDot={{r: 8}}/>
+            </LineChart>
+          </ResponsiveContainer>
+        );
+         this.setState({data, Chart, type});
+      }else{
+        this.setState({errors: "Y Axis must be numerical values"});
+      }
     }
   }
 
@@ -113,19 +122,23 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let data = this.parseData();
-      let Chart = (
-        <ResponsiveContainer width="90%" height="80%" >
+      if(data){
+        let Chart = (
+          <ResponsiveContainer width="90%" height="80%" >
 
-          <ScatterChart
-                className="PreviewChart">
-              <XAxis dataKey={x} name={x} label={x}/>
-              <YAxis dataKey={y} name={y} />
-              <Tooltip/>
-              <Scatter type="monotone" data={data} className="Chart"/>
-          </ScatterChart>
-        </ResponsiveContainer>
-      );
-       this.setState({data, Chart, type});
+            <ScatterChart
+                  className="PreviewChart">
+                <XAxis dataKey={x} name={x} label={x}/>
+                <YAxis dataKey={y} name={y} />
+                <Tooltip/>
+                <Scatter type="monotone" data={data} className="Chart"/>
+            </ScatterChart>
+          </ResponsiveContainer>
+        );
+         this.setState({data, Chart, type});
+      }else{
+        this.setState({errors: "Y Axis must be numerical values"});
+      }
     }
   }
 
@@ -135,19 +148,23 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       let x = this.state.xAxis;
       let y = this.state.yAxis;
-      let Chart = (
-        <ResponsiveContainer width="90%" height="80%">
-          <BarChart data={data}
-                className="PreviewChart">
-             <XAxis dataKey={x} name={x} label={x}/>
-             <YAxis dataKey={y} name={y} />
-             <Tooltip/>
-             <Legend />
-             <Bar type="monotone" dataKey={y} className="Chart"/>
-          </BarChart>
-        </ResponsiveContainer>
-      );
-       this.setState({data, Chart, type});
+      if(data){
+        let Chart = (
+          <ResponsiveContainer width="90%" height="80%">
+            <BarChart data={data}
+                  className="PreviewChart">
+               <XAxis dataKey={x} name={x} label={x}/>
+               <YAxis dataKey={y} name={y} />
+               <Tooltip/>
+               <Legend />
+               <Bar type="monotone" dataKey={y} className="Chart"/>
+            </BarChart>
+          </ResponsiveContainer>
+        );
+         this.setState({data, Chart, type});
+      }else{
+        this.setState({errors: "Y Axis must be numerical values"});
+      }
     }
   }
 
@@ -157,17 +174,21 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       let x = this.state.xAxis;
       let y = this.state.yAxis;
-      let Chart = (
-        <ResponsiveContainer width="90%" height="80%">
-          <PieChart className="PreviewChart">
-            <Pie isAnimationActive={true} nameKey={x} dataKey={y} data={data} className="PieChart">{
-                data.map((entry, index) => <Cell className={`PieCell${index%2}`}/>)
-              }</Pie>
-            <Tooltip/>
-          </PieChart>
-        </ResponsiveContainer>
-      );
-      this.setState({data,Chart, type});
+      if(data){
+        let Chart = (
+          <ResponsiveContainer width="90%" height="80%">
+            <PieChart className="PreviewChart">
+              <Pie isAnimationActive={true} nameKey={x} dataKey={y} data={data} className="PieChart">{
+                  data.map((entry, index) => <Cell className={`PieCell${index%2}`}/>)
+                }</Pie>
+              <Tooltip/>
+            </PieChart>
+          </ResponsiveContainer>
+        );
+        this.setState({data,Chart, type});
+      }else{
+        this.setState({errors: "Y Axis must be numerical values"});
+      }
     }
   }
 
@@ -177,27 +198,35 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       let x = this.state.xAxis;
       let y = this.state.yAxis;
-      let Chart = (
-        <ResponsiveContainer width="90%" height="80%">
-          <AreaChart data={data} className="PreviewChart">
-            <XAxis dataKey={x} name={x} label={x}/>
-            <YAxis dataKey={y} name={y} />
-            <Area isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke="#253A5C" fillOpacity={0.8} className="Chart" />
-            <Tooltip/>
-          </AreaChart>
-        </ResponsiveContainer>
-      );
-      this.setState({data,Chart, type});
+      if(data){
+        let Chart = (
+          <ResponsiveContainer width="90%" height="80%">
+            <AreaChart data={data} className="PreviewChart">
+              <XAxis dataKey={x} name={x} label={x}/>
+              <YAxis dataKey={y} name={y} />
+              <Area isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke="#253A5C" fillOpacity={0.8} className="Chart" />
+              <Tooltip/>
+            </AreaChart>
+          </ResponsiveContainer>
+        );
+        this.setState({data,Chart, type});
+      }else{
+        this.setState({errors: "Y Axis must be numerical values"});
+      }
     }
   }
 
 
   submitChart(e){
     let chart = {};
-    chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
-    this.props.makeChart(chart).then(
-      this.props.history.push('/charts')
-    );
+    if(this.state.title && this.state.chart){
+      chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
+      this.props.makeChart(chart).then(
+        this.props.history.push('/charts')
+      );
+    }else{
+      this.setState({errors: "Missing Chart Attributes"});
+    }
   }
 
   render(){
@@ -238,10 +267,14 @@ class ChartNew extends React.Component{
         </div>
 
         <div className="ChartCanvas">
-          <div className="Title-Submit">
-            <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
-            <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>
+          <div className="Title-Errors">
+            <label style={{'margin-top': '0px'}} className="errors">{this.state.errors}</label>
+            <div className="Title-Submit">
+              <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
+              <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>
+            </div>
           </div>
+
           {this.state.Chart}
         </div>
       </div>

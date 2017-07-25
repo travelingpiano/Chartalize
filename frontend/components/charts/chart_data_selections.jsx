@@ -71,8 +71,8 @@ class DataSelection extends React.Component{
       ydisplay = (
         <div className="Axis">
           <label>Y Axis</label>
-          <button value="Y" onClick={this.clear}>Clear Selection</button>
           <label className="AxisSelection">{this.state.ySelection}</label>
+          <button value="Y" onClick={this.clear}>Clear Selection</button>
         </div>
       );
     }else{
@@ -85,8 +85,8 @@ class DataSelection extends React.Component{
       xdisplay= (
         <div className="Axis">
           <label>X Axis</label>
-          <button value="X" onClick={this.clear}>Clear Selection</button>
           <label className="AxisSelection">{this.state.xSelection}</label>
+          <button value="X" onClick={this.clear}>Clear Selection</button>
         </div>
       );
     }else{
@@ -106,7 +106,7 @@ class DataSelection extends React.Component{
           );
         }else{
           selectionsdisplay[this.headings[i]] = (
-            <div className="AxisSelection"><s>{this.headings[i]}</s></div>
+            <div className="AxisSelected">{this.headings[i]}</div>
           );
         }
       }

@@ -20,7 +20,6 @@ class DataTableIndex extends React.Component{
 
   render(){
     let display;
-    console.log(this.props);
     if(this.props.dataTables[0]){
       display = (
         <div className="DataTables">

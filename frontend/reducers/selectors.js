@@ -24,7 +24,7 @@ export const selectCurrentUserCharts = (charts,currentUser) => {
 export const selectSharedCharts = (charts,currentUser) => {
   let sharedCharts = [];
   for(let key in charts){
-    if(charts[key].shared_users.indexOf(currentUser.username) != -1){
+    if(charts[key].shared_users && charts[key].shared_users.indexOf(currentUser.username) != -1){
       sharedCharts.push(charts[key]);
     }
   }

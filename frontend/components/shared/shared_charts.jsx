@@ -13,7 +13,8 @@ class SharedCharts extends React.Component{
   }
 
   componentDidMount(){
-    this.props.fetchAllCharts();
+    this.setState({charts: []},
+    this.props.fetchAllCharts);
   }
 
   componentWillReceiveProps(newProps){

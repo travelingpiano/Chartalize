@@ -1,5 +1,9 @@
 @import "variables";
 
+.Dropdown{
+
+}
+
 .ChartForm{
   display: flex;
 }
@@ -34,6 +38,12 @@
 
 .Title-Submit{
   display: flex;
+  flex-direction: row;
+}
+
+.Title-Errors{
+  display: flex;
+  flex-direction: column;
 }
 
 .ChartTitle{

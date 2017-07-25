@@ -32,8 +32,6 @@ const App = () => (
       <ProtectedRoute path='/charts' component={ChartsIndexContainer} />
       <AuthRoute path='/' component={Homepage} />
     </Switch>
-
-
   </div>
 );
 

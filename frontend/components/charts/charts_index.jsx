@@ -7,10 +7,15 @@ import ChartIndexItem from './chart_index_item';
 class ChartsIndex extends React.Component{
   constructor(props){
     super(props);
+    this.showChart = this.showChart.bind(this);
   }
 
   componentDidMount(){
     this.props.fetchAllCharts();
+  }
+
+  showChart(e){
+    this.props.history.push(`/charts/${e.target.value}`);
   }
 
   render(){
@@ -49,4 +54,5 @@ class ChartsIndex extends React.Component{
   }
 }
 
-export default withRouter(ChartsIndex);
+export default ChartsIndex;
+// <ChartIndexItem key={chart.id} chart={chart} deleteChart={this.props.deleteChart} idx={idx} />

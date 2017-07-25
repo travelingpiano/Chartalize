@@ -22,7 +22,6 @@ class ShareChart extends React.Component {
 
   componentWillReceiveProps(newProps){
     if(newProps.chart !== this.props.chart){
-      console.log('hiii');
       this.setState({sharedUsers: newProps.chart.shared_users});
     }
   }

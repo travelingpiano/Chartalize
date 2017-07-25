@@ -13,6 +13,6 @@
 
 class DataTable < ApplicationRecord
   validates :title, :data_type, :table, presence: true;
-  validates :title, uniqueness: true;
+  validates :title, uniqueness: {scope: :user_id};
   belongs_to :user
 end

@@ -2,7 +2,7 @@
 import React from 'react';
 import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
-import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
 
 class ChartNew extends React.Component{
   constructor(props){
@@ -202,6 +202,12 @@ class ChartNew extends React.Component{
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
             <AreaChart data={data} className="PreviewChart">
+              <defs>
+                <linearGradient>
+                  <stop offset="5%" stopColor="#253A5C" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#253A5C" stopOpacity={0.2}/>
+                </linearGradient>
+              </defs>
               <XAxis dataKey={x} name={x} label={x}/>
               <YAxis dataKey={y} name={y} />
               <Area isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke="#253A5C" fillOpacity={0.8} className="Chart" />
@@ -268,7 +274,7 @@ class ChartNew extends React.Component{
 
         <div className="ChartCanvas">
           <div className="Title-Errors">
-            <label style={{'margin-top': '0px'}} className="errors">{this.state.errors}</label>
+            <label style={{marginTop: '0px'}} className="errors">{this.state.errors}</label>
             <div className="Title-Submit">
               <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
               <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>

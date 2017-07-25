@@ -13,21 +13,30 @@ class UploadForm extends React.Component{
     this.parseFile = this.parseFile.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.errors = this.props.errors;
+    if(this.errors===undefined){
+      this.errors = [];
+    }
     this.state = {
       title: "",
       data_type: "",
       table: [],
-      errors: ""
+      errors: this.errors
     };
-    this.errors = "";
   }
 
   componentDidMount(){
     this.fileReader = new FileReader();
   }
 
+  componentWillReceiveProps(newProps){
+    if(newProps.errors != this.props.errors && newProps.errors){
+      this.setState({errors: newProps.errors});
+    }
+  }
+
   parseFile(data,data_type){
-    this.setState({errors: ""});
+    this.setState({errors: []});
     this.filepreset_display = "Thanks for uploading a file";
     let table = [];
     const allTextLines = data.split(/\r\n|\n/);
@@ -51,7 +60,7 @@ class UploadForm extends React.Component{
         table.push(rowData);
       }
     }
-    this.setState({table, data_type, errors: ""});
+    this.setState({table, data_type, errors: []});
   }
 
   onDrop(files){
@@ -77,21 +86,25 @@ class UploadForm extends React.Component{
   }
 
   changeTitle(event){
-    this.setState({title: event.target.value, errors: ""});
+    this.setState({title: event.target.value, errors: []});
   }
-
-
 
   handleSubmit(event){
     event.preventDefault();
     if(this.state.title === "" || !this.state.table === [] || this.state.data_type === ""){
-      this.setState({errors: "Incomplete table detected"});
+      let errors = this.state.errors;
+      errors.push("Incomplete table detected");
+      this.setState({errors});
       //check for missing headings
     }else if(Object.keys(this.state.table[0]).includes("")){
-      this.setState({errors: "Empty heading values detected. Check uploaded file"});
+      let errors = this.state.errors;
+      errors.push("Empty heading values detected. Check uploaded file");
+      this.setState({errors});
       //check for numeric headings
     }else if(!Object.keys(this.state.table[0]).every(isNaN)){
-      this.setState({errors: "Some headings are numbers. Check uploaded file"});
+      let errors = this.state.errors;
+      errors.push("Some headings are numbers. Check uploaded file");
+      this.setState({errors});
     }else{
       let data_table = {};
       data_table.data_table = {};
@@ -110,7 +123,8 @@ class UploadForm extends React.Component{
       <div className="dataTables">
         <SideBar currentPage="data_tables_new"/>
         <form className="DataTables" onSubmit={this.handleSubmit}>
-          <label className="errors">{this.state.errors}</label>
+          {this.state.errors.map((error)=>
+            <label key={error} className="errors">{error}</label>)}
           <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
           {this.uploaddata()}
           <input value="Add new data table" type="submit" className="DataTableSubmit"/>

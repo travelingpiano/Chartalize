@@ -44,7 +44,7 @@ class UploadForm extends React.Component{
     if(data_type === "text/csv"){
       delim = ',';
     }else if(data_type ==="text/tab-separated-values"){
-      delim = '';
+      delim = '\t';
     }
 
     if(data_type === "application/json"){
@@ -57,7 +57,9 @@ class UploadForm extends React.Component{
         for(let j = 0; j<currentLine.length; j++){
           rowData[headings[j]] = currentLine[j];
         }
-        table.push(rowData);
+        if(values(rowData).length > 1){
+          table.push(rowData);
+        }
       }
     }
     this.setState({table, data_type, errors: []});
@@ -65,9 +67,9 @@ class UploadForm extends React.Component{
 
   onDrop(files){
     const file = files[0]; //only accept one file currently
-    if(file.size > 15000){
+    if(file.size > 20000){
       let errors = this.state.errors;
-      errors = ["File is too big. Only accepting 10kB or smaller"];
+      errors = ["File is too big. Only accepting 20kB or smaller"];
       this.setState({errors});
     }else{
       this.fileReader.onload = e =>{
@@ -95,16 +97,19 @@ class UploadForm extends React.Component{
     event.preventDefault();
     if(this.state.title === "" || !this.state.table === [] || this.state.data_type === ""){
       let errors = this.state.errors;
+      this.filepreset_display = "Drag a file here!";
       errors.push("Incomplete table detected");
       this.setState({errors});
       //check for missing headings
     }else if(Object.keys(this.state.table[0]).includes("")){
       let errors = this.state.errors;
+      this.filepreset_display = "Drag a file here!";
       errors.push("Empty heading values detected. Check uploaded file");
       this.setState({errors});
       //check for numeric headings
     }else if(!Object.keys(this.state.table[0]).every(isNaN)){
       let errors = this.state.errors;
+      this.filepreset_display = "Drag a file here!";
       errors.push("Some headings are numbers. Check uploaded file");
       this.setState({errors});
     }else{
@@ -116,7 +121,6 @@ class UploadForm extends React.Component{
       this.props.makeDataTable(data_table).then(
         ()=> this.props.history.push('/data_tables')
       );
-
     }
   }
 

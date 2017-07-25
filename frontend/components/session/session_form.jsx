@@ -7,7 +7,7 @@ class SessionForm extends React.Component {
     this.state = {
       username: "",
       password: "",
-      errors: "",
+      errors: [],
       prevPath: this.props.location
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,23 +19,25 @@ class SessionForm extends React.Component {
 
   componentWillReceiveProps(newProps){
     if(newProps.location !== this.props.location){
-      this.setState({prevPath: this.props.location});
+      this.setState({prevPath: this.props.location, errors: []});
+    }else if(newProps.errors !== this.props.errors){
+      this.setState({errors: newProps.errors});
     }
   }
 
   changeUsername(e){
-    this.setState({username: e.target.value, errors: "clear"});
+    this.setState({username: e.target.value, errors: []});
   }
 
   changePassword(e){
-    this.setState({password: e.target.value, errors: "clear"});
+    this.setState({password: e.target.value, errors: []});
   }
 
   handleSubmit(e){
     e.preventDefault();
     const user = {user:{username: this.state.username, password: this.state.password}};
     this.props.processForm(user);
-    this.setState({username: "", password: "", errors: "", prevPath: this.props.location});
+    this.setState({username: "", password: "", errors: [], prevPath: this.props.location});
   }
 
   handleDemo(e){
@@ -80,7 +82,7 @@ class SessionForm extends React.Component {
     let authformtype = this.props.formType==='/login' ? 'Login' : 'Sign Up';
     let welcome_sign = this.props.formType==='/login' ? 'Welcome back to Chartalize!' : 'Join the family!';
     let errors;
-    if(this.state.errors === "clear" || this.props.errors.length===0 || this.props.location !== this.state.prevPath){
+    if(this.state.errors.length===0 || this.props.location !== this.state.prevPath){
       errors = (<p></p>);
     }else{
       errors = (

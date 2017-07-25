@@ -33,8 +33,10 @@ class ShareChart extends React.Component {
 
   addUser(e){
     let sharedUsers = this.state.sharedUsers;
-    sharedUsers.push(e.target.value);
-    this.setState({sharedUsers});
+    if(sharedUsers.indexOf(e.target.value)===-1){
+      sharedUsers.push(e.target.value);
+    }
+    this.setState({sharedUsers, search: ""});
   }
 
   removeUser(e){
@@ -85,8 +87,9 @@ class ShareChart extends React.Component {
               <ul className="users-list">
                 {this.state.sharedUsers.map((user,idx)=>
                 <li key={idx} className="users-item">
-                  {user}
-                  <button value={user} onClick={this.removeUser}>Remove</button>
+                  <div className="users-item-value">{user}</div>
+                  <div className="users-item-value"><button value={user} onClick={this.removeUser}>Remove</button>
+                  </div>
                 </li>)}
               </ul>
             </div>

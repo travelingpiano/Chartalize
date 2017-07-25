@@ -12,6 +12,7 @@ class DataTableShow extends React.Component{
     if(this.props.dataTable.title){
       let data = [];
       let tablerows = values(this.props.dataTable.table);
+      console.log(tablerows);
       display = (
         <div className="DataTables">
           <label className="tableTitle">{this.props.dataTable.title}</label>

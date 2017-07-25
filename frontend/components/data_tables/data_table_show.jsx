@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
+import {values} from 'lodash';
 
 class DataTableShow extends React.Component{
   componentDidMount(){
@@ -9,6 +10,9 @@ class DataTableShow extends React.Component{
   render(){
     let display;
     if(this.props.dataTable.title){
+      let data = [];
+      let tablerows = values(this.props.dataTable.table);
+      console.log(data);
       display = (
         <div className="DataTables">
           <label className="tableTitle">{this.props.dataTable.title}</label>
@@ -24,9 +28,9 @@ class DataTableShow extends React.Component{
             <tbody>
               {Object.values(this.props.dataTable.table).map((tablerow, idx)=>
               <tr key={idx} className={`tablesrow${idx%2}`}>
-                {Object.values(tablerow).map((tableitem,index)=>
+                {Object.keys(this.props.dataTable.table[0]).map((tableitem, index)=>
                 <td className="th-padding" key={index}>
-                  {tableitem}
+                  {tablerow[tableitem]}
                 </td>)}
               </tr>)}
             </tbody>

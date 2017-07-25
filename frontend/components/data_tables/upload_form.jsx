@@ -50,6 +50,7 @@ class UploadForm extends React.Component{
         table.push(rowData);
       }
     }
+    console.log(table);
     this.setState({table, data_type});
   }
 

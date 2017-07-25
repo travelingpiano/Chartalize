@@ -1,7 +1,19 @@
 @import "variables";
 
 .Dropdown{
+  color: white;
+  background-color: $dark-gray;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
 
+.Dropdown:hover{
+  color: $light-gray;
+}
+
+.Dropdown-Option{
+  border: none;
 }
 
 .ChartForm{

@@ -30,6 +30,7 @@ class SharedCharts extends React.Component{
   render(){
     let display;
     if(this.state.charts.length > 0){
+      console.log(this.state.charts);
       display = (
         <div className="DataTables">
           <table className="datatables_table">
@@ -37,6 +38,7 @@ class SharedCharts extends React.Component{
               <tr className="tableshead">
                 <td key={1} className="th-padding">Title</td>
                 <td key={2} className="th-padding">Type</td>
+                <td key={3} className="th-padding">Shared By</td>
               </tr>
               {this.state.charts.map((chart,idx)=>
                 <tr key={chart.id} className={`tablesrow${idx%2}`}>
@@ -47,6 +49,9 @@ class SharedCharts extends React.Component{
                   </td>
                   <td key="data-type" className="td-padding">
                     {chart.chart_type}
+                  </td>
+                  <td key="owner" className="td-padding">
+                    {chart.owner}
                   </td>
                 </tr>
               )}

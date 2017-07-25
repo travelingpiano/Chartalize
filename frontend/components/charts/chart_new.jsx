@@ -44,7 +44,7 @@ class ChartNew extends React.Component{
         <select onChange={this.changeDataTable} className="Dropdown">
           <option selected disabled>Choose a DataTable</option>
           {this.props.dataTables.map((dataTable,idx)=>
-          <option value={idx} key={idx}>
+          <option value={idx} key={idx} className="Dropdown-Option">
             {dataTable.title}
           </option>)}
         </select>

@@ -120,8 +120,10 @@ class ChartNew extends React.Component{
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
+
             <LineChart data={data}
                   className="PreviewChart">
+               <text className="Axis-Label">x axis</text>
                <XAxis dataKey={x} name={x} label={x}/>
                <YAxis dataKey={y} name={y} />
                <Tooltip/>

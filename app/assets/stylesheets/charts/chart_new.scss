@@ -46,6 +46,7 @@
 .PreviewChart{
   margin-top: 10px;
   margin-right: 10px;
+  position: relative;
 }
 
 .Title-Submit{
@@ -124,6 +125,13 @@
   position: relative;
   top: 0px;
   left: 0px;
+}
+
+.Axis-Label{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: black;
 }
 
 .empty-dropdown{

@@ -130,4 +130,4 @@ class DataSelection extends React.Component{
   }
 }
 
-export default DragDropContext(TouchBackend)(DataSelection);
+export default DragDropContext(HTML5Backend)(DataSelection);

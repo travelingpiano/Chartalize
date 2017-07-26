@@ -44,12 +44,13 @@
 }
 
 .logout{
-  margin: 5px;
   padding: 10px;
-  font-family: 'Lato', sans-serif;
   border: none;
+  border-radius: 0px;
+  text-align: center;
   font-size: 18px;
-  background-color: white;
+  background-color: $dark-blue;
+  color: white;
   cursor: pointer;
 }
 
@@ -61,4 +62,19 @@
   font-family: 'Lato', sans-serif;
   font-size: 2em;
   color: white;
+}
+
+.dropdown-display{
+  position: absolute;
+  top: 65px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-label{
+  background-color: $dark-blue;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
 }

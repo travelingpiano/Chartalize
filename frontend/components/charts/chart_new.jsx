@@ -302,14 +302,14 @@ class ChartNew extends React.Component{
           <ResponsiveContainer width="90%" height="80%">
             <AreaChart data={data} className="PreviewChart">
               <defs>
-                <linearGradient>
+                <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#253A5C" stopOpacity={0.8}/>
                   <stop offset="95%" stopColor="#253A5C" stopOpacity={0.2}/>
                 </linearGradient>
               </defs>
               <XAxis dataKey={x} name={x} label={x}/>
               <YAxis dataKey={y} name={y} />
-              <Area isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke="#253A5C" fillOpacity={0.8} className="Chart" />
+              <Area isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)" className="Chart" />
               <Tooltip/>
             </AreaChart>
           </ResponsiveContainer>

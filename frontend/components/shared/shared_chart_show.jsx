@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router';
 import SideBar from '../navbar/side_bar';
 import {values} from 'lodash';
-import {XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart,Line, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, AreaChart, Area, Cell} from 'recharts';
+import {XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart,Line, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, AreaChart, Area, Cell, linearGradient, defs, stop} from 'recharts';
 
 class SharedChartShow extends React.Component{
   constructor(props){
@@ -131,9 +131,15 @@ class SharedChartShow extends React.Component{
     return (
       <ResponsiveContainer width="90%" height="80%">
         <AreaChart data={data} className="PreviewChart">
+          <defs>
+            <linearGradient id="grad">
+              <stop offset="5%" stopColor="#253A5C" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#253A5C" stopOpacity={0.2}/>
+            </linearGradient>
+          </defs>
           <XAxis dataKey={x} name={x} label={x}/>
           <YAxis dataKey={y} name={y} />
-          <Area isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} className="Chart" />
+          <Area isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)" className="Chart" />
           <Tooltip/>
         </AreaChart>
       </ResponsiveContainer>

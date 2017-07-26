@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router';
 import SideBar from '../navbar/side_bar';
 import {values} from 'lodash';
-import {XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart,Line, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, AreaChart, Area, Cell} from 'recharts';
+import {XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart,Line, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, AreaChart, Area, Cell, linearGradient, defs, stop} from 'recharts';
 
 class ChartShow extends React.Component{
   constructor(props){
@@ -135,9 +135,15 @@ class ChartShow extends React.Component{
     return (
       <ResponsiveContainer width="90%" height="80%">
         <AreaChart data={data} className="PreviewChart">
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#253A5C" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#253A5C" stopOpacity={0.2}/>
+            </linearGradient>
+          </defs>
           <XAxis dataKey={x} name={x} label={x}/>
           <YAxis dataKey={y} name={y} />
-          <Area isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} className="Chart" />
+          <Area isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)"  className="Chart" />
           <Tooltip/>
         </AreaChart>
       </ResponsiveContainer>

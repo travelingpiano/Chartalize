@@ -84,11 +84,16 @@ class ChartNew extends React.Component{
       for(let selector in currentTable[key]){
         if(selector===this.state.xAxis){
           rowData[this.state.xAxis] = currentTable[key][selector];
+          if(!currentTable[key][selector]){
+            return "Missing X Data Values";
+          }
         }
         if(selector===this.state.yAxis){
           rowData[this.state.yAxis] = Number(currentTable[key][selector]);
           if(isNaN(rowData[this.state.yAxis])){
             return undefined;
+          }else if(!currentTable[key][selector]){
+            return "Missing Y Data Values";
           }
         }
       }
@@ -105,7 +110,10 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let data = this.parseData();
-      if(data){
+      if(typeof data === "string"){
+        this.setState({errors: data,
+        Chart: (<div></div>), data: []});
+      }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
             <LineChart data={data}
@@ -132,7 +140,10 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       let data = this.parseData();
-      if(data){
+      if(typeof data === "string"){
+        this.setState({errors: data,
+        Chart: (<div></div>), data: []});
+      }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
 
@@ -159,7 +170,10 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       let x = this.state.xAxis;
       let y = this.state.yAxis;
-      if(data){
+      if(typeof data === "string"){
+        this.setState({errors: data,
+        Chart: (<div></div>), data: []});
+      }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
             <BarChart data={data}
@@ -186,7 +200,10 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       let x = this.state.xAxis;
       let y = this.state.yAxis;
-      if(data){
+      if(typeof data === "string"){
+        this.setState({errors: data,
+        Chart: (<div></div>), data: []});
+      }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
             <PieChart className="PreviewChart">
@@ -211,7 +228,10 @@ class ChartNew extends React.Component{
       let data = this.parseData();
       let x = this.state.xAxis;
       let y = this.state.yAxis;
-      if(data){
+      if(typeof data === "string"){
+        this.setState({errors: data,
+        Chart: (<div></div>), data: []});
+      }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
             <AreaChart data={data} className="PreviewChart">

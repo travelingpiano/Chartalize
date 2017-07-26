@@ -55,7 +55,6 @@ class NavBar extends React.Component {
 
   render(){
     let display;
-    console.log(this.props);
     if(this.props.currentUser){
       let dropdownDisplay;
       if(this.state.dropdownActive){

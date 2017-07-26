@@ -4,9 +4,10 @@ import {fetchAllDataTables,fetchChartTable} from '../../actions/data_table_actio
 import {makeChart} from '../../actions/charts_actions';
 import {values} from 'lodash';
 
-const mapStateToProps = ({dataTables,chartTable}) => ({
+const mapStateToProps = ({dataTables,chartTable, charts}) => ({
   dataTables: values(dataTables),
-  chartTable: chartTable
+  chartTable: chartTable,
+  errors: charts
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,6 +5,7 @@ export const RECEIVE_CHARTS = "RECEIVE_CHARTS";
 export const RECEIVE_CHART = "RECEIVE_CHART";
 export const REMOVE_CHART = "REMOVE_CHART";
 export const UPDATE_CHART = "UPDATE_CHART";
+export const RECEIVE_CHART_ERRORS = "RECEIVE_CHART_ERRORS";
 
 export const receiveCharts = charts => ({
   type: RECEIVE_CHARTS,
@@ -31,6 +32,11 @@ export const updateChart = chart => ({
   chart
 });
 
+export const receiveChartErrors = errors => ({
+  type: RECEIVE_CHART_ERRORS,
+  errors
+});
+
 export const fetchAllCharts = () => dispatch => (
   ChartUtil.fetchAllCharts().then(
     charts => dispatch(receiveCharts(charts))
@@ -51,7 +57,8 @@ export const deleteChart = id => dispatch => (
 
 export const makeChart = chart => dispatch => (
   ChartUtil.makeChart(chart).then(
-    newChart => dispatch(createChart(newChart))
+    newChart => dispatch(createChart(newChart)),
+    errors => dispatch(receiveChartErrors(errors.responseJSON))
   )
 );
 

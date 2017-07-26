@@ -17,7 +17,7 @@ class ChartNew extends React.Component{
       table: [],
       tableIdx: 0,
       Chart: (<div></div>),
-      errors: ""
+      errors: []
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
@@ -35,8 +35,14 @@ class ChartNew extends React.Component{
     this.props.fetchAllDataTables();
   }
 
+  componentWillReceiveProps(newProps){
+    if(newProps.errors.constructor === Array){
+      this.setState({errors: newProps.errors});
+    }
+  }
+
   changeTitle(e){
-    this.setState({title: e.target.value, errors: ""});
+    this.setState({title: e.target.value, errors: []});
   }
 
   dataTableSelection(){
@@ -71,7 +77,7 @@ class ChartNew extends React.Component{
       ChartTable =>
       this.setState({
         headings: Object.keys(ChartTable.dataTable.table[0]),
-        table: ChartTable.dataTable.table
+        table: ChartTable.dataTable.table, tableIdx
       })
     );
   }
@@ -99,8 +105,6 @@ class ChartNew extends React.Component{
       }
       data.push(rowData);
     }
-    console.log(values(this.state.table).length);
-    console.log(data);
     return data;
   }
 
@@ -111,7 +115,7 @@ class ChartNew extends React.Component{
       let y = this.state.yAxis;
       let data = this.parseData();
       if(typeof data === "string"){
-        this.setState({errors: data,
+        this.setState({errors: [data],
         Chart: (<div></div>), data: []});
       }else if(data){
         let Chart = (
@@ -126,9 +130,9 @@ class ChartNew extends React.Component{
             </LineChart>
           </ResponsiveContainer>
         );
-         this.setState({data, Chart, type, errors: ""});
+         this.setState({data, Chart, type, errors: []});
       }else{
-        this.setState({errors: "Y Axis must be numerical values",
+        this.setState({errors: ["Y Axis must be numerical values"],
         Chart: (<div></div>), data: []});
       }
     }
@@ -141,7 +145,7 @@ class ChartNew extends React.Component{
       let y = this.state.yAxis;
       let data = this.parseData();
       if(typeof data === "string"){
-        this.setState({errors: data,
+        this.setState({errors: [data],
         Chart: (<div></div>), data: []});
       }else if(data){
         let Chart = (
@@ -156,9 +160,9 @@ class ChartNew extends React.Component{
             </ScatterChart>
           </ResponsiveContainer>
         );
-         this.setState({data, Chart, type, errors: ""});
+         this.setState({data, Chart, type, errors: []});
       }else{
-        this.setState({errors: "Y Axis must be numerical values",
+        this.setState({errors: ["Y Axis must be numerical values"],
         Chart: (<div></div>), data: []});
       }
     }
@@ -171,7 +175,7 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       if(typeof data === "string"){
-        this.setState({errors: data,
+        this.setState({errors: [data],
         Chart: (<div></div>), data: []});
       }else if(data){
         let Chart = (
@@ -186,9 +190,9 @@ class ChartNew extends React.Component{
             </BarChart>
           </ResponsiveContainer>
         );
-         this.setState({data, Chart, type, errors: ""});
+         this.setState({data, Chart, type, errors: []});
       }else{
-        this.setState({errors: "Y Axis must be numerical values",
+        this.setState({errors: ["Y Axis must be numerical values"],
         Chart: (<div></div>), data: []});
       }
     }
@@ -201,7 +205,7 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       if(typeof data === "string"){
-        this.setState({errors: data,
+        this.setState({errors: [data],
         Chart: (<div></div>), data: []});
       }else if(data){
         let Chart = (
@@ -214,9 +218,9 @@ class ChartNew extends React.Component{
             </PieChart>
           </ResponsiveContainer>
         );
-        this.setState({data,Chart, type, errors: ""});
+        this.setState({data,Chart, type, errors: []});
       }else{
-        this.setState({errors: "Y Axis must be numerical values",
+        this.setState({errors: ["Y Axis must be numerical values"],
         Chart: (<div></div>), data: []});
       }
     }
@@ -229,7 +233,7 @@ class ChartNew extends React.Component{
       let x = this.state.xAxis;
       let y = this.state.yAxis;
       if(typeof data === "string"){
-        this.setState({errors: data,
+        this.setState({errors: [data],
         Chart: (<div></div>), data: []});
       }else if(data){
         let Chart = (
@@ -248,9 +252,9 @@ class ChartNew extends React.Component{
             </AreaChart>
           </ResponsiveContainer>
         );
-        this.setState({data,Chart, type, errors: ""});
+        this.setState({data,Chart, type, errors: []});
       }else{
-        this.setState({errors: "Y Axis must be numerical values",
+        this.setState({errors: ["Y Axis must be numerical values"],
         Chart: (<div></div>), data: []});
       }
     }
@@ -259,14 +263,10 @@ class ChartNew extends React.Component{
 
   submitChart(e){
     let chart = {};
-    if(this.state.title && this.state.Chart){
-      chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
-      this.props.makeChart(chart).then(
-        this.props.history.push('/charts')
-      );
-    }else{
-      this.setState({errors: "Missing Chart Attributes"});
-    }
+    chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
+    this.props.makeChart(chart).then(
+      newchart => this.props.history.push('/charts')
+    );
   }
 
   render(){
@@ -308,7 +308,9 @@ class ChartNew extends React.Component{
 
         <div className="ChartCanvas">
           <div className="Title-Errors">
-            <label style={{marginTop: '0px'}} className="errors">{this.state.errors}</label>
+            {this.state.errors.map((error,idx)=>
+            <label style={{marginTop: '0px'}} className="errors" key={idx}>{error}</label>
+            )}
             <div className="Title-Submit">
               <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
               <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>

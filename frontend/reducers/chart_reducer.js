@@ -1,4 +1,4 @@
-import {RECEIVE_CHARTS, RECEIVE_CHART, REMOVE_CHART, CREATE_CHART, UPDATE_CHART} from '../actions/charts_actions';
+import {RECEIVE_CHARTS, RECEIVE_CHART, REMOVE_CHART, CREATE_CHART, UPDATE_CHART, RECEIVE_CHART_ERRORS} from '../actions/charts_actions';
 import {merge} from 'lodash';
 
 const ChartReducer = (state={},action) => {
@@ -19,6 +19,8 @@ const ChartReducer = (state={},action) => {
       newState = merge({},state);
       newState[action.chart.id] = action.chart;
       return newState;
+    case RECEIVE_CHART_ERRORS:
+      return action.errors;
     default:
       return state;
   }

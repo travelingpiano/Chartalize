@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
+import {findDOMNode} from 'react-dom';
 
 class NavBar extends React.Component {
   constructor(props){
@@ -11,6 +12,29 @@ class NavBar extends React.Component {
       dropdownActive: false
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+
+  componentDidMount(){
+    window.addEventListener('click',this.handleOutsideClick);
+    window.addEventListener('touchstart',this.handleOutsideClick);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('click',this.handleOutsideClick);
+    window.removeEventListener('click',this.handleOutsideClick);
+  }
+
+  handleOutsideClick(e){
+    const dropdown = findDOMNode(this).getElementsByClassName('dropdownTrigger')[0];
+    const icon = findDOMNode(this).getElementsByClassName('fa-user')[0];
+    if(e.target!==dropdown && e.target !== icon){
+      this.setState({dropdownActive: false});
+    }
+  }
+
+  componentWillReceiveProps(newProps){
+    this.setState({dropdownActive: false});
   }
 
   handleCharts(e){
@@ -31,7 +55,7 @@ class NavBar extends React.Component {
 
   render(){
     let display;
-
+    console.log(this.props);
     if(this.props.currentUser){
       let dropdownDisplay;
       if(this.state.dropdownActive){
@@ -54,7 +78,7 @@ class NavBar extends React.Component {
           <div className="signin-login">
             <button onClick={this.handleCharts} className="login">Charts</button>
             <button onClick={this.handleDataTables} className="login">Data Tables</button>
-            <button onClick={this.toggleDropdown} className="login">
+            <button onClick={this.toggleDropdown} className="login dropdownTrigger">
               <i className="fa fa-user" aria-hidden="true"></i>
             </button>
             {dropdownDisplay}

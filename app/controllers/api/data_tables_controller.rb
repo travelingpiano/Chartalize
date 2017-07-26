@@ -12,7 +12,11 @@ class Api::DataTablesController < ApplicationController
   end
 
   def index
-    @data_tables = DataTable.all
+    alldata_tables = DataTable.all
+    @data_tables = []
+    alldata_tables.each do |data_table|
+      @data_tables.push(data_table) if data_table.user.id == current_user.id
+    end
     render :index
   end
 

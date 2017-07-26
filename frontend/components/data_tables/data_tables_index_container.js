@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
 import DataTableIndex from './data_tables_index';
 import {deleteDataTable,fetchAllDataTables} from '../../actions/data_table_actions';
-import {selectCurrentUserTables} from '../../reducers/selectors';
+import {values} from 'lodash';
 
 const mapStateToProps = ({dataTables,session}) => ({
-  dataTables: selectCurrentUserTables(dataTables,session.currentUser)
+  dataTables: values(dataTables)
 });
 
 const mapDispatchToProps = dispatch => ({

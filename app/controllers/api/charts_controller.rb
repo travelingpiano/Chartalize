@@ -12,7 +12,11 @@ class Api::ChartsController < ApplicationController
   end
 
   def index
-    @charts = Chart.all
+    allcharts = Chart.all
+    @charts = []
+    allcharts.each do |chart|
+      @charts.push(chart) if chart.user.id == current_user.id
+    end
     render :index
   end
 

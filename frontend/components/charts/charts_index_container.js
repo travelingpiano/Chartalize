@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import ChartsIndex from './charts_index';
 import {fetchAllCharts, deleteChart} from '../../actions/charts_actions';
-import {selectCurrentUserCharts} from '../../reducers/selectors';
 import {withRouter} from 'react-router';
+import {values} from 'lodash';
 
-const mapStateToProps = state => ({
-  charts: selectCurrentUserCharts(state.charts,state.session.currentUser)
+const mapStateToProps = ({charts}) => ({
+  charts: values(charts)
 });
 
 const mapDispatchToProps = dispatch => ({

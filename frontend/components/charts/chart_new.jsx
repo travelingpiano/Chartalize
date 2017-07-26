@@ -4,6 +4,7 @@ import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
 import {values} from 'lodash';
 import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
+import {findDOMNode} from 'react-dom';
 
 class ChartNew extends React.Component{
   constructor(props){
@@ -17,7 +18,9 @@ class ChartNew extends React.Component{
       table: [],
       tableIdx: 0,
       Chart: (<div></div>),
-      errors: []
+      errors: [],
+      dropdownActive: false,
+      dataTableName: "Choose a Data Table"
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
@@ -29,10 +32,46 @@ class ChartNew extends React.Component{
     this.createPieChart = this.createPieChart.bind(this);
     this.createAreaChart = this.createAreaChart.bind(this);
     this.submitChart = this.submitChart.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.toggleDataTable = this.toggleDataTable.bind(this);
+    this.changeDataTableCustom = this.changeDataTableCustom.bind(this);
+    this.close =  this.close.bind(this);
+  }
+
+  close(e){
+    console.log('hiii');
+    this.setState({dropdownActive: false});
   }
 
   componentDidMount(){
+    window.addEventListener('click',this.handleOutsideClick);
+    window.addEventListener('touchstart',this.handleOutsideClick);
     this.props.fetchAllDataTables();
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('click',this.handleOutsideClick);
+    window.removeEventListener('touchstart',this.handleOutsideClick);
+  }
+
+  handleOutsideClick(e){
+    const dropdownTarget = findDOMNode(this).getElementsByClassName("Dropdown-Option");
+    const dropdownTarget2 = findDOMNode(this).getElementsByClassName("Dropdown-Optionz")[0];
+    console.log(values(dropdownTarget));
+    const baseTarget = document.getElementById('1');
+    console.log(dropdownTarget2);
+    console.log(e.target);
+    console.log(values(dropdownTarget).length);
+    console.log(values(dropdownTarget).includes(e.target));
+    console.log(dropdownTarget2===e.target);
+    // if(values(dropdownTarget).length > 1 && !values(dropdownTarget).includes(e.target) && this.state.dataTableName !== "Choose a Data Table"){
+    //   this.setState({dropdownActive: false});
+    // }
+  }
+
+  toggleDataTable(e){
+    this.setState({dropdownActive: !this.state.dropdownActive,
+    headings: [], table: [], tableIdx: 0, dataTableName: "Choose a Data Table"});
   }
 
   componentWillReceiveProps(newProps){
@@ -45,18 +84,39 @@ class ChartNew extends React.Component{
     this.setState({title: e.target.value, errors: []});
   }
 
+  changeDataTableCustom(e){
+    let tableIdx = e.target.value;
+    let dataTableName = this.props.dataTables[tableIdx].title;
+    this.props.fetchChartTable(this.props.dataTables[tableIdx].id).then(
+      ChartTable =>
+      this.setState({
+        headings: Object.keys(ChartTable.dataTable.table[0]),
+        table: ChartTable.dataTable.table, tableIdx, dataTableName, dropdownActive: !this.state.dropdownActive
+      })
+    );
+  }
+
   dataTableSelection(){
     let display;
-    if(this.props.dataTables[0]){
-      display = (
-        <select onChange={this.changeDataTable} className="Dropdown">
-          <option selected disabled>Choose a DataTable</option>
-          {this.props.dataTables.map((dataTable,idx)=>
-          <option value={idx} key={idx} className="Dropdown-Option">
-            {dataTable.title}
-          </option>)}
-        </select>
-      );
+    if(this.props.dataTables[0] ){
+      if(!this.state.dropdownActive){
+        display = (
+          <button onClick={this.toggleDataTable} className="Dropdown-Optionz">{this.state.dataTableName}</button>
+        );
+      }else{
+        display = (
+          <div className="Dropdown-Custom" tabIndex="0" onBlur={this.close}>
+            <button onClick={this.toggleDataTable} className="Dropdown-Optionz">Choose a Data Table</button>
+              <div className="Dropdown-Options">
+                {this.props.dataTables.map((dataTable,idx)=>
+                <button value={idx} key={idx} onClick={this.changeDataTableCustom} className="Dropdown-Option">
+                  {dataTable.title}
+                </button>)}
+              </div>
+          </div>
+        );
+      }
+
     }else{
       display = (<label className="empty-dropdown">No Tables Available</label>);
     }
@@ -327,3 +387,13 @@ class ChartNew extends React.Component{
 }
 
 export default withRouter(ChartNew);
+
+// display = (
+//   <select onChange={this.changeDataTable} className="Dropdown">
+//     <option selected disabled>Choose a DataTable</option>
+//     {this.props.dataTables.map((dataTable,idx)=>
+//     <option value={idx} key={idx} className="Dropdown-Option">
+//       {dataTable.title}
+//     </option>)}
+//   </select>
+// );

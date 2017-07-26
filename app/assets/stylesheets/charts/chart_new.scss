@@ -1,19 +1,48 @@
 @import "variables";
 
-.Dropdown{
-  color: white;
-  background-color: $dark-gray;
-  font-size: 15px;
-  border: none;
-  cursor: pointer;
+.Dropdown-Custom{
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .Dropdown:hover{
   color: $light-gray;
 }
 
+.Dropdown-Options{
+  position: absolute;
+  top: 20px;
+}
+
+.Dropdown-Optionz{
+  margin: none;
+  border: 1px solid $dark-blue;
+  border-radius: 0px;
+  background-color: $dark-blue;
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 1px;
+}
+
+.Dropdown-Optionz:hover{
+  color: $light-gray;
+}
+
 .Dropdown-Option{
-  border: none;
+  margin: none;
+  border: 1px solid $dark-blue;
+  border-radius: 0px;
+  background-color: $dark-blue;
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 1px;
+}
+
+.Dropdown-Option:hover{
+  color: $light-gray;
 }
 
 .ChartForm{

@@ -20,7 +20,7 @@ class SharedChartShow extends React.Component{
     this.parseData = this.parseData.bind(this);
   }
   componentDidMount(){
-    this.props.fetchOneChart(this.props.match.params.chartId);
+    this.props.fetchSharedChart(this.props.match.params.chartId);
   }
 
   componentWillReceiveProps(newProps){

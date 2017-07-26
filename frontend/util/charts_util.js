@@ -45,3 +45,12 @@ export const fetchSharedCharts = () => {
     })
   );
 };
+
+export const fetchSharedChart = id => {
+  return (
+    $.ajax({
+      method: 'GET',
+      url: `api/charts/shared/${id}`
+    })
+  );
+};

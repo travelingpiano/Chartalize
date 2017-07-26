@@ -2,6 +2,7 @@
 import React from 'react';
 import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
+import {values} from 'lodash';
 import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
 
 class ChartNew extends React.Component{
@@ -13,6 +14,7 @@ class ChartNew extends React.Component{
       type: "",
       data: [],
       headings: [],
+      table: [],
       tableIdx: 0,
       Chart: (<div></div>),
       errors: ""
@@ -65,13 +67,18 @@ class ChartNew extends React.Component{
 
   changeDataTable(e){
     let tableIdx = e.target.value;
-    let headings = Object.keys(this.props.dataTables[tableIdx].table[0]);
-    this.setState({tableIdx,headings});
+    this.props.fetchChartTable(this.props.dataTables[tableIdx].id).then(
+      ChartTable =>
+      this.setState({
+        headings: Object.keys(ChartTable.dataTable.table[0]),
+        table: ChartTable.dataTable.table
+      })
+    );
   }
 
   parseData(){
     let data = [];
-    let currentTable = this.props.dataTables[this.state.tableIdx].table;
+    let currentTable = this.state.table;
     for(let key in currentTable){
       let rowData = {};
       for(let selector in currentTable[key]){

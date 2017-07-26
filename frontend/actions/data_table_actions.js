@@ -5,6 +5,12 @@ export const RECEIVE_DATATABLE = "RECEIVE_DATATABLE";
 export const CREATE_DATATABLE = "CREATE_DATATABLE";
 export const RECEIVE_DATATABLE_ERRORS = "RECEIVE_DATATABLE_ERRORS";
 export const REMOVE_DATATABLE = "REMOVE_DATATABLE";
+export const RECEIVE_CHART_TABLE = "RECEIVE_CHART_TABLE";
+
+export const receiveChartTable = dataTable => ({
+  type: RECEIVE_CHART_TABLE,
+  dataTable
+});
 
 export const receiveDataTable = dataTable => ({
   type: RECEIVE_DATATABLE,
@@ -53,5 +59,11 @@ export const fetchOneDataTable = id => dispatch => (
 export const deleteDataTable = id => dispatch => (
   DataTableUtil.deleteDataTable(id).then(
     DataTable => dispatch(removeDataTable(DataTable))
+  )
+);
+
+export const fetchChartTable = id => dispatch => (
+  DataTableUtil.getSingleDataTable(id).then(
+    DataTable => dispatch(receiveChartTable(DataTable))
   )
 );

@@ -66,3 +66,9 @@ export const fetchSharedCharts = () => dispatch => (
     charts => dispatch(receiveCharts(charts))
   )
 );
+
+export const fetchSharedChart= id => dispatch => (
+  ChartUtil.fetchSharedChart(id).then(
+    chart => dispatch(receiveChart(chart))
+  )
+);

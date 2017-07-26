@@ -49,6 +49,16 @@ class Api::ChartsController < ApplicationController
     render :index
   end
 
+  def shared_show
+    @chart = Chart.find(params[:id])
+    if !@chart.shared_users.include?(current_user.username)
+      errors = ['You were not shared this chart!']
+      render json: errors, status: 404
+    else
+      render :show
+    end
+  end
+
   private
   def chart_params
     params.require(:chart).permit!

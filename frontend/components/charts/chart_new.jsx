@@ -94,6 +94,8 @@ class ChartNew extends React.Component{
       }
       data.push(rowData);
     }
+    console.log(values(this.state.table).length);
+    console.log(data);
     return data;
   }
 
@@ -116,9 +118,10 @@ class ChartNew extends React.Component{
             </LineChart>
           </ResponsiveContainer>
         );
-         this.setState({data, Chart, type});
+         this.setState({data, Chart, type, errors: ""});
       }else{
-        this.setState({errors: "Y Axis must be numerical values"});
+        this.setState({errors: "Y Axis must be numerical values",
+        Chart: (<div></div>), data: []});
       }
     }
   }
@@ -142,9 +145,10 @@ class ChartNew extends React.Component{
             </ScatterChart>
           </ResponsiveContainer>
         );
-         this.setState({data, Chart, type});
+         this.setState({data, Chart, type, errors: ""});
       }else{
-        this.setState({errors: "Y Axis must be numerical values"});
+        this.setState({errors: "Y Axis must be numerical values",
+        Chart: (<div></div>), data: []});
       }
     }
   }
@@ -168,9 +172,10 @@ class ChartNew extends React.Component{
             </BarChart>
           </ResponsiveContainer>
         );
-         this.setState({data, Chart, type});
+         this.setState({data, Chart, type, errors: ""});
       }else{
-        this.setState({errors: "Y Axis must be numerical values"});
+        this.setState({errors: "Y Axis must be numerical values",
+        Chart: (<div></div>), data: []});
       }
     }
   }
@@ -192,9 +197,10 @@ class ChartNew extends React.Component{
             </PieChart>
           </ResponsiveContainer>
         );
-        this.setState({data,Chart, type});
+        this.setState({data,Chart, type, errors: ""});
       }else{
-        this.setState({errors: "Y Axis must be numerical values"});
+        this.setState({errors: "Y Axis must be numerical values",
+        Chart: (<div></div>), data: []});
       }
     }
   }
@@ -222,9 +228,10 @@ class ChartNew extends React.Component{
             </AreaChart>
           </ResponsiveContainer>
         );
-        this.setState({data,Chart, type});
+        this.setState({data,Chart, type, errors: ""});
       }else{
-        this.setState({errors: "Y Axis must be numerical values"});
+        this.setState({errors: "Y Axis must be numerical values",
+        Chart: (<div></div>), data: []});
       }
     }
   }

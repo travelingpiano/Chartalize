@@ -33,7 +33,7 @@ class DataSelection extends React.Component{
       for(let i = 0; i< this.headings.length; i++){
         selectionStatus.push(0);
       }
-      this.setState({selectionStatus});
+      this.setState({selectionStatus, xSelection: "", ySelection: ""});
     }
   }
 

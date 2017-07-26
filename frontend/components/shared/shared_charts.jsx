@@ -30,7 +30,6 @@ class SharedCharts extends React.Component{
   render(){
     let display;
     if(this.state.charts.length > 0){
-      console.log(this.state.charts);
       display = (
         <div className="DataTables">
           <table className="datatables_table">

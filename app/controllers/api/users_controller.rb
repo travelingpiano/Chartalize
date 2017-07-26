@@ -1,6 +1,7 @@
 class Api::UsersController < ApplicationController
   def index
-    @users = User.all
+    all_users = User.all
+    @users = all_users.select{|user| user.id != current_user.id}
     render :index
   end
 

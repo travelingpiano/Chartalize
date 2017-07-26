@@ -1,14 +1,15 @@
 import {connect} from 'react-redux';
 import {selectSharedCharts} from '../../reducers/selectors';
-import {fetchAllCharts} from '../../actions/charts_actions';
+import {fetchSharedCharts} from '../../actions/charts_actions';
 import SharedCharts from './shared_charts';
+import {values} from 'lodash';
 
-const mapStateToProps = state => ({
-  charts: selectSharedCharts(state.charts,state.session.currentUser)
+const mapStateToProps = ({charts}) => ({
+  charts: values(charts)
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllCharts: () => dispatch(fetchAllCharts())
+  fetchAllCharts: () => dispatch(fetchSharedCharts())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(SharedCharts);

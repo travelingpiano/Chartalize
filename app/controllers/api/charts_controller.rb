@@ -44,6 +44,11 @@ class Api::ChartsController < ApplicationController
     end
   end
 
+  def shared
+    @charts = Chart.all.select{|chart| chart.shared_users.include?(current_user.username)}
+    render :index
+  end
+
   private
   def chart_params
     params.require(:chart).permit!

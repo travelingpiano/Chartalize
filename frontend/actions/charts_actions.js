@@ -60,3 +60,9 @@ export const editChart = (chart,id) => dispatch => (
     newChart => dispatch(updateChart(newChart))
   )
 );
+
+export const fetchSharedCharts = () => dispatch => (
+  ChartUtil.fetchSharedCharts().then(
+    charts => dispatch(receiveCharts(charts))
+  )
+);

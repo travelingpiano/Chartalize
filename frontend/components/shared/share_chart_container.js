@@ -6,7 +6,7 @@ import {values} from 'lodash';
 import {filterUser} from '../../reducers/selectors';
 
 const mapStateToProps = state => ({
-  users: filterUser(state.users,state.session.currentUser),
+  users: values(state.users),
   chart: state.charts
 });
 

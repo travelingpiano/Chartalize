@@ -36,3 +36,12 @@ export const editChart = (chart,id) => {
     })
   );
 };
+
+export const fetchSharedCharts = () => {
+  return (
+    $.ajax({
+      method: 'GET',
+      url: `api/charts/shared`
+    })
+  );
+};

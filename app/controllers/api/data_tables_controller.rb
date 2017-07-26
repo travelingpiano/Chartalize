@@ -2,7 +2,6 @@ class Api::DataTablesController < ApplicationController
   def create
     @data_table = DataTable.new(data_table_params)
     @data_table.user_id = current_user.id
-    puts @data_table.user_id
     if @data_table.save
       render :create
     else

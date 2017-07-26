@@ -9,14 +9,13 @@ class ChartIndexItem extends React.Component{
       chart: this.props.chart
     };
     this.idx = this.props.idx;
-    console.log(this.idx%2);
     this.chart = this.props.chart;
     this.deleteChart = this.deleteChart.bind(this);
     this.showChart = this.showChart.bind(this);
+    this.shareChart = this.shareChart.bind(this);
   }
 
   componentWillReceiveProps(newProps){
-    console.log(newProps);
     if(newProps!==this.props){
       this.setState({idx: newProps.idx, chart: newProps.chart});
     }
@@ -24,6 +23,10 @@ class ChartIndexItem extends React.Component{
 
   showChart(e){
     this.props.history.push(`/charts/${e.target.value}`);
+  }
+
+  shareChart(e){
+    this.props.history.push(`/charts/${this.state.chart.id}/share`);
   }
 
   deleteChart(e){
@@ -41,6 +44,11 @@ class ChartIndexItem extends React.Component{
         </td>
         <td key="data-type" className="td-padding">
           {this.state.chart.chart_type}
+        </td>
+        <td key="share" className="td-padding">
+          <button  value={this.state.chart.id} onClick={this.shareChart} className="td-button">
+            <i className="fa fa-share" aria-hidden="true"></i>
+          </button>
         </td>
         <td key="delete" className="td-padding">
             <button  value={this.state.chart.id} onClick={this.deleteChart} className="td-button">

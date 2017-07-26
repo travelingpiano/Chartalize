@@ -35,6 +35,7 @@ class ChartsIndex extends React.Component{
               <tr className="tableshead">
                 <td key={1} className="th-padding">Title</td>
                 <td key={2} className="th-padding">Type</td>
+                <td key={4} className="th-padding">Share</td>
                 <td key={3} className="th-padding">Delete</td>
               </tr>
               {this.props.charts.map((chart,idx)=>

@@ -32,7 +32,13 @@ class ShareChart extends React.Component {
 
   addUser(e){
     let sharedUsers = this.state.sharedUsers;
-    if(sharedUsers.indexOf(e.target.value)===-1){
+    let exist = false;
+    for(let i = 0; i< this.props.users.length; i++){
+      if(this.props.users[i].username === e.target.value){
+        exist = true;
+      }
+    }
+    if(sharedUsers.indexOf(e.target.value)===-1 && exist){
       sharedUsers.push(e.target.value);
     }
     this.setState({sharedUsers, search: ""});

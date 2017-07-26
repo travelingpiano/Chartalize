@@ -1,6 +1,7 @@
 import React from 'react';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import {default as TouchBackend} from 'react-dnd-touch-backend';
 import Selections from './chart_selections';
 import Axis from './chart_axis';
 
@@ -129,4 +130,4 @@ class DataSelection extends React.Component{
   }
 }
 
-export default DragDropContext(HTML5Backend)(DataSelection);
+export default DragDropContext(TouchBackend)(DataSelection);

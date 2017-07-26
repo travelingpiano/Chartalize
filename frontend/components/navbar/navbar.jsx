@@ -22,7 +22,7 @@ class NavBar extends React.Component {
 
   componentWillUnmount(){
     window.removeEventListener('click',this.handleOutsideClick);
-    window.removeEventListener('click',this.handleOutsideClick);
+    window.removeEventListener('touchstart',this.handleOutsideClick);
   }
 
   handleOutsideClick(e){

@@ -60,7 +60,7 @@ class NavBar extends React.Component {
       let dropdownDisplay;
       if(this.state.dropdownActive){
         dropdownDisplay = (
-          <div className="dropdown-display">
+          <div className="dropdown-display animated fadeIn">
             <label className="dropdown-label">Hi {this.props.currentUser.username}</label>
             <button onClick={this.logout} className="logout">Log Out</button>
           </div>

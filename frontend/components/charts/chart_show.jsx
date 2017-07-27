@@ -144,7 +144,7 @@ class ChartShow extends React.Component{
           </defs>
           <XAxis dataKey={x} name={x} label={x}/>
           <YAxis dataKey={y} name={y} />
-          <Area isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)"  className="Chart" />
+          <Area type="monotone" isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)"  className="Chart" />
           <Tooltip/>
         </AreaChart>
       </ResponsiveContainer>

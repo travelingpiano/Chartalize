@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 import {values} from 'lodash';
+import NavBarContainer from '../navbar/navbar_container';
 
 class DataTableShow extends React.Component{
   componentDidMount(){
@@ -43,10 +44,14 @@ class DataTableShow extends React.Component{
       );
     }
     return (
-      <div className="dataTables">
-        <SideBar currentPage="data_tables_show"/>
-        {display}
+      <div>
+        <NavBarContainer />
+        <div className="dataTables">
+          <SideBar currentPage="data_tables_show"/>
+          {display}
+        </div>
       </div>
+
     );
   }
 }

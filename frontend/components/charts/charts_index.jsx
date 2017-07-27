@@ -3,6 +3,7 @@ import {withRouter} from 'react-router';
 import {Link} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 import ChartIndexItem from './chart_index_item';
+import NavBarContainer from '../navbar/navbar_container';
 
 class ChartsIndex extends React.Component{
   constructor(props){
@@ -47,9 +48,12 @@ class ChartsIndex extends React.Component{
       );
     }
     return(
-      <div className="dataTables">
-        <SideBar currentPage="charts_index"/>
-        {display}
+      <div>
+        <NavBarContainer />
+        <div className="dataTables">
+          <SideBar currentPage="charts_index"/>
+          {display}
+        </div>
       </div>
     );
   }

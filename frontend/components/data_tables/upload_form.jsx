@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import {Link, withRouter} from 'react-router-dom';
 import {values} from 'lodash';
 import SideBar from '../navbar/side_bar';
+import NavBarContainer from '../navbar/navbar_container';
 
 class UploadForm extends React.Component{
   constructor(props){
@@ -126,15 +127,18 @@ class UploadForm extends React.Component{
 
   render (){
     return (
-      <div className="dataTables">
-        <SideBar currentPage="data_tables_new"/>
-        <form className="DataTables" onSubmit={this.handleSubmit}>
-          {this.state.errors.map((error)=>
-            <label key={error} className="errors">{error}</label>)}
-          <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
-          {this.uploaddata()}
-          <input value="Add new data table" type="submit" className="DataTableSubmit"/>
-        </form>
+      <div>
+        <NavBarContainer />
+        <div className="dataTables">
+          <SideBar currentPage="data_tables_new"/>
+          <form className="DataTables" onSubmit={this.handleSubmit}>
+            {this.state.errors.map((error)=>
+              <label key={error} className="errors">{error}</label>)}
+            <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="newDataTableTitle"></input>
+            {this.uploaddata()}
+            <input value="Add new data table" type="submit" className="DataTableSubmit"/>
+          </form>
+        </div>
       </div>
     );
   }

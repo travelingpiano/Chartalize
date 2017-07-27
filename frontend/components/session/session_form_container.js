@@ -6,8 +6,7 @@ import { withRouter } from 'react-router';
 
 const mapStateToProps = (state,ownProps) => ({
   loggedIn: Boolean(state.session.currentUser),
-  errors: state.session.errors,
-  formType: ownProps.location.pathname
+  errors: state.session.errors
 });
 
 const mapDispatchToProps = (dispatch,ownProps) => ({

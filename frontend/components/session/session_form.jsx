@@ -8,22 +8,26 @@ class SessionForm extends React.Component {
       username: "",
       password: "",
       errors: [],
-      prevPath: this.props.location
+      prevPath: this.props.location,
+      formType: this.props.formType
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
     this.demo_user = {username: "ChartalizeMaster", password: "password"};
+
   }
 
   componentWillReceiveProps(newProps){
-    if(newProps.location !== this.props.location){
-      this.setState({prevPath: this.props.location, errors: []});
+    if(newProps.formType !== this.props.formType){
+      this.setState({formType: newProps.formType, errors: []});
     }else if(newProps.errors !== this.props.errors){
       this.setState({errors: newProps.errors});
     }
   }
+
+
 
   changeUsername(e){
     this.setState({username: e.target.value, errors: []});
@@ -78,9 +82,9 @@ class SessionForm extends React.Component {
   }
 
   render(){
-    let direct_to = this.props.formType==='/login' ? 'signup' : 'login';
-    let authformtype = this.props.formType==='/login' ? 'Login' : 'Sign Up';
-    let welcome_sign = this.props.formType==='/login' ? 'Welcome back to Chartalize!' : 'Join the family!';
+    let direct_to = this.state.formType==='/login' ? 'signup' : 'login';
+    let authformtype = this.state.formType==='/login' ? 'Login' : 'Sign Up';
+    let welcome_sign = this.state.formType==='/login' ? 'Welcome back!' : 'Join the family!';
     let errors;
     if(this.state.errors.length===0 || this.props.location !== this.state.prevPath){
       errors = (<p></p>);
@@ -104,7 +108,7 @@ class SessionForm extends React.Component {
           <input type="password" placeholder="password" value={this.state.password} onChange={this.changePassword} className="form_content"></input>
           <button className="auth-button" onClick={this.handleSubmit}>{authformtype}</button>
           <button className="auth-button" onClick={this.handleDemo}>Demo</button>
-          <Link to={`/${direct_to}`} className="changeauth">{direct_to} instead?</Link>
+          <button value={this.state.formType} onClick={this.props.toggleFormType} className="changeauth">{direct_to} instead?</button>
         </form>
       );
     }

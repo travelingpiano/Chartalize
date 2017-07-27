@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router';
 import SideBar from '../navbar/side_bar';
+import NavBarContainer from '../navbar/navbar_container';
 import {values} from 'lodash';
 import {XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart,Line, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, AreaChart, Area, Cell, linearGradient, defs, stop} from 'recharts';
 
@@ -132,7 +133,7 @@ class SharedChartShow extends React.Component{
       <ResponsiveContainer width="90%" height="80%">
         <AreaChart data={data} className="PreviewChart">
           <defs>
-            <linearGradient id="grad">
+            <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#253A5C" stopOpacity={0.8}/>
               <stop offset="95%" stopColor="#253A5C" stopOpacity={0.2}/>
             </linearGradient>
@@ -159,9 +160,12 @@ class SharedChartShow extends React.Component{
       display = (<div></div>);
     }
     return (
-      <div className="dataTables">
-        <SideBar currentPage="shared_chart_show" />
-        {display}
+      <div>
+        <NavBarContainer />
+          <div className="dataTables">
+            <SideBar currentPage="shared_chart_show" />
+            {display}
+          </div>
       </div>
     );
   }

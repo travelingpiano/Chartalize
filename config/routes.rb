@@ -9,5 +9,4 @@ Rails.application.routes.draw do
     resources :data_tables, only: [:create,:show,:index,:destroy]
     resources :charts, only: [:create,:show,:index,:destroy, :update]
   end
-
 end

@@ -9,7 +9,8 @@ class NavBar extends React.Component {
     this.handleCharts = this.handleCharts.bind(this);
     this.handleDataTables = this.handleDataTables.bind(this);
     this.state = {
-      dropdownActive: false
+      dropdownActive: false,
+      formType: this.props.formType
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -91,8 +92,8 @@ class NavBar extends React.Component {
             <h1 className="logo">CHARTALIZE</h1>
           </Link>
           <div className="signin-login">
-            <Link className="login" to='/login'>Log In</Link>
-            <Link className="signup" to='/signup'>Get Started Now!</Link>
+            <button value={this.state.formType} onClick={this.props.toLogin} className="login">Log In</button>
+            <button value={this.state.formType} onClick={this.props.toSignup} className="signup">Get Started Now!</button>
           </div>
 
         </div>

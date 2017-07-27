@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router';
 import SideBar from '../navbar/side_bar';
+import NavBarContainer from '../navbar/navbar_container';
 import {values} from 'lodash';
 import {XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart,Line, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, AreaChart, Area, Cell, linearGradient, defs, stop} from 'recharts';
 
@@ -163,9 +164,12 @@ class ChartShow extends React.Component{
       display = (<div></div>);
     }
     return (
-      <div className="dataTables">
-        <SideBar currentPage="chart_show" />
-        {display}
+      <div>
+        <NavBarContainer />
+        <div className="dataTables">
+          <SideBar currentPage="chart_show" />
+          {display}
+        </div>
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router';
 import SideBar from '../navbar/side_bar';
 import ChartIndexItem from '../charts/chart_index_item';
+import NavBarContainer from '../navbar/navbar_container';
 
 class SharedCharts extends React.Component{
   constructor(props){
@@ -66,9 +67,12 @@ class SharedCharts extends React.Component{
       );
     }
     return (
-      <div className="dataTables">
-        <SideBar currentPage="shared_charts" />
-        {display}
+      <div>
+        <NavBarContainer />
+        <div className="dataTables">
+          <SideBar currentPage="shared_charts" />
+          {display}
+        </div>
       </div>
     );
   }

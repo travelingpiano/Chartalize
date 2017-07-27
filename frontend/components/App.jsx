@@ -17,10 +17,9 @@ import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
 const App = () => (
   <div>
-    < NavBarContainer />
+
     <Switch>
-      <AuthRoute path='/login' component={SessionFormContainer} />
-      <AuthRoute path='/signup' component={SessionFormContainer} />
+
       <ProtectedRoute path='/charts/shared/:chartId' component={SharedChartShowContainer} />
       <ProtectedRoute path='/charts/shared' component={SharedChartsContainer} />
       <ProtectedRoute path='/charts/:chartId/share' component={ShareChartContainer} />
@@ -34,5 +33,8 @@ const App = () => (
     </Switch>
   </div>
 );
+    // < NavBarContainer />
+// <AuthRoute path='/login' component={SessionFormContainer} />
+// <AuthRoute path='/signup' component={SessionFormContainer} />
 
 export default App;

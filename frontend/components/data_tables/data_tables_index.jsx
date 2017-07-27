@@ -2,6 +2,7 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import SideBar from '../navbar/side_bar';
 import DataIndexItem from './data_index_item';
+import NavBarContainer from '../navbar/navbar_container';
 
 class DataTableIndex extends React.Component{
   constructor(props){
@@ -46,9 +47,12 @@ class DataTableIndex extends React.Component{
       );
     }
     return (
-      <div className="dataTables">
-        <SideBar currentPage="data_tables_index"/>
-        {display}
+      <div>
+        <NavBarContainer />
+        <div className="dataTables">
+          <SideBar currentPage="data_tables_index"/>
+          {display}
+        </div>
       </div>
     );
   }

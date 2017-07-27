@@ -3,6 +3,7 @@ import React from 'react';
 import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
 import {values} from 'lodash';
+import NavBarContainer from '../navbar/navbar_container';
 import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
 import {findDOMNode} from 'react-dom';
 
@@ -343,43 +344,46 @@ class ChartNew extends React.Component{
       );
     }
     return(
-      <div className="ChartForm">
-        <div className="ChartSelections">
-          <label className="SelectionsTitle">Table Choice</label>
-          {this.dataTableSelection()}
-          <label className="SelectionsTitle">Axis Choices</label>
-          <DataSelection headings={this.state.headings} changeXAxis={xAxis=>this.changeXAxis(xAxis)} changeYAxis={yAxis=>this.changeYAxis(yAxis)}/>
-        </div>
-        <div className="ChartButtons">
-          <button onClick={this.createLineChart}>
-            <i className="fa fa-line-chart" aria-hidden="true"></i>
-          </button>
-          <button onClick={this.createScatterChart}>
-            <img src="https://png.icons8.com/scatter-plot/win10/48" title="Scatter Plot"/>
-          </button>
-          <button onClick={this.createBarChart}>
-            <i className="fa fa-bar-chart" aria-hidden="true"></i>
-          </button>
-          <button onClick={this.createPieChart}>
-            <i className="fa fa-pie-chart" aria-hidden="true"></i>
-          </button>
-          <button onClick={this.createAreaChart}>
-            <i className="fa fa-area-chart" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <div className="ChartCanvas">
-          <div className="Title-Errors">
-            {this.state.errors.map((error,idx)=>
-            <label style={{marginTop: '0px'}} className="errors" key={idx}>{error}</label>
-            )}
-            <div className="Title-Submit">
-              <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
-              <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>
-            </div>
+      <div>
+        <NavBarContainer />
+        <div className="ChartForm">
+          <div className="ChartSelections">
+            <label className="SelectionsTitle">Table Choice</label>
+            {this.dataTableSelection()}
+            <label className="SelectionsTitle">Axis Choices</label>
+            <DataSelection headings={this.state.headings} changeXAxis={xAxis=>this.changeXAxis(xAxis)} changeYAxis={yAxis=>this.changeYAxis(yAxis)}/>
+          </div>
+          <div className="ChartButtons">
+            <button onClick={this.createLineChart}>
+              <i className="fa fa-line-chart" aria-hidden="true"></i>
+            </button>
+            <button onClick={this.createScatterChart}>
+              <img src="https://png.icons8.com/scatter-plot/win10/48" title="Scatter Plot"/>
+            </button>
+            <button onClick={this.createBarChart}>
+              <i className="fa fa-bar-chart" aria-hidden="true"></i>
+            </button>
+            <button onClick={this.createPieChart}>
+              <i className="fa fa-pie-chart" aria-hidden="true"></i>
+            </button>
+            <button onClick={this.createAreaChart}>
+              <i className="fa fa-area-chart" aria-hidden="true"></i>
+            </button>
           </div>
 
-          {this.state.Chart}
+          <div className="ChartCanvas">
+            <div className="Title-Errors">
+              {this.state.errors.map((error,idx)=>
+              <label style={{marginTop: '0px'}} className="errors" key={idx}>{error}</label>
+              )}
+              <div className="Title-Submit">
+                <input value={this.state.title} onChange={this.changeTitle} placeholder="Title" className="ChartTitle"></input>
+                <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>
+              </div>
+            </div>
+
+            {this.state.Chart}
+          </div>
         </div>
       </div>
     );

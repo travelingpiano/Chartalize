@@ -14,7 +14,8 @@ const mapDispatchToProps = (dispatch,ownProps) => ({
     return ownProps.location.pathname === '/login' ?
       dispatch(login(user)) : dispatch(signup(user));
   },
-  login: (user) => dispatch(login(user))
+  login: (user) => dispatch(login(user)),
+  signup: (user) => dispatch(signup(user))
 });
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(SessionForm));

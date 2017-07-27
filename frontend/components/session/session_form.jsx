@@ -40,7 +40,11 @@ class SessionForm extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     const user = {user:{username: this.state.username, password: this.state.password}};
-    this.props.processForm(user);
+    if(this.props.formType==="/login"){
+      this.props.login(user);
+    }else{
+      this.props.signup(user);
+    }
     this.setState({username: "", password: "", errors: [], prevPath: this.props.location});
   }
 

@@ -6,7 +6,7 @@
 * [Heroku][heroku]
 * [Trello][trello]
 
-[heroku]: https://www.heroku.com/
+[heroku]: https://chartalize.herokuapp.com
 [trello]: https://trello.com/b/rcGtdv2g/a-a-full-stack-project
 
 ### Documentation
@@ -29,10 +29,10 @@ sufficient CSS styling:
 - [x] Hosting on heroku
 - [x] New account creation and login
 - [x] Guest/demo account
-- [ ] Upload data and visualize it with a variety of charts
-- [ ] Logged in users can persist their data
-- [ ] Share charts with other users
-- [ ] Supports JSON, TSV, and CSV formats
+- [x] Upload data and visualize it with a variety of charts
+- [x] Logged in users can persist their data
+- [x] Share charts with other users
+- [x] Supports JSON, TSV, and CSV formats
 - [ ] [Production README](docs/production_readme.md)
 
 ## Implementation Timeline
@@ -57,59 +57,64 @@ sufficient CSS styling:
 - [x] Functional
   - [x] Store data with user in database
   - [x] Support JSON, TSV, CSV
-  - [ ] Data stored can be queried
-- [ ] Webpage
-  - [ ] New data table form page
+  - [x] Data stored can be queried
+- [x] Webpage
+  - [x] New data table form page
   - [x] Data index page
-  - [ ] Data show page
+  - [x] Data show page
 
 ### Phase 3: Create Chart (3 days)
 
 **Objective:** Charts can be created, shown and deleted from imported data tables by users.
 
-- [ ] Functional
-  - [ ] Queries done to selected to data table
-  - [ ] Charts using [Victory.js](http://formidable.com/open-source/victory/)
-  - [ ] Enable bar, line, bar-line, scatter and pie charts
-  - [ ] Created charts can be deleted
-- [ ] Webpage
-  - [ ] New chart form page
-  - [ ] Chart show page
+- [x] Functional
+  - [x] Selected chart data from previously uploaded data tables
+  - [x] Charts using [rechart](http://recharts.org/#/en-US/)
+  - [x] Enable bar, line, area, scatter and pie charts
+  - [x] Created charts can be deleted
+- [x] Webpage
+  - [x] New chart form page
+  - [x] Chart show page
 
 ### Phase 4: Chart Sharing (2 days)
 
 **Objective:** Charts can be shared with other users in database and users can view all charts shared with them.
 
-- [ ] Functional
-  - [ ] Allow shared users to see charts
-  - [ ] See charts shared with current user
-  - [ ] Able to search for users to share chart
-- [ ] Visual
-  - [ ] New share chart form page
-  - [ ] Shared charts index page
+- [x] Functional
+  - [x] Allow shared users to see charts
+  - [x] See charts shared with current user
+  - [x] Able to search for users to share chart
+- [x] Visual
+  - [x] New share chart form page
+  - [x] Shared charts index page
 
 ### Phase 5: Additional Styling (1 days)
 
 **Objective:** Clean up on styling to make interface presentable and professional
 
-- [ ] Clean charts and data tables
-- [ ] Clear form for creating new chart
+- [x] Clean charts and data tables
+- [x] Clear form for creating new chart
 
 
 ### User Experience Testing
 
 **Objective:** To get third party opinions on webpage display
 
-- [ ] Ask 5-10 friends to review webpage at various points of development
+- [x] Ask 5-10 friends to review webpage at various points of development
 
 ### Bonus Features (TBD)
 - [ ] Functional
+  - [x] Allow charts to be shared by x and y axes, ascending and descending
   - [ ] Allow users to add background image to charts
   - [ ] Allow users to edit charts
   - [ ] Allow users to edit data
   - [ ] Allowing users to create dashboards and populate them with charts
   - [ ] Schema and relational databases
 - [ ] Webpage
+  - [x] Help page with information on site
+  - [x] Modal for login and signup forms
+  - [x] Custom dropdown for username and logout button
+  - [x] Site also hosted on separate domain [here](http://chartalize.com)
   - [ ] Chart and data edit pages
   - [ ] Dashboard show, create, edit, delete pages
   - [ ] Splash page on first login with basic information on how to navigate Chartalize

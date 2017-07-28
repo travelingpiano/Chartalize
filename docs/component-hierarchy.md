@@ -4,49 +4,94 @@
 
 **SessionFormContainer**
 - SessionForm
+- mapStateToProps: loggedIn, errors
+- mapDispatchToProps: login, signup
 
 **NavBarContainer**
 - NavBar
+- mapStateToProps: currentUser
+- mapDispatchToProps: logout
 
-**IntroContainer**
-- Intro
+**ChartNewContainer**
+- ChartNew
+  - NavBarContainer
+  - DataSelection
+    - Selections
+    - Axis
+- mapStateToProps: dataTables, chartTable, errors
+- mapDispatchToProps: fetchAllDataTables, fetchChartTable, makeChart
 
-**ChartIndexContainer**
+**ChartsIndexContainer**
 - ChartIndex
+  - NavBarContainer
+  - SideBar
+  - ChartIndexItem
+- mapStateToProps: charts
+- mapDispatchToProps: fetchAllCharts, deleteChart
 
-**ChartDetailsContainer**
-- ChartDetails
-
-**ChartFormContainer**
-- ChartForm
+**ChartShowContainer**
+- ChartShow
+  - NavBarContainer
+  - SideBar
+- mapStateToProps: chart
+- mapDispatchToProps: fetchOneChart
 
 **DataTableIndexContainer**
 - DataTableIndex
+  - NavBarContainer
+  - SideBar
+  - DataIndexItem
+- mapStateToProps: dataTables
+- mapDispatchToProps: deleteDataTable, fetchAllDataTables
 
-**DataTableFormContainer**
-- DataTableForm
+**UploadFormContainer**
+- UploadForm
+  - NavBarContainer
+  - SideBar
+- mapStateToProps: state, errors
+- mapDispatchToProps: makeDataTable
 
-**DataTableItemContainer**
-- DataTableItem
+**SharedChartsContainer**
+- SharedCharts
+  - NavBarContainer
+  - SideBar
+- mapStateToProps: charts
+- mapDispatchToProps: fetchSharedCharts
 
-**ShareIndexContainer**
-- ShareIndex
+**ShareChartContainer**
+- ShareChart
+  - NavBarContainer
+  - SideBar
+- mapStateToProps: users, chart
+- mapDispatchToProps: fetchOneChart, fetchAllUsers, editChart
 
-**ShareFormContainer**
-- ShareForm
+**SharedChartShowContainer**
+- SharedChartShow
+  - NavBarContainer
+  - SideBar
+- mapStateToProps: chart
+- mapDispatchToProps: fetchSharedChart
+
+**SideBar**
+
+**Homepage**
+- SessionFormContainer
+- NavBarContainer
+
+**HelpPage**
 
 ## Routes
 
 Path                      | Component
 --------------------------|----------
-/                         | IntroContainer
-/login                    | SessionFormContainer
-/signup                   | SessionFormContainer
-/charts                   | ChartIndexContainer
-/charts/:chartId          | ChartDetailsContainer
-/charts/new               | ChartFormContainer
-/datatables               | DataTableIndexContainer
-/datatables/:datatableId  | DataTableItemContainer
-/datatables/new           | DataTableFormContainer
-/share                    | ShareIndexContainer
-/share/new                | ShareFormContainer
+/                         | Homepage
+/help                     | HelpPage
+/charts                   | ChartsIndexContainer
+/charts/:chartId          | ChartShowContainer
+/charts/new               | ChartNewContainer
+/charts/shared            | SharedChartsContainer
+/charts/shared/:chartId   | SharedChartShowContainer
+/charts/:chartId/share    | ShareChartContainer
+/data_tables              | DataTableIndexContainer
+/data_tables/:datatableId | DataTableShowContainer
+/data_tables/new          | UploadFormContainer

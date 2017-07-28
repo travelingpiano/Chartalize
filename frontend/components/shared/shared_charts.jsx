@@ -1,7 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router';
 import SideBar from '../navbar/side_bar';
-import ChartIndexItem from '../charts/chart_index_item';
 import NavBarContainer from '../navbar/navbar_container';
 
 class SharedCharts extends React.Component{
@@ -15,7 +14,7 @@ class SharedCharts extends React.Component{
 
   componentDidMount(){
     this.setState({charts: []},
-    this.props.fetchAllCharts);
+    this.props.fetchSharedCharts);
   }
 
   componentWillReceiveProps(newProps){

@@ -5,7 +5,9 @@
 {
   session: {
     currentUser: {
-      username: "Li Hsuan",
+      id: 1,
+      session_token: "R81drBkotweL6myC_Trs0w",
+      username: "ChartalizeMaster",
     },
     errors: {}
   }
@@ -13,36 +15,20 @@
   charts: {
     1: {
       title: "Temperature History of SF",
-      type: "Bar",
-      axes: {
-        x: {
-          title: "Month",
-          type: "date"
-        },
-        y: {
-          title: "Temperature",
-          type: "degrees"
-        }
-      },
-      query: "SELECT Month AS x AND Temperature AS y",
-      data_table_id: 1
+      chart_type: "Bar",
+      xAxis: "Age",
+      yAxis: "TD",
+      user_id: 1,
+      shared_users: ["Dallas","Kelly"]
     }
   }
 
   data_tables: {
     1: {
+      id: 1,
       title: "SF Temperature First Half of 2016",
-      type: "CSV",
-      columns: ["Month", "Temperature"]
-      values: [
-        [January, 53],
-        [February, 57],
-        [March, 58],
-        [April, 61],
-        [May, 62],
-        [June, 64]
-      ],
-      url: "/temperature/sf/2016"
+      type: "text/csv",
+      user_id: 1
     }
   }
 }

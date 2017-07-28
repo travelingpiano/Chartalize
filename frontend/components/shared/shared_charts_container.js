@@ -9,7 +9,7 @@ const mapStateToProps = ({charts}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllCharts: () => dispatch(fetchSharedCharts())
+  fetchSharedCharts: () => dispatch(fetchSharedCharts())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(SharedCharts);

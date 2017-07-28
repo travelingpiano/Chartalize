@@ -29,3 +29,4 @@ yAxis           | string    | not null
 data            | jsonb     | not null
 user_id         | integer   | not null, foreign key (references users) indexed
 data_table_id   | integer   | not null, foreign key (references data_tables), indexed
+shared_users    | string    | array: true, default: []

@@ -2,7 +2,7 @@
 import React from 'react';
 import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
-import {values} from 'lodash';
+import {values, keys} from 'lodash';
 import NavBarContainer from '../navbar/navbar_container';
 import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
 import {findDOMNode} from 'react-dom';
@@ -58,13 +58,13 @@ class ChartNew extends React.Component{
   handleOutsideClick(e){
     const dropdownTarget = findDOMNode(this).getElementsByClassName("Dropdown-Option");
     const dropdownTarget2 = findDOMNode(this).getElementsByClassName("Dropdown-Optionz")[0];
-    console.log(values(dropdownTarget));
-    const baseTarget = document.getElementById('1');
-    console.log(dropdownTarget2);
-    console.log(e.target);
-    console.log(values(dropdownTarget).length);
-    console.log(values(dropdownTarget).includes(e.target));
-    console.log(dropdownTarget2===e.target);
+    // console.log(values(dropdownTarget));
+    // const baseTarget = document.getElementById('1');
+    // console.log(dropdownTarget2);
+    // console.log(e.target);
+    // console.log(values(dropdownTarget).length);
+    // console.log(values(dropdownTarget).includes(e.target));
+    // console.log(dropdownTarget2===e.target);
     // if(values(dropdownTarget).length > 1 && !values(dropdownTarget).includes(e.target) && this.state.dataTableName !== "Choose a Data Table"){
     //   this.setState({dropdownActive: false});
     // }
@@ -144,26 +144,47 @@ class ChartNew extends React.Component{
   }
 
   parseData(){
-    let data = [];
     let currentTable = this.state.table;
+    let yData = [];
+    let xData = [];
     for(let key in currentTable){
-      let rowData = {};
-      for(let selector in currentTable[key]){
-        if(selector===this.state.xAxis){
-          rowData[this.state.xAxis] = currentTable[key][selector];
-          if(!currentTable[key][selector]){
-            return "Missing X Data Values";
-          }
-        }
-        if(selector===this.state.yAxis){
-          rowData[this.state.yAxis] = Number(currentTable[key][selector]);
-          if(isNaN(rowData[this.state.yAxis])){
+      //check if x data value is present in that row
+      if(keys(currentTable[key]).includes(this.state.xAxis)){
+        //check if y data value is present in that row
+        if(keys(currentTable[key]).includes(this.state.yAxis)){
+          if(isNaN(Number(currentTable[key][this.state.yAxis]))){
             return undefined;
-          }else if(!currentTable[key][selector]){
-            return "Missing Y Data Values";
+          }else{
+            let xDataVal = currentTable[key][this.state.xAxis];
+            let ind = xData.indexOf(xDataVal);
+            //if same xdataval has been found already
+            if(ind !== -1){
+              yData[ind].push(Number(currentTable[key][this.state.yAxis]));
+            }else{
+              yData.push([Number(currentTable[key][this.state.yAxis])]);
+              xData.push(xDataVal);
+            }
           }
+        }else{
+          return "Missing Y Data Values";
         }
+      }else{
+        return "Missing X Data Values";
       }
+    }
+    //average out y data with same x data value s
+    for(let i = 0; i<yData.length; i++){
+      let yDataAvg = 0;
+      for(let j = 0; j < yData[i].length; j++){
+        yDataAvg += yData[i][j];
+      }
+      yData[i] = yDataAvg/yData[i].length;
+    }
+    let data = [];
+    for(let i = 0; i <yData.length; i++){
+      let rowData = {};
+      rowData[this.state.xAxis] = xData[i];
+      rowData[this.state.yAxis] = yData[i];
       data.push(rowData);
     }
     return data;

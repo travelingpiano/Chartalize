@@ -2,7 +2,7 @@
 import React from 'react';
 import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
-import {values, keys} from 'lodash';
+import {values, keys, merge} from 'lodash';
 import NavBarContainer from '../navbar/navbar_container';
 import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
 import {findDOMNode} from 'react-dom';
@@ -21,7 +21,8 @@ class ChartNew extends React.Component{
       Chart: (<div></div>),
       errors: [],
       dropdownActive: false,
-      dataTableName: "Choose a Data Table"
+      dataTableName: "Choose a Data Table",
+      sortType: "X Axis Asc"
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
@@ -37,10 +38,14 @@ class ChartNew extends React.Component{
     this.toggleDataTable = this.toggleDataTable.bind(this);
     this.changeDataTableCustom = this.changeDataTableCustom.bind(this);
     this.close =  this.close.bind(this);
+    this.changeSortType = this.changeSortType.bind(this);
+    this.xAxisDesc = this.xAxisDesc.bind(this);
+    this.xAxisAsc = this.xAxisAsc.bind(this);
+    this.yAxisAsc = this.yAxisAsc.bind(this);
+    this.yAxisDesc = this.yAxisDesc.bind(this);
   }
 
   close(e){
-    console.log('hiii');
     this.setState({dropdownActive: false});
   }
 
@@ -53,6 +58,10 @@ class ChartNew extends React.Component{
   componentWillUnmount(){
     window.removeEventListener('click',this.handleOutsideClick);
     window.removeEventListener('touchstart',this.handleOutsideClick);
+  }
+
+  changeSortType(e){
+    this.setState({sortType: e.target.value});
   }
 
   handleOutsideClick(e){
@@ -143,6 +152,84 @@ class ChartNew extends React.Component{
     );
   }
 
+  xAxisDesc(origData){
+    let xData = [];
+    let yData = [];
+    let xSortedData = [];
+    for(let i = 0; i<origData.length; i++){
+      xData.push(origData[i][this.state.xAxis]);
+      yData.push(origData[i][this.state.yAxis]);
+      xSortedData.push(origData[i][this.state.xAxis]);
+    }
+    xSortedData.sort().reverse();
+    let ySortedData = [];
+    for(let i = 0; i< origData.length; i++){
+      let ind = xData.indexOf(xSortedData[i]);
+      ySortedData.push(yData[ind]);
+    }
+    let data = [];
+    for(let i = 0; i <yData.length; i++){
+      let rowData = {};
+      rowData[this.state.xAxis] = xSortedData[i];
+      rowData[this.state.yAxis] = ySortedData[i];
+      data.push(rowData);
+    }
+    return data;
+  }
+
+  xAxisAsc(origData){
+    let xData = [];
+    let yData = [];
+    let xSortedData = [];
+    for(let i = 0; i<origData.length; i++){
+      xData.push(origData[i][this.state.xAxis]);
+      yData.push(origData[i][this.state.yAxis]);
+      xSortedData.push(origData[i][this.state.xAxis]);
+    }
+    xSortedData.sort();
+    let ySortedData = [];
+    for(let i = 0; i< origData.length; i++){
+      let ind = xData.indexOf(xSortedData[i]);
+      ySortedData.push(yData[ind]);
+    }
+    let data = [];
+    for(let i = 0; i <yData.length; i++){
+      let rowData = {};
+      rowData[this.state.xAxis] = xSortedData[i];
+      rowData[this.state.yAxis] = ySortedData[i];
+      data.push(rowData);
+    }
+    return data;
+  }
+
+  yAxisAsc(origData){
+    for(let i = 0; i<origData.length-1;i++){
+      for(let j = i+1; j < origData.length; j++){
+        //if need to swap
+        if(origData[i][this.state.yAxis] > origData[j][this.state.yAxis]){
+          let temp = origData[i];
+          origData[i] = origData[j];
+          origData[j] = temp;
+        }
+      }
+    }
+    return origData;
+  }
+
+  yAxisDesc(origData){
+    for(let i = 0; i<origData.length-1;i++){
+      for(let j = i+1; j < origData.length; j++){
+        //if need to swap
+        if(origData[i][this.state.yAxis] < origData[j][this.state.yAxis]){
+          let temp = origData[i];
+          origData[i] = origData[j];
+          origData[j] = temp;
+        }
+      }
+    }
+    return origData;
+  }
+
   parseData(){
     let currentTable = this.state.table;
     let yData = [];
@@ -157,7 +244,7 @@ class ChartNew extends React.Component{
           }else{
             let xDataVal = currentTable[key][this.state.xAxis];
             let ind = xData.indexOf(xDataVal);
-            //if same xdataval has been found already
+            //if same xdataval has been found already;
             if(ind !== -1){
               yData[ind].push(Number(currentTable[key][this.state.yAxis]));
             }else{
@@ -186,6 +273,15 @@ class ChartNew extends React.Component{
       rowData[this.state.xAxis] = xData[i];
       rowData[this.state.yAxis] = yData[i];
       data.push(rowData);
+    }
+    if(this.state.sortType==="X Axis Desc"){
+      data = this.xAxisDesc(data);
+    }else if(this.state.sortType==="X Axis Asc"){
+      data = this.xAxisAsc(data);
+    }else if(this.state.sortType==="Y Axis Asc"){
+      data = this.yAxisAsc(data);
+    }else if(this.state.sortType==="Y Axis Desc"){
+      data = this.yAxisDesc(data);
     }
     return data;
   }
@@ -390,6 +486,13 @@ class ChartNew extends React.Component{
             <button onClick={this.createAreaChart}>
               <i className="fa fa-area-chart" aria-hidden="true"></i>
             </button>
+            <label className="SelectionsTitle">Sort by:</label>
+            <select onChange={this.changeSortType} className="Dropdown-Option">
+              <option default value="X Axis Asc" >X Axis Asc</option>
+              <option value="X Axis Desc">X Axis Desc</option>
+              <option value="Y Axis Asc">Y Axis Asc</option>
+              <option value="Y Axis Desc">Y Axis Desc</option>
+            </select>
           </div>
 
           <div className="ChartCanvas">

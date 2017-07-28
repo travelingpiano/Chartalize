@@ -41,6 +41,7 @@
   align-items: center;
   justify-content: center;
   color: white;
+  padding: 3px 0px;
   margin: 5px;
 }
 
@@ -54,6 +55,7 @@
   justify-content: center;
   color: $light-gray;
   margin: 5px;
+  padding: 3px 0px;
 }
 
 //for xaxis and yaxis
@@ -66,7 +68,7 @@
 
 //for xaxis or yaxis
 .Axis{
-  height: 40%;
+  height: 45%;
   margin: 10px;
   background-color: $light-gray;
   text-align: center;

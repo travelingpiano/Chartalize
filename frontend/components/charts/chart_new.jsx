@@ -61,7 +61,24 @@ class ChartNew extends React.Component{
   }
 
   changeSortType(e){
-    this.setState({sortType: e.target.value});
+    if(this.state.type==="Scatter"){
+      this.setState({sortType: e.target.value},
+      this.createScatterChart);
+    }else if(this.state.type==="Line"){
+      this.setState({sortType: e.target.value},
+      this.createLineChart);
+    }else if(this.state.type==="Bar"){
+      this.setState({sortType: e.target.value},
+      this.createBarChart);
+    }else if(this.state.type==="Area"){
+      this.setState({sortType: e.target.value},
+      this.createAreaChart);
+    }else if(this.state.type==="Pie"){
+      this.setState({sortType: e.target.value},
+      this.createPieChart);
+    }else{
+      this.setState({sortType: e.target.value});
+    }
   }
 
   handleOutsideClick(e){
@@ -319,6 +336,8 @@ class ChartNew extends React.Component{
   }
 
   createScatterChart(e){
+    console.log(this.state.type);
+    console.log(this.state.sortType);
     let type = "Scatter";
     if(this.state.xAxis && this.state.yAxis){
       let x = this.state.xAxis;

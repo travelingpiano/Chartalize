@@ -85,16 +85,6 @@ class ChartNew extends React.Component{
   handleOutsideClick(e){
     const dropdownTarget = findDOMNode(this).getElementsByClassName("Dropdown-Option");
     const dropdownTarget2 = findDOMNode(this).getElementsByClassName("Dropdown-Optionz")[0];
-    // console.log(values(dropdownTarget));
-    // const baseTarget = document.getElementById('1');
-    // console.log(dropdownTarget2);
-    // console.log(e.target);
-    // console.log(values(dropdownTarget).length);
-    // console.log(values(dropdownTarget).includes(e.target));
-    // console.log(dropdownTarget2===e.target);
-    // if(values(dropdownTarget).length > 1 && !values(dropdownTarget).includes(e.target) && this.state.dataTableName !== "Choose a Data Table"){
-    //   this.setState({dropdownActive: false});
-    // }
   }
 
   toggleDataTable(e){

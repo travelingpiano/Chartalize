@@ -1,5 +1,4 @@
 export const create_dataTable = data_table => {
-  console.log(data_table);
   return (
     $.ajax({
       method: 'POST',

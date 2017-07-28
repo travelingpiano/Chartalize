@@ -14,6 +14,7 @@ class NavBar extends React.Component {
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.handleHelp = this.handleHelp.bind(this);
   }
 
   componentDidMount(){
@@ -46,6 +47,10 @@ class NavBar extends React.Component {
     this.props.history.push('/data_tables');
   }
 
+  handleHelp(e){
+    this.props.history.push('/help');
+  }
+
   toggleDropdown(e){
     this.setState({dropdownActive: !this.state.dropdownActive});
   }
@@ -76,6 +81,7 @@ class NavBar extends React.Component {
             <h1 className="logo">CHARTALIZE</h1>
           </Link>
           <div className="signin-login">
+            <button onClick={this.handleHelp} className="login">Help</button>
             <button onClick={this.handleCharts} className="login">Charts</button>
             <button onClick={this.handleDataTables} className="login">Data Tables</button>
             <button onClick={this.toggleDropdown} className="login dropdownTrigger">

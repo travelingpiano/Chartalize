@@ -1,0 +1,27 @@
+@import 'variables';
+
+.Help-Page-Body{
+  margin: 20px;
+}
+
+.Help-Page-Subtitle{
+  font-size: 20px;
+  margin: 10px 0px;
+  color: $dark-blue;
+  font-weight: bold;
+}
+
+.Help-Page-Text{
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  margin: 10px 0px;
+}
+
+.Help-Page-Links{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.Help-Page-Links:hover{
+  color: $light-gray;
+}

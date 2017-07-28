@@ -44,7 +44,6 @@ class ChartNew extends React.Component{
     this.xAxisAsc = this.xAxisAsc.bind(this);
     this.yAxisAsc = this.yAxisAsc.bind(this);
     this.yAxisDesc = this.yAxisDesc.bind(this);
-    this.changeColor = this.changeColor.bind(this);
   }
 
   close(e){
@@ -60,11 +59,6 @@ class ChartNew extends React.Component{
   componentWillUnmount(){
     window.removeEventListener('click',this.handleOutsideClick);
     window.removeEventListener('touchstart',this.handleOutsideClick);
-  }
-
-  changeColor(e){
-    console.log(e.target.value);
-    this.setState({color: e.target.value});
   }
 
   changeSortType(e){
@@ -517,8 +511,6 @@ class ChartNew extends React.Component{
               <option value="Y Axis Asc">Y Axis Asc</option>
               <option value="Y Axis Desc">Y Axis Desc</option>
             </select>
-            <label className="SelectionsTitle">Color:</label>
-            <input onChange={this.changeColor} className="jscolor" value={this.state.color} />
           </div>
 
           <div className="ChartCanvas">

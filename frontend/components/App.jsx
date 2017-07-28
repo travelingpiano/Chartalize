@@ -12,6 +12,7 @@ import Homepage from './homepage/homepage';
 import ShareChartContainer from './shared/share_chart_container';
 import SharedChartsContainer from './shared/shared_charts_container';
 import SharedChartShowContainer from './shared/shared_chart_show_container';
+import HelpPage from './helppage/helppage';
 import {Route,Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
@@ -19,7 +20,7 @@ const App = () => (
   <div>
 
     <Switch>
-
+      <ProtectedRoute path='/help' component={HelpPage} />
       <ProtectedRoute path='/charts/shared/:chartId' component={SharedChartShowContainer} />
       <ProtectedRoute path='/charts/shared' component={SharedChartsContainer} />
       <ProtectedRoute path='/charts/:chartId/share' component={ShareChartContainer} />

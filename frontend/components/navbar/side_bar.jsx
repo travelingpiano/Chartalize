@@ -110,6 +110,16 @@ class SideBar extends React.Component{
           <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
+    }else if(this.props.currentPage==="help_page"){
+      display = (
+        <div>
+          <h1 className="DataTablesTitle">Help Center</h1>
+          <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
+          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
+        </div>
+      );
     }
     return (<div className="sidebar">
       <div>

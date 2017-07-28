@@ -15,9 +15,9 @@ class HelpPage extends React.Component {
               <label className="tableTitle">Help Center</label>
               <div className="Help-Page-Body">
                 <label className="Help-Page-Subtitle">What is Chartalize?</label>
-                <p className="Help-Page-Text">Chartalize is a personal project of Li Hsuan Lu  using React/Redux as the frontend framework and Ruby on Rails as the backend support. It draws inspiration from Chartio, and allows users to plot various charts from uploaded data. Chartalize aims at providing clear data visualization with a simple and intuitive interface. Recharts is currently the library behind the charts generated on Chartalize, and ReactDnD is the library behind the drag and drop interactions during chart generation. </p>
+                <p className="Help-Page-Text">Chartalize is a personal project of Li Hsuan Lu  using React/Redux as the frontend framework and Ruby on Rails as the backend support. It draws inspiration from <a href="https://chartio.com/" className="Help-Page-Links" target="_blank" >Chartio</a>, and allows users to plot various charts from uploaded data. Chartalize aims at providing clear data visualization with a simple and intuitive interface. Recharts is currently the library behind the charts generated on Chartalize, and ReactDnD is the library behind the drag and drop interactions during chart generation. </p>
                 <label className="Help-Page-Subtitle">What can Chartalize do?</label>
-                <p className="Help-Page-Text">Chartalize's functions can currently be broken down into three main areas.</p>
+                <p className="Help-Page-Text">Chartalize's functions can be broken down into three main areas.</p>
                 <p className="Help-Page-Text"><b>Uploading data:</b></p>
                 <p className="Help-Page-Text">Data tables can be uploaded in three main ways, CSV, TSV and JSON. For CSV and TSV files, the first row is taken as headings, while for JSON files, the object keys are taken as headings. Uploaded tables can be viewed by the user and used to generate charts. Only files below 20 kB are accepted and headings should not be numerical. <Link to='/data_tables/new' className="Help-Page-Links">Upload one now!</Link></p>
                 <p className="Help-Page-Text"><b>Generating Charts</b></p>

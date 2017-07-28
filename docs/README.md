@@ -111,6 +111,7 @@ sufficient CSS styling:
   - [ ] Allowing users to create dashboards and populate them with charts
   - [ ] Schema and relational databases
 - [ ] Webpage
+  - [x] Drag and drop for headings selection when creating new charts
   - [x] Help page with information on site
   - [x] Modal for login and signup forms
   - [x] Custom dropdown for username and logout button

@@ -63,7 +63,6 @@ class UploadForm extends React.Component{
         }
       }
     }
-    console.log(table);
     this.setState({table, data_type, errors: []});
   }
 

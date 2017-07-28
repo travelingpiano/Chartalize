@@ -52,6 +52,7 @@ class Homepage extends React.Component{
   }
 
   toggleFormType(e){
+    e.preventDefault();
     if(this.state.formType==="/login"){
       this.setState({formType: '/signup'});
     }else{

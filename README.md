@@ -1,24 +1,43 @@
-# README
+# Chartalize
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Chartalize](http://chartalize.com) is a web application for users to build charts and perform simple data analysis using uploaded data tables. Inspired by Chartio, Chartalize allows users to upload data sources, generate charts and share generated charts with fellow users.
 
-Things you may want to cover:
+Chartalize is a personal project by Li Hsuan Lu.
 
-* Ruby version
+## Features
 
-* System dependencies
+- Hosting on Heroku
+- New account creation and login
+- Guest/demo account
+- Upload data and visualize it with a variety of charts
+- Logged in users can persist their data
+- Supports JSON, TSV and CSV formats
+- Users can share generated charts with other users
 
-* Configuration
+## Design Features
 
-* Database creation
+## Project Design
 
-* Database initialization
+Chartalize was designed and built in two weeks.
 
-* How to run the test suite
+A [proposal](./docs/README.md) was drafted to help provide an implementation timelines during the development process.
 
-* Services (job queues, cache servers, search engines, etc.)
+A [database schema](./docs/schema.md) was prepared alongside the design proposal.
 
-* Deployment instructions
+## Technology
 
-* ...
+Chartalize is a single-page application built with a frontend framework of React/Redux and a backend support of Ruby on Rails.
+
+I also used the following components and packages in the project:
+
+- [React DnD](https://github.com/react-dnd/react-dnd)
+- [Recharts.js](http://recharts.org/#/en-US/)
+- [React Dropzone](https://react-dropzone.netlify.com/)
+- [AnimateCSS](https://daneden.github.io/animate.css/)
+- [Lodash](https://lodash.com/)
+
+## Future Implementations
+
+Currently, Chartalize supports data upload three different file types (CSV, TSV, JSON), charting using a single x-axis and y-axis, four sorting methods (x-axis and y-axis, ascending and descending), and chart sharing by username.
+
+The features that will be added later can be found in this [future](./docs/future.md) readme.

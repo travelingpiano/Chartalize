@@ -163,6 +163,7 @@ I also used the following components and packages in the project:
 - [React Dropzone](https://react-dropzone.netlify.com/)
 - [AnimateCSS](https://daneden.github.io/animate.css/)
 - [Lodash](https://lodash.com/)
+- [React-Modal](https://github.com/reactjs/react-modal)
 
 ## Future Implementations
 

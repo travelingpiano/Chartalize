@@ -22,7 +22,8 @@ class ChartNew extends React.Component{
       errors: [],
       dropdownActive: false,
       dataTableName: "Choose a Data Table",
-      sortType: "X Axis Asc"
+      sortType: "X Axis Asc",
+      color: "253A5C"
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
@@ -43,6 +44,7 @@ class ChartNew extends React.Component{
     this.xAxisAsc = this.xAxisAsc.bind(this);
     this.yAxisAsc = this.yAxisAsc.bind(this);
     this.yAxisDesc = this.yAxisDesc.bind(this);
+    this.changeColor = this.changeColor.bind(this);
   }
 
   close(e){
@@ -58,6 +60,11 @@ class ChartNew extends React.Component{
   componentWillUnmount(){
     window.removeEventListener('click',this.handleOutsideClick);
     window.removeEventListener('touchstart',this.handleOutsideClick);
+  }
+
+  changeColor(e){
+    console.log(e.target.value);
+    this.setState({color: e.target.value});
   }
 
   changeSortType(e){
@@ -282,7 +289,7 @@ class ChartNew extends React.Component{
       for(let j = 0; j < yData[i].length; j++){
         yDataAvg += yData[i][j];
       }
-      yData[i] = yDataAvg/yData[i].length;
+      yData[i] = Math.round(yDataAvg/yData[i].length*1000)/1000;
     }
     let data = [];
     for(let i = 0; i <yData.length; i++){
@@ -323,7 +330,7 @@ class ChartNew extends React.Component{
                <YAxis dataKey={y} name={y} />
                <Tooltip/>
                <Legend />
-               <Line isAnimationActive={true} type="monotone" dataKey={y} stroke="#253A5C" activeDot={{r: 8}}/>
+               <Line isAnimationActive={true} type="monotone" dataKey={y} stroke={`#${this.state.color}`} activeDot={{r: 8}}/>
             </LineChart>
           </ResponsiveContainer>
         );
@@ -336,8 +343,6 @@ class ChartNew extends React.Component{
   }
 
   createScatterChart(e){
-    console.log(this.state.type);
-    console.log(this.state.sortType);
     let type = "Scatter";
     if(this.state.xAxis && this.state.yAxis){
       let x = this.state.xAxis;
@@ -355,7 +360,7 @@ class ChartNew extends React.Component{
                 <XAxis dataKey={x} name={x} label={x}/>
                 <YAxis dataKey={y} name={y} />
                 <Tooltip/>
-                <Scatter type="monotone" data={data} className="Chart"/>
+                <Scatter type="monotone" data={data} className="Chart" fill={`#${this.state.color}`}/>
             </ScatterChart>
           </ResponsiveContainer>
         );
@@ -385,7 +390,7 @@ class ChartNew extends React.Component{
                <YAxis dataKey={y} name={y} />
                <Tooltip/>
                <Legend />
-               <Bar type="monotone" dataKey={y} className="Chart"/>
+               <Bar type="monotone" dataKey={y} className="Chart" fill={`#${this.state.color}`}/>
             </BarChart>
           </ResponsiveContainer>
         );
@@ -440,13 +445,13 @@ class ChartNew extends React.Component{
             <AreaChart data={data} className="PreviewChart">
               <defs>
                 <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#253A5C" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#253A5C" stopOpacity={0.2}/>
+                  <stop offset="5%" stopColor={`#${this.state.color}`} stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor={`#${this.state.color}`} stopOpacity={0.2}/>
                 </linearGradient>
               </defs>
               <XAxis dataKey={x} name={x} label={x}/>
               <YAxis dataKey={y} name={y} />
-              <Area type="monotone" isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)" className="Chart" />
+              <Area type="monotone" isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke={`#${this.state.color}`} fillOpacity={0.8} fill="url(#grad)" className="Chart" />
               <Tooltip/>
             </AreaChart>
           </ResponsiveContainer>
@@ -512,6 +517,8 @@ class ChartNew extends React.Component{
               <option value="Y Axis Asc">Y Axis Asc</option>
               <option value="Y Axis Desc">Y Axis Desc</option>
             </select>
+            <label className="SelectionsTitle">Color:</label>
+            <input onChange={this.changeColor} className="jscolor" value={this.state.color} />
           </div>
 
           <div className="ChartCanvas">

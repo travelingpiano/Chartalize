@@ -24,6 +24,16 @@
   padding-left: 20px;
   padding-right: 20px;
   width: calc(100vw - 220px);
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.datatables_table_show{
+  margin-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: calc(100vw - 220px);
+  overflow: scroll;
   white-space: nowrap;
 }
 

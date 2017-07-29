@@ -16,7 +16,7 @@ class DataTableShow extends React.Component{
       display = (
         <div className="DataTables">
           <label className="tableTitle">{this.props.dataTable.title}</label>
-          <table className="datatables_table">
+          <table className="datatables_table_show">
             <thead className="tableshead">
               <tr >
                 {Object.keys(this.props.dataTable.table[0]).map((tableitem, idx)=>

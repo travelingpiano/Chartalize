@@ -24,7 +24,7 @@ Upon login, users are greeted with the list of data tables they have previously 
 
 ![tableShow](./docs/production_gifs/tableShow.gif)
 
-Users can also create a multitude of charts, and sort by x and y axis, ascending and descending.
+Users can also create a multitude of charts, and sort by x and y axes, ascending and descending.
 
 ![chartNew](./docs/production_gifs/chartNew.gif)
 
@@ -39,7 +39,7 @@ Here, I share some of the critical parts of my code that brings the application 
 - File Parsing
 
   For TSV and CSV files, they are broken into separate elements based on their respective delimiters. For JSON files, the built-in JSON parser is used.
-```
+```javascript
   let table = [];
   const allTextLines = data.split(/\r\n|\n/);
   let delim = "";
@@ -71,7 +71,7 @@ Here, I share some of the critical parts of my code that brings the application 
   Filtering of data by current user was also moved from frontend to backend for speed considerations. Here's an example the code before and after the shift.
 
   Before:
-  ```
+  ```javascript
   export const selectCurrentUserCharts = (charts,currentUser) => {
     let currentUserCharts = [];
     for(let key in charts){
@@ -84,7 +84,7 @@ Here, I share some of the critical parts of my code that brings the application 
   ```
 
   After:
-  ```
+  ```ruby
   def index
     allcharts = Chart.all
     @charts = []
@@ -98,7 +98,7 @@ Here, I share some of the critical parts of my code that brings the application 
 - Data Parsing for Charts
 
   Data is processed row by row, extracting out the information corresponding to the selected x and y axes. Y values with identical x values are averaged, while different errors are also returned if undesirable data is selected.
-  ```
+  ```javascript
   let currentTable = this.state.table;
   let yData = [];
   let xData = [];

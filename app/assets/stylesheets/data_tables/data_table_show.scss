@@ -1,6 +1,14 @@
 @import 'variables';
 
 .tableTitle{
+  background-color: white;
+  width: 100%;
+  font-size: 30px;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.showtableTitle{
   position: fixed;
   background-color: white;
   width: 100%;

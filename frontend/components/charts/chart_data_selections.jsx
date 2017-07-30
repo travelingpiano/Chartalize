@@ -21,6 +21,7 @@ class DataSelection extends React.Component{
     this.state = {
       ySelection: "",
       xSelection: "",
+      y2Selection: "",
       selectionStatus
     };
     this.changeSelection = this.changeSelection.bind(this);
@@ -45,6 +46,9 @@ class DataSelection extends React.Component{
     if(axisName==="yAxis"){
       this.props.changeYAxis(selection);
       this.setState({ySelection: selection, selectionStatus});
+    }else if(axisName==="y2Axis"){
+      this.props.changeY2Axis(selection);
+      this.setState({y2Selection: selection, selectionStatus});
     }else{
       this.props.changeXAxis(selection);
       this.setState({xSelection: selection, selectionStatus});
@@ -58,6 +62,11 @@ class DataSelection extends React.Component{
       selectionStatus[idx] = 0;
       this.props.changeYAxis("");
       this.setState({ySelection: ""});
+    }else if(e.target.value === "Y2"){
+      let idx = this.headings.indexOf(this.state.y2Selection);
+      selectionStatus[idx] = 0;
+      this.props.changeY2Axis("");
+      this.setState({y2Selection: ""});
     }else{
       let idx = this.headings.indexOf(this.state.xSelection);
       selectionStatus[idx] = 0;
@@ -73,12 +82,27 @@ class DataSelection extends React.Component{
         <div className="Axis">
           <label>Y Axis</label>
           <label className="AxisSelection">{this.state.ySelection}</label>
-          <button value="Y" onClick={this.clear}>Clear Selection</button>
+          <button value="Y" onClick={this.clear}>Clear </button>
         </div>
       );
     }else{
       ydisplay = (<div className="Axis">
       <Axis axisName="yAxis" />
+      </div>);
+    }
+
+    let y2display;
+    if(this.state.y2Selection){
+      y2display = (
+        <div className="Axis">
+          <label>Y2 Axis</label>
+          <label className="AxisSelection">{this.state.y2Selection}</label>
+          <button value="Y2" onClick={this.clear}>Clear</button>
+        </div>
+      );
+    }else{
+      y2display = (<div className="Axis">
+      <Axis axisName="y2Axis" />
       </div>);
     }
     let xdisplay;
@@ -87,7 +111,7 @@ class DataSelection extends React.Component{
         <div className="Axis">
           <label>X Axis</label>
           <label className="AxisSelection">{this.state.xSelection}</label>
-          <button value="X" onClick={this.clear}>Clear Selection</button>
+          <button value="X" onClick={this.clear}>Clear </button>
         </div>
       );
     }else{
@@ -124,6 +148,7 @@ class DataSelection extends React.Component{
         <div className="Axes">
           {xdisplay}
           {ydisplay}
+          {y2display}
         </div>
       </div>
     );

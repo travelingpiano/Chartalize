@@ -4,7 +4,8 @@ import DataSelection from './chart_data_selections';
 import {withRouter} from 'react-router';
 import {values, keys, merge} from 'lodash';
 import NavBarContainer from '../navbar/navbar_container';
-import {LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, PieChart, Pie, BarChart, Bar, Cell, AreaChart, Area, defs, linearGradient, stop} from 'recharts';
+import ChartGenerator from './chart_generator';
+
 import {findDOMNode} from 'react-dom';
 
 class ChartNew extends React.Component{
@@ -13,6 +14,7 @@ class ChartNew extends React.Component{
     this.state = {
       xAxis: "",
       yAxis: "",
+      y2Axis: "",
       type: "",
       data: [],
       headings: [],
@@ -25,25 +27,18 @@ class ChartNew extends React.Component{
       sortType: "X Axis Asc",
       color: "253A5C"
     };
+    this.changeXAxis = this.changeXAxis.bind(this);
+    this.changeYAxis = this.changeYAxis.bind(this);
+    this.changeY2Axis = this.changeY2Axis.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.dataTableSelection = this.dataTableSelection.bind(this);
     this.changeDataTable = this.changeDataTable.bind(this);
-    this.parseData = this.parseData.bind(this);
-    this.createLineChart = this.createLineChart.bind(this);
-    this.createScatterChart = this.createScatterChart.bind(this);
-    this.createBarChart = this.createBarChart.bind(this);
-    this.createPieChart = this.createPieChart.bind(this);
-    this.createAreaChart = this.createAreaChart.bind(this);
     this.submitChart = this.submitChart.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.toggleDataTable = this.toggleDataTable.bind(this);
     this.changeDataTableCustom = this.changeDataTableCustom.bind(this);
+    this.changeChart = this.changeChart.bind(this);
     this.close =  this.close.bind(this);
-    this.changeSortType = this.changeSortType.bind(this);
-    this.xAxisDesc = this.xAxisDesc.bind(this);
-    this.xAxisAsc = this.xAxisAsc.bind(this);
-    this.yAxisAsc = this.yAxisAsc.bind(this);
-    this.yAxisDesc = this.yAxisDesc.bind(this);
   }
 
   close(e){
@@ -61,26 +56,7 @@ class ChartNew extends React.Component{
     window.removeEventListener('touchstart',this.handleOutsideClick);
   }
 
-  changeSortType(e){
-    if(this.state.type==="Scatter"){
-      this.setState({sortType: e.target.value},
-      this.createScatterChart);
-    }else if(this.state.type==="Line"){
-      this.setState({sortType: e.target.value},
-      this.createLineChart);
-    }else if(this.state.type==="Bar"){
-      this.setState({sortType: e.target.value},
-      this.createBarChart);
-    }else if(this.state.type==="Area"){
-      this.setState({sortType: e.target.value},
-      this.createAreaChart);
-    }else if(this.state.type==="Pie"){
-      this.setState({sortType: e.target.value},
-      this.createPieChart);
-    }else{
-      this.setState({sortType: e.target.value});
-    }
-  }
+
 
   handleOutsideClick(e){
     const dropdownTarget = findDOMNode(this).getElementsByClassName("Dropdown-Option");
@@ -149,6 +125,10 @@ class ChartNew extends React.Component{
     this.setState({yAxis});
   }
 
+  changeY2Axis(y2Axis){
+    this.setState({y2Axis});
+  }
+
   changeDataTable(e){
     let tableIdx = e.target.value;
     this.props.fetchChartTable(this.props.dataTables[tableIdx].id).then(
@@ -160,294 +140,9 @@ class ChartNew extends React.Component{
     );
   }
 
-  xAxisDesc(origData){
-    let xData = [];
-    let yData = [];
-    let xSortedData = [];
-    for(let i = 0; i<origData.length; i++){
-      xData.push(origData[i][this.state.xAxis]);
-      yData.push(origData[i][this.state.yAxis]);
-      xSortedData.push(origData[i][this.state.xAxis]);
-    }
-    xSortedData.sort().reverse();
-    let ySortedData = [];
-    for(let i = 0; i< origData.length; i++){
-      let ind = xData.indexOf(xSortedData[i]);
-      ySortedData.push(yData[ind]);
-    }
-    let data = [];
-    for(let i = 0; i <yData.length; i++){
-      let rowData = {};
-      rowData[this.state.xAxis] = xSortedData[i];
-      rowData[this.state.yAxis] = ySortedData[i];
-      data.push(rowData);
-    }
-    return data;
+  changeChart(data,Chart,type,errors, sortType){
+    this.setState({data,Chart,type,errors, sortType});
   }
-
-  xAxisAsc(origData){
-    let xData = [];
-    let yData = [];
-    let xSortedData = [];
-    for(let i = 0; i<origData.length; i++){
-      xData.push(origData[i][this.state.xAxis]);
-      yData.push(origData[i][this.state.yAxis]);
-      xSortedData.push(origData[i][this.state.xAxis]);
-    }
-    xSortedData.sort();
-    let ySortedData = [];
-    for(let i = 0; i< origData.length; i++){
-      let ind = xData.indexOf(xSortedData[i]);
-      ySortedData.push(yData[ind]);
-    }
-    let data = [];
-    for(let i = 0; i <yData.length; i++){
-      let rowData = {};
-      rowData[this.state.xAxis] = xSortedData[i];
-      rowData[this.state.yAxis] = ySortedData[i];
-      data.push(rowData);
-    }
-    return data;
-  }
-
-  yAxisAsc(origData){
-    for(let i = 0; i<origData.length-1;i++){
-      for(let j = i+1; j < origData.length; j++){
-        //if need to swap
-        if(origData[i][this.state.yAxis] > origData[j][this.state.yAxis]){
-          let temp = origData[i];
-          origData[i] = origData[j];
-          origData[j] = temp;
-        }
-      }
-    }
-    return origData;
-  }
-
-  yAxisDesc(origData){
-    for(let i = 0; i<origData.length-1;i++){
-      for(let j = i+1; j < origData.length; j++){
-        //if need to swap
-        if(origData[i][this.state.yAxis] < origData[j][this.state.yAxis]){
-          let temp = origData[i];
-          origData[i] = origData[j];
-          origData[j] = temp;
-        }
-      }
-    }
-    return origData;
-  }
-
-  parseData(){
-    let currentTable = this.state.table;
-    let yData = [];
-    let xData = [];
-    for(let key in currentTable){
-      //check if x data value is present in that row
-      if(keys(currentTable[key]).includes(this.state.xAxis)){
-        //check if y data value is present in that row
-        if(keys(currentTable[key]).includes(this.state.yAxis)){
-          if(isNaN(Number(currentTable[key][this.state.yAxis]))){
-            return undefined;
-          }else{
-            let xDataVal = currentTable[key][this.state.xAxis];
-            let ind = xData.indexOf(xDataVal);
-            //if same xdataval has been found already;
-            if(ind !== -1){
-              yData[ind].push(Number(currentTable[key][this.state.yAxis]));
-            }else{
-              yData.push([Number(currentTable[key][this.state.yAxis])]);
-              xData.push(xDataVal);
-            }
-          }
-        }else{
-          return "Missing Y Data Values";
-        }
-      }else{
-        return "Missing X Data Values";
-      }
-    }
-    //average out y data with same x data value s
-    for(let i = 0; i<yData.length; i++){
-      let yDataAvg = 0;
-      for(let j = 0; j < yData[i].length; j++){
-        yDataAvg += yData[i][j];
-      }
-      yData[i] = Math.round(yDataAvg/yData[i].length*1000)/1000;
-    }
-    let data = [];
-    for(let i = 0; i <yData.length; i++){
-      let rowData = {};
-      rowData[this.state.xAxis] = xData[i];
-      rowData[this.state.yAxis] = yData[i];
-      data.push(rowData);
-    }
-    if(this.state.sortType==="X Axis Desc"){
-      data = this.xAxisDesc(data);
-    }else if(this.state.sortType==="X Axis Asc"){
-      data = this.xAxisAsc(data);
-    }else if(this.state.sortType==="Y Axis Asc"){
-      data = this.yAxisAsc(data);
-    }else if(this.state.sortType==="Y Axis Desc"){
-      data = this.yAxisDesc(data);
-    }
-    return data;
-  }
-
-  createLineChart(e){
-    let type = "Line";
-    if(this.state.xAxis && this.state.yAxis){
-      let x = this.state.xAxis;
-      let y = this.state.yAxis;
-      let data = this.parseData();
-      if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
-      }else if(data){
-        let Chart = (
-          <ResponsiveContainer width="90%" height="80%" >
-
-            <LineChart data={data}
-                  className="PreviewChart">
-               <text className="Axis-Label">x axis</text>
-               <XAxis dataKey={x} name={x} label={x}/>
-               <YAxis dataKey={y} name={y} />
-               <Tooltip/>
-               <Legend />
-               <Line isAnimationActive={true} type="monotone" dataKey={y} stroke={`#${this.state.color}`} activeDot={{r: 8}}/>
-            </LineChart>
-          </ResponsiveContainer>
-        );
-         this.setState({data, Chart, type, errors: []});
-      }else{
-        this.setState({errors: ["Y Axis must be numerical values"],
-        Chart: (<div></div>), data: []});
-      }
-    }
-  }
-
-  createScatterChart(e){
-    let type = "Scatter";
-    if(this.state.xAxis && this.state.yAxis){
-      let x = this.state.xAxis;
-      let y = this.state.yAxis;
-      let data = this.parseData();
-      if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
-      }else if(data){
-        let Chart = (
-          <ResponsiveContainer width="90%" height="80%" >
-
-            <ScatterChart
-                  className="PreviewChart">
-                <XAxis dataKey={x} name={x} label={x}/>
-                <YAxis dataKey={y} name={y} />
-                <Tooltip/>
-                <Scatter type="monotone" data={data} className="Chart" fill={`#${this.state.color}`}/>
-            </ScatterChart>
-          </ResponsiveContainer>
-        );
-         this.setState({data, Chart, type, errors: []});
-      }else{
-        this.setState({errors: ["Y Axis must be numerical values"],
-        Chart: (<div></div>), data: []});
-      }
-    }
-  }
-
-  createBarChart(e){
-    if(this.state.xAxis && this.state.yAxis){
-      let type = "Bar";
-      let data = this.parseData();
-      let x = this.state.xAxis;
-      let y = this.state.yAxis;
-      if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
-      }else if(data){
-        let Chart = (
-          <ResponsiveContainer width="90%" height="80%">
-            <BarChart data={data}
-                  className="PreviewChart">
-               <XAxis dataKey={x} name={x} label={x}/>
-               <YAxis dataKey={y} name={y} />
-               <Tooltip/>
-               <Legend />
-               <Bar type="monotone" dataKey={y} className="Chart" fill={`#${this.state.color}`}/>
-            </BarChart>
-          </ResponsiveContainer>
-        );
-         this.setState({data, Chart, type, errors: []});
-      }else{
-        this.setState({errors: ["Y Axis must be numerical values"],
-        Chart: (<div></div>), data: []});
-      }
-    }
-  }
-
-  createPieChart(){
-    if(this.state.xAxis && this.state.yAxis){
-      let type= "Pie";
-      let data = this.parseData();
-      let x = this.state.xAxis;
-      let y = this.state.yAxis;
-      if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
-      }else if(data){
-        let Chart = (
-          <ResponsiveContainer width="90%" height="80%">
-            <PieChart className="PreviewChart">
-              <Pie isAnimationActive={true} nameKey={x} dataKey={y} data={data} className="PieChart">{
-                  data.map((entry, index) => <Cell className={`PieCell${index%2}`}/>)
-                }</Pie>
-              <Tooltip/>
-            </PieChart>
-          </ResponsiveContainer>
-        );
-        this.setState({data,Chart, type, errors: []});
-      }else{
-        this.setState({errors: ["Y Axis must be numerical values"],
-        Chart: (<div></div>), data: []});
-      }
-    }
-  }
-
-  createAreaChart(e){
-    if(this.state.xAxis && this.state.yAxis){
-      let type= "Area";
-      let data = this.parseData();
-      let x = this.state.xAxis;
-      let y = this.state.yAxis;
-      if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
-      }else if(data){
-        let Chart = (
-          <ResponsiveContainer width="90%" height="80%">
-            <AreaChart data={data} className="PreviewChart">
-              <defs>
-                <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={`#${this.state.color}`} stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor={`#${this.state.color}`} stopOpacity={0.2}/>
-                </linearGradient>
-              </defs>
-              <XAxis dataKey={x} name={x} label={x}/>
-              <YAxis dataKey={y} name={y} />
-              <Area type="monotone" isAnimationActive={true} nameKey={this.state.xAxis} dataKey={this.state.yAxis} stroke={`#${this.state.color}`} fillOpacity={0.8} fill="url(#grad)" className="Chart" />
-              <Tooltip/>
-            </AreaChart>
-          </ResponsiveContainer>
-        );
-        this.setState({data,Chart, type, errors: []});
-      }else{
-        this.setState({errors: ["Y Axis must be numerical values"],
-        Chart: (<div></div>), data: []});
-      }
-    }
-  }
-
 
   submitChart(e){
     let chart = {};
@@ -476,32 +171,10 @@ class ChartNew extends React.Component{
             <label className="SelectionsTitle">Table Choice</label>
             {this.dataTableSelection()}
             <label className="SelectionsTitle">Axis Choices</label>
-            <DataSelection headings={this.state.headings} changeXAxis={xAxis=>this.changeXAxis(xAxis)} changeYAxis={yAxis=>this.changeYAxis(yAxis)}/>
+            <DataSelection headings={this.state.headings} changeXAxis={xAxis=>this.changeXAxis(xAxis)} changeYAxis={yAxis=>this.changeYAxis(yAxis)}
+            changeY2Axis={y2Axis=>this.changeY2Axis(y2Axis)}/>
           </div>
-          <div className="ChartButtons">
-            <button onClick={this.createLineChart}>
-              <i className="fa fa-line-chart" aria-hidden="true"></i>
-            </button>
-            <button onClick={this.createScatterChart}>
-              <img src="https://png.icons8.com/scatter-plot/win10/48" title="Scatter Plot"/>
-            </button>
-            <button onClick={this.createBarChart}>
-              <i className="fa fa-bar-chart" aria-hidden="true"></i>
-            </button>
-            <button onClick={this.createPieChart}>
-              <i className="fa fa-pie-chart" aria-hidden="true"></i>
-            </button>
-            <button onClick={this.createAreaChart}>
-              <i className="fa fa-area-chart" aria-hidden="true"></i>
-            </button>
-            <label className="SelectionsTitle">Sort by:</label>
-            <select onChange={this.changeSortType} className="Dropdown-Option">
-              <option default value="X Axis Asc" >X Axis Asc</option>
-              <option value="X Axis Desc">X Axis Desc</option>
-              <option value="Y Axis Asc">Y Axis Asc</option>
-              <option value="Y Axis Desc">Y Axis Desc</option>
-            </select>
-          </div>
+          <ChartGenerator changeChart={(data,chart,type,errors, sortType)=>this.changeChart(data,chart,type,errors, sortType)} data={this.state.data} yAxis={this.state.yAxis} xAxis={this.state.xAxis} type={this.state.type} table={this.state.table} sortType={this.state.sortType} color={this.state.color}/>
 
           <div className="ChartCanvas">
             <div className="Title-Errors">
@@ -513,7 +186,6 @@ class ChartNew extends React.Component{
                 <button onClick={this.submitChart} className="ChartSubmit">Save Chart</button>
               </div>
             </div>
-
             {this.state.Chart}
           </div>
         </div>
@@ -523,13 +195,3 @@ class ChartNew extends React.Component{
 }
 
 export default withRouter(ChartNew);
-
-// display = (
-//   <select onChange={this.changeDataTable} className="Dropdown">
-//     <option selected disabled>Choose a DataTable</option>
-//     {this.props.dataTables.map((dataTable,idx)=>
-//     <option value={idx} key={idx} className="Dropdown-Option">
-//       {dataTable.title}
-//     </option>)}
-//   </select>
-// );

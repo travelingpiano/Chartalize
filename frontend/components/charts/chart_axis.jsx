@@ -25,6 +25,8 @@ class Axis extends React.Component {
     let name;
     if(axisName==="xAxis"){
       name = "X Axis";
+    }else if(axisName==="y2Axis"){
+      name = "Y2 Axis";
     }else{
       name = "Y Axis";
     }

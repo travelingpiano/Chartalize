@@ -43,87 +43,64 @@ class SideBar extends React.Component{
       display = (
         <div>
           <h1 className="DataTablesTitle">Your Data Tables</h1>
-          <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage === "data_tables_new"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Add Data Table</h1>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="data_tables_show"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Data Table</h1>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="charts_index"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Your Charts</h1>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="chart_show"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Chart</h1>
-          <button onClick={this.handleShareChart} className="newtable_button">Share Chart</button>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="chart_share"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Share Chart</h1>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="shared_charts"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Shared Charts</h1>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
         </div>
       );
     }else if(this.props.currentPage==="shared_chart_show"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Shared Chart</h1>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }else if(this.props.currentPage==="help_page"){
       display = (
         <div>
           <h1 className="DataTablesTitle">Help Center</h1>
-          <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
-          <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
-          <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
-          <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         </div>
       );
     }
     return (<div className="sidebar">
       <div>
         {display}
+        <button onClick={this.handleCharts} className="newtable_button">View Your Charts</button>
+        <button onClick={this.handleDataTables} className="newtable_button">View Your Tables</button>
+        <button onClick={this.handleNew} className="newtable_button">Import New Table</button>
+        <button onClick={this.handleSharedCharts} className="newtable_button">Shared Charts</button>
         <button onClick={this.handleNewChart} className="newtable_button">Create a Chart</button>
       </div>
     </div>);

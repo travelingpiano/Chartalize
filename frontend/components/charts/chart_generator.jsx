@@ -44,53 +44,31 @@ class ChartGenerator extends React.Component{
   }
 
   xAxisDesc(origData){
-    let xData = [];
-    let yData = [];
-    let xSortedData = [];
-    for(let i = 0; i<origData.length; i++){
-      xData.push(origData[i][this.props.xAxis]);
-      yData.push(origData[i][this.props.yAxis]);
-      xSortedData.push(origData[i][this.props.xAxis]);
+    for(let i = 0; i<origData.length-1;i++){
+      for(let j = i+1; j < origData.length; j++){
+        //if need to swap
+        if(origData[i][this.props.xAxis] < origData[j][this.props.xAxis]){
+          let temp = origData[i];
+          origData[i] = origData[j];
+          origData[j] = temp;
+        }
+      }
     }
-    xSortedData.sort().reverse();
-    let ySortedData = [];
-    for(let i = 0; i< origData.length; i++){
-      let ind = xData.indexOf(xSortedData[i]);
-      ySortedData.push(yData[ind]);
-    }
-    let data = [];
-    for(let i = 0; i <yData.length; i++){
-      let rowData = {};
-      rowData[this.props.xAxis] = xSortedData[i];
-      rowData[this.props.yAxis] = ySortedData[i];
-      data.push(rowData);
-    }
-    return data;
+    return origData;
   }
 
   xAxisAsc(origData){
-    let xData = [];
-    let yData = [];
-    let xSortedData = [];
-    for(let i = 0; i<origData.length; i++){
-      xData.push(origData[i][this.props.xAxis]);
-      yData.push(origData[i][this.props.yAxis]);
-      xSortedData.push(origData[i][this.props.xAxis]);
+    for(let i = 0; i<origData.length-1;i++){
+      for(let j = i+1; j < origData.length; j++){
+        //if need to swap
+        if(origData[i][this.props.xAxis] > origData[j][this.props.xAxis]){
+          let temp = origData[i];
+          origData[i] = origData[j];
+          origData[j] = temp;
+        }
+      }
     }
-    xSortedData.sort();
-    let ySortedData = [];
-    for(let i = 0; i< origData.length; i++){
-      let ind = xData.indexOf(xSortedData[i]);
-      ySortedData.push(yData[ind]);
-    }
-    let data = [];
-    for(let i = 0; i <yData.length; i++){
-      let rowData = {};
-      rowData[this.props.xAxis] = xSortedData[i];
-      rowData[this.props.yAxis] = ySortedData[i];
-      data.push(rowData);
-    }
-    return data;
+    return origData;
   }
 
   yAxisAsc(origData){
@@ -125,31 +103,61 @@ class ChartGenerator extends React.Component{
     let currentTable = this.props.table;
     let yData = [];
     let xData = [];
+    let y2Data = [];
     for(let key in currentTable){
       //check if x data value is present in that row
       if(keys(currentTable[key]).includes(this.props.xAxis)){
-        //check if y data value is present in that row
-        if(keys(currentTable[key]).includes(this.props.yAxis)){
-          if(isNaN(Number(currentTable[key][this.props.yAxis]))){
-            return undefined;
-          }else{
-            let xDataVal = currentTable[key][this.props.xAxis];
-            let ind = xData.indexOf(xDataVal);
-            //if same xdataval has been found already;
-            if(ind !== -1){
-              yData[ind].push(Number(currentTable[key][this.props.yAxis]));
+        // four different scenarios
+        if(this.props.yAxis && this.props.y2Axis){
+          //check if y data value is present in that row
+          if(keys(currentTable[key]).includes(this.props.yAxis) && keys(currentTable[key]).includes(this.props.y2Axis)){
+
+            if(isNaN(Number(currentTable[key][this.props.yAxis]) || isNaN(Number(currentTable[key][this.props.y2Axis]))) ){
+              return undefined;
             }else{
-              yData.push([Number(currentTable[key][this.props.yAxis])]);
-              xData.push(xDataVal);
+              let xDataVal = currentTable[key][this.props.xAxis];
+              let ind = xData.indexOf(xDataVal);
+              //if same xdataval has been found already;
+              if(ind !== -1){
+                yData[ind].push(Number(currentTable[key][this.props.yAxis]));
+                y2Data[ind].push(Number(currentTable[key][this.props.y2Axis]));
+              }else{
+                yData.push([Number(currentTable[key][this.props.yAxis])]);
+                y2Data.push([Number(currentTable[key][this.props.y2Axis])]);
+                xData.push(xDataVal);
+              }
             }
+          }else{
+            return "Two Y Axes selected, but one or more of them is missing values";
           }
+        }else if(this.props.yAxis){
+          if(keys(currentTable[key]).includes(this.props.yAxis)){
+            if(isNaN(Number(currentTable[key][this.props.yAxis])) ){
+              return undefined;
+            }else{
+              let xDataVal = currentTable[key][this.props.xAxis];
+              let ind = xData.indexOf(xDataVal);
+              //if same xdataval has been found already;
+              if(ind !== -1){
+                yData[ind].push(Number(currentTable[key][this.props.yAxis]));
+              }else{
+                yData.push([Number(currentTable[key][this.props.yAxis])]);
+                xData.push(xDataVal);
+              }
+            }
+          }else{
+            return "Missing Y Data Values";
+          }
+        }else if(this.props.y2Axis){
+          return "If only one y Axis is desired, please place axis title in y Axis instead of y2 Axis";
         }else{
-          return "Missing Y Data Values";
+          return "No Y Axis Selected";
         }
       }else{
         return "Missing X Data Values";
       }
     }
+
     //average out y data with same x data value s
     for(let i = 0; i<yData.length; i++){
       let yDataAvg = 0;
@@ -158,11 +166,23 @@ class ChartGenerator extends React.Component{
       }
       yData[i] = Math.round(yDataAvg/yData[i].length*1000)/1000;
     }
+    if(y2Data.length > 0){
+      for(let i = 0; i < y2Data.length; i++){
+        let y2DataAvg = 0;
+        for(let j = 0; j< y2Data[i].length; j++){
+          y2DataAvg += y2Data[i][j];
+        }
+        y2Data[i] = Math.round(y2DataAvg/y2Data[i].length*1000)/1000;
+      }
+    }
     let data = [];
     for(let i = 0; i <yData.length; i++){
       let rowData = {};
       rowData[this.props.xAxis] = xData[i];
       rowData[this.props.yAxis] = yData[i];
+      if(this.props.y2Axis){
+        rowData[this.props.y2Axis] = y2Data[i];
+      }
       data.push(rowData);
     }
     if(this.state.sortType==="X Axis Desc"){
@@ -184,8 +204,7 @@ class ChartGenerator extends React.Component{
       let y = this.props.yAxis;
       let data = this.parseData();
       if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
+        this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
@@ -216,8 +235,7 @@ class ChartGenerator extends React.Component{
       let y = this.props.yAxis;
       let data = this.parseData();
       if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
+        this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
@@ -246,8 +264,7 @@ class ChartGenerator extends React.Component{
       let x = this.props.xAxis;
       let y = this.props.yAxis;
       if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
+        this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
@@ -276,8 +293,7 @@ class ChartGenerator extends React.Component{
       let x = this.props.xAxis;
       let y = this.props.yAxis;
       if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
+        this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
@@ -298,14 +314,13 @@ class ChartGenerator extends React.Component{
   }
 
   createAreaChart(e){
-    if(this.props.xAxis && this.props.yAxis){
+    if(this.props.xAxis && (this.props.yAxis || this.props.y2Axis)){
       let type= "Area";
       let data = this.parseData();
       let x = this.props.xAxis;
       let y = this.props.yAxis;
       if(typeof data === "string"){
-        this.setState({errors: [data],
-        Chart: (<div></div>), data: []});
+        this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
@@ -319,6 +334,7 @@ class ChartGenerator extends React.Component{
               <XAxis dataKey={x} name={x} label={x}/>
               <YAxis dataKey={y} name={y} />
               <Area type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.yAxis} stroke={`#${this.props.color}`} fillOpacity={0.8} fill="url(#grad)" className="Chart" />
+              <Area type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.y2Axis} stroke={`##5B8FE1`} className="Chart" />
               <Tooltip/>
             </AreaChart>
           </ResponsiveContainer>
@@ -328,6 +344,8 @@ class ChartGenerator extends React.Component{
       }else{
         this.props.changeChart([],(<div></div>),this.props.type,["Y Axis must be numerical values"], this.state.sortType);
       }
+    }else{
+      this.props.changeChart([],(<div></div>),this.props.type,["Insufficient axes provided"], this.state.sortType);
     }
   }
 

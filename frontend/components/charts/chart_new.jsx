@@ -174,7 +174,7 @@ class ChartNew extends React.Component{
             <DataSelection headings={this.state.headings} changeXAxis={xAxis=>this.changeXAxis(xAxis)} changeYAxis={yAxis=>this.changeYAxis(yAxis)}
             changeY2Axis={y2Axis=>this.changeY2Axis(y2Axis)}/>
           </div>
-          <ChartGenerator changeChart={(data,chart,type,errors, sortType)=>this.changeChart(data,chart,type,errors, sortType)} data={this.state.data} yAxis={this.state.yAxis} xAxis={this.state.xAxis} type={this.state.type} table={this.state.table} sortType={this.state.sortType} color={this.state.color}/>
+          <ChartGenerator changeChart={(data,chart,type,errors, sortType)=>this.changeChart(data,chart,type,errors, sortType)} data={this.state.data} y2Axis={this.state.y2Axis} yAxis={this.state.yAxis} xAxis={this.state.xAxis} type={this.state.type} table={this.state.table} sortType={this.state.sortType} color={this.state.color}/>
 
           <div className="ChartCanvas">
             <div className="Title-Errors">

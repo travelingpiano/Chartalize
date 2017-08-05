@@ -18,6 +18,7 @@
   - DataSelection
     - Selections
     - Axis
+  - ChartGenerator
 - mapStateToProps: dataTables, chartTable, errors
 - mapDispatchToProps: fetchAllDataTables, fetchChartTable, makeChart
 

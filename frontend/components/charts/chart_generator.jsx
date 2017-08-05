@@ -198,25 +198,39 @@ class ChartGenerator extends React.Component{
   }
 
   createLineChart(e){
-    let type = "Line";
-    if(this.props.xAxis && this.props.yAxis){
+    if(this.props.xAxis && (this.props.yAxis || this.props.y2Axis)){
+      let type= "Line";
+      let data = this.parseData();
       let x = this.props.xAxis;
       let y = this.props.yAxis;
-      let data = this.parseData();
+      let y2 = this.props.y2Axis;
       if(typeof data === "string"){
         this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
+        let y2ChartAxis;
+        let y2ChartLine;
+        if(this.props.yAxis && this.props.y2Axis){
+          y2ChartAxis = (
+            <YAxis yAxisId={1} dataKey={y2} name={y2} orientation="right"/>
+          );
+          y2ChartLine = (
+            <Line yAxisId={1} type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.y2Axis} stroke={`#5B8FE1`} className="Chart" activeDot={{r: 8}}/>
+          );
+        }else{
+          y2ChartAxis = (<div></div>);
+          y2ChartLine = (<div></div>);
+        }
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
-
             <LineChart data={data}
                   className="PreviewChart">
-               <text className="Axis-Label">x axis</text>
                <XAxis dataKey={x} name={x} label={x}/>
                <YAxis dataKey={y} name={y} />
+               {y2ChartAxis}
                <Tooltip/>
                <Legend />
-               <Line isAnimationActive={true} type="monotone" dataKey={y} stroke={`#${this.props.color}`} activeDot={{r: 8}}/>
+               <Line isAnimationActive={true} type="monotone" dataKey={y} stroke="#253A5C" activeDot={{r: 8}}/>
+               {y2ChartLine}
             </LineChart>
           </ResponsiveContainer>
         );
@@ -225,27 +239,31 @@ class ChartGenerator extends React.Component{
       }else{
         this.props.changeChart([],(<div></div>),this.props.type,["Y Axis must be numerical values"], this.state.sortType);
       }
+    }else{
+      this.props.changeChart([],(<div></div>),this.props.type,["Insufficient axes provided"], this.state.sortType);
     }
   }
 
   createScatterChart(e){
-    let type = "Scatter";
-    if(this.props.xAxis && this.props.yAxis){
+    if(this.props.xAxis && (this.props.yAxis || this.props.y2Axis)){
+      let type= "Scatter";
+      let data = this.parseData();
       let x = this.props.xAxis;
       let y = this.props.yAxis;
-      let data = this.parseData();
+      let y2 = this.props.y2Axis;
       if(typeof data === "string"){
         this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
+      }else if(this.props.y2Axis){
+        this.props.changeChart([],(<div></div>),this.props.type,["Scatter Chart currently does not support multiple axes plotting"], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%" >
-
-            <ScatterChart
+            <ScatterChart>
                   className="PreviewChart">
                 <XAxis dataKey={x} name={x} label={x}/>
                 <YAxis dataKey={y} name={y} />
                 <Tooltip/>
-                <Scatter type="monotone" data={data} className="Chart" fill={`#${this.props.color}`}/>
+                <Scatter yAxisId={0} type="monotone" data={data} className="Chart"/>
             </ScatterChart>
           </ResponsiveContainer>
         );
@@ -254,17 +272,22 @@ class ChartGenerator extends React.Component{
       }else{
         this.props.changeChart([],(<div></div>),this.props.type,["Y Axis must be numerical values"], this.state.sortType);
       }
+    }else{
+      this.props.changeChart([],(<div></div>),this.props.type,["Insufficient axes provided"], this.state.sortType);
     }
   }
 
   createBarChart(e){
-    if(this.props.xAxis && this.props.yAxis){
-      let type = "Bar";
+    if(this.props.xAxis && (this.props.yAxis || this.props.y2Axis)){
+      let type= "Bar";
       let data = this.parseData();
       let x = this.props.xAxis;
       let y = this.props.yAxis;
+      let y2 = this.props.y2Axis;
       if(typeof data === "string"){
         this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
+      }else if(this.props.y2Axis){
+        this.props.changeChart([],(<div></div>),this.props.type,["Bar Chart currently does not support multiple axes plotting"], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
@@ -274,7 +297,7 @@ class ChartGenerator extends React.Component{
                <YAxis dataKey={y} name={y} />
                <Tooltip/>
                <Legend />
-               <Bar type="monotone" dataKey={y} className="Chart" fill={`#${this.props.color}`}/>
+               <Bar type="monotone" dataKey={y} className="Chart"/>
             </BarChart>
           </ResponsiveContainer>
         );
@@ -283,17 +306,22 @@ class ChartGenerator extends React.Component{
       }else{
         this.props.changeChart([],(<div></div>),this.props.type,["Y Axis must be numerical values"], this.state.sortType);
       }
+    }else{
+      this.props.changeChart([],(<div></div>),this.props.type,["Insufficient axes provided"], this.state.sortType);
     }
   }
 
   createPieChart(){
-    if(this.props.xAxis && this.props.yAxis){
+    if(this.props.xAxis && (this.props.yAxis || this.props.y2Axis)){
       let type= "Pie";
       let data = this.parseData();
       let x = this.props.xAxis;
       let y = this.props.yAxis;
+      let y2 = this.props.y2Axis;
       if(typeof data === "string"){
         this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
+      }else if(this.props.y2Axis){
+        this.props.changeChart([],(<div></div>),this.props.type,["Pie Chart currently does not support multiple axes plotting"], this.state.sortType);
       }else if(data){
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
@@ -306,10 +334,12 @@ class ChartGenerator extends React.Component{
           </ResponsiveContainer>
         );
         let errors = [];
-        this.props.changeChart(data,Chart,type,errors, this.props.sortType);
+        this.props.changeChart(data,Chart,type,errors, this.state.sortType);
       }else{
         this.props.changeChart([],(<div></div>),this.props.type,["Y Axis must be numerical values"], this.state.sortType);
       }
+    }else{
+      this.props.changeChart([],(<div></div>),this.props.type,["Insufficient axes provided"], this.state.sortType);
     }
   }
 
@@ -319,9 +349,23 @@ class ChartGenerator extends React.Component{
       let data = this.parseData();
       let x = this.props.xAxis;
       let y = this.props.yAxis;
+      let y2 = this.props.y2Axis;
       if(typeof data === "string"){
         this.props.changeChart([],(<div></div>),this.props.type,[data], this.state.sortType);
       }else if(data){
+        let y2ChartAxis;
+        let y2ChartLine;
+        if(this.props.yAxis && this.props.y2Axis){
+          y2ChartAxis = (
+            <YAxis yAxisId={1} dataKey={y2} name={y2} orientation="right"/>
+          );
+          y2ChartLine = (
+            <Area yAxisId={1} type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.y2Axis} stroke={`#5B8FE1`} className="Chart" />
+          );
+        }else{
+          y2ChartAxis = (<div></div>);
+          y2ChartLine = (<div></div>);
+        }
         let Chart = (
           <ResponsiveContainer width="90%" height="80%">
             <AreaChart data={data} className="PreviewChart">
@@ -332,9 +376,10 @@ class ChartGenerator extends React.Component{
                 </linearGradient>
               </defs>
               <XAxis dataKey={x} name={x} label={x}/>
-              <YAxis dataKey={y} name={y} />
-              <Area type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.yAxis} stroke={`#${this.props.color}`} fillOpacity={0.8} fill="url(#grad)" className="Chart" />
-              <Area type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.y2Axis} stroke={`##5B8FE1`} className="Chart" />
+              <YAxis yAxisId={0} dataKey={y} name={y} />
+              {y2ChartAxis}
+              <Area yAxisId={0} type="monotone" isAnimationActive={true} nameKey={this.props.xAxis} dataKey={this.props.yAxis} stroke={`#${this.props.color}`} fillOpacity={0.8} fill="url(#grad)" className="Chart" />
+              {y2ChartLine}
               <Tooltip/>
             </AreaChart>
           </ResponsiveContainer>

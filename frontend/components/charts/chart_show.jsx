@@ -101,8 +101,7 @@ class ChartShow extends React.Component{
     let y = chartObj.yAxis;
     return (
       <ResponsiveContainer width="90%" height="80%" >
-
-        <ScatterChart
+        <ScatterChart>
               className="PreviewChart">
             <XAxis dataKey={x} name={x} label={x}/>
             <YAxis dataKey={y} name={y} />

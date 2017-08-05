@@ -1,7 +1,7 @@
 class Api::ChartsController < ApplicationController
   def create
-    @chart = Chart.new(chart_params);
-    @chart.user_id = current_user.id;
+    @chart = Chart.new(chart_params)
+    @chart.user_id = current_user.id
     if @chart.save
       render :show
     else

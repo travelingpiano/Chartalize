@@ -56,18 +56,34 @@ class SharedChartShow extends React.Component{
   }
 
   formLineChart(chartObj){
-    let data = this.parseData(chartObj.data);
+    let data = this.parseData(chartObj);
     let x = chartObj.xAxis;
     let y = chartObj.yAxis;
+    let y2 = chartObj.y2Axis;
+    let y2ChartAxis;
+    let y2ChartLine;
+    if(y2){
+      y2ChartAxis = (
+        <YAxis yAxisId={1} dataKey={y2} name={y2} orientation="right"/>
+      );
+      y2ChartLine = (
+        <Line yAxisId={1} type="monotone" isAnimationActive={true} nameKey={x} dataKey={y2} stroke={`#5B8FE1`} className="Chart" activeDot={{r: 8}}/>
+      );
+    }else{
+      y2ChartAxis = (<div></div>);
+      y2ChartLine = (<div></div>);
+    }
     return (
       <ResponsiveContainer width="90%" height="80%" >
         <LineChart data={data}
               className="PreviewChart">
            <XAxis dataKey={x} name={x} label={x}/>
            <YAxis dataKey={y} name={y} />
+           {y2ChartAxis}
            <Tooltip/>
            <Legend />
            <Line isAnimationActive={true} type="monotone" dataKey={y} stroke="#253A5C" activeDot={{r: 8}}/>
+           {y2ChartLine}
         </LineChart>
       </ResponsiveContainer>
     );
@@ -126,9 +142,23 @@ class SharedChartShow extends React.Component{
   }
 
   formAreaChart(chartObj){
-    let data = this.parseData(chartObj.data);
+    let data = this.parseData(chartObj);
     let x = chartObj.xAxis;
     let y = chartObj.yAxis;
+    let y2 = chartObj.y2Axis;
+    let y2ChartAxis;
+    let y2ChartLine;
+    if(y2){
+      y2ChartAxis = (
+        <YAxis yAxisId={1} dataKey={y2} name={y2} orientation="right"/>
+      );
+      y2ChartLine = (
+        <Area yAxisId={1} type="monotone" isAnimationActive={true} nameKey={x} dataKey={y2} stroke={`#5B8FE1`} className="Chart"/>
+      );
+    }else{
+      y2ChartAxis = (<div></div>);
+      y2ChartLine = (<div></div>);
+    }
     return (
       <ResponsiveContainer width="90%" height="80%">
         <AreaChart data={data} className="PreviewChart">
@@ -140,7 +170,9 @@ class SharedChartShow extends React.Component{
           </defs>
           <XAxis dataKey={x} name={x} label={x}/>
           <YAxis dataKey={y} name={y} />
-          <Area type="monotone" isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)" className="Chart" />
+          {y2ChartAxis}
+          <Area type="monotone" isAnimationActive={true} nameKey={x} dataKey={y} stroke="#253A5C" fillOpacity={0.8} fill="url(#grad)"  className="Chart" />
+          {y2ChartLine}
           <Tooltip/>
         </AreaChart>
       </ResponsiveContainer>

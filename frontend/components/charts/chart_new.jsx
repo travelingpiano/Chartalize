@@ -146,7 +146,7 @@ class ChartNew extends React.Component{
 
   submitChart(e){
     let chart = {};
-    chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
+    chart.chart = {title: this.state.title, chart_type: this.state.type, xAxis: this.state.xAxis, yAxis: this.state.yAxis, y2Axis: this.state.y2Axis, data: this.state.data,data_table_id: this.props.dataTables[this.state.tableIdx].id};
     this.props.makeChart(chart).then(
       newchart => this.props.history.push('/charts')
     );

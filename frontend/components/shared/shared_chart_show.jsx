@@ -45,11 +45,15 @@ class SharedChartShow extends React.Component{
     }
   }
 
-  parseData(JSONdata){
-    let data = values(JSONdata);
+  parseData(chartObj){
+    let data = values(chartObj.data);
     for(let i = 0; i<data.length; i++){
       for(let key in data[i]){
-        data[i][key] = Number(data[i][key]);
+        if(key===chartObj.xAxis){
+          data[i][key] = data[i][key];
+        }else{
+          data[i][key] = Number(data[i][key]);
+        }
       }
     }
     return data;

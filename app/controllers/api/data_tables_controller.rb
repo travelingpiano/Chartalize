@@ -11,11 +11,7 @@ class Api::DataTablesController < ApplicationController
   end
 
   def index
-    alldata_tables = DataTable.all
-    @data_tables = []
-    alldata_tables.each do |data_table|
-      @data_tables.push(data_table) if data_table.user.id == current_user.id
-    end
+    @data_tables = DataTable.where('user_id = ?', current_user.id)
     render :index
   end
 
@@ -27,7 +23,6 @@ class Api::DataTablesController < ApplicationController
 
   def show
     @data_table = DataTable.find(params[:id])
-    puts @data_table
     render :show
   end
 

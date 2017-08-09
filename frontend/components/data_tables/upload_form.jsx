@@ -40,23 +40,23 @@ class UploadForm extends React.Component{
     this.setState({errors: []});
     this.filepreset_display = "Thanks for uploading a file";
     let table = [];
-    const allTextLines = data.split(/\r\n|\n/);
-    let delim = "";
+    const textInfo = data.split(/\r\n|\n/);
+    let delimiter = "";
     if(data_type === "text/csv"){
-      delim = ',';
+      delimiter = ',';
     }else if(data_type ==="text/tab-separated-values"){
-      delim = '\t';
+      delimiter = '\t';
     }
 
     if(data_type === "application/json"){
       table = JSON.parse(data);
     }else{
-      let headings = allTextLines[0].split(delim);
-      for(let i = 1; i< allTextLines.length; i++){
-        let currentLine = allTextLines[i].split(delim);
+      let headings = textInfo[0].split(delimiter);
+      for(let i = 1; i< textInfo.length; i++){
+        let curLine = textInfo[i].split(delimiter);
         let rowData = {};
-        for(let j = 0; j<currentLine.length; j++){
-          rowData[headings[j]] = currentLine[j];
+        for(let j = 0; j<curLine.length; j++){
+          rowData[headings[j]] = curLine[j];
         }
         if(values(rowData).length > 1){
           table.push(rowData);

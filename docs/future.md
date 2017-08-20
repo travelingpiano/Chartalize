@@ -1,6 +1,6 @@
 # Future implementation
 
-This readme contains features/bug-fixes that may be included in future versions of Chartalize. The order of the features/bug-fixes is the likely order in which they will be completed. Upon completion, they will be moved over to the official production ![README](../README.md) periodically.
+This readme contains features/bug-fixes that may be included in future versions of Chartalize. The order of the features/bug-fixes is the likely order in which they will be completed. Upon completion, they will be moved over to the official production [README](../README.md) periodically.
 
 - [x] Plotting of multiple of graphs on the same chart
 - [ ] Cascading deletion of tables and charts
